@@ -1,3 +1,18 @@
+
+to start the localhost 
+step 1: Clone this git or download as zip.
+step 2: open the folder location in terminal or powershell
+step 3: run commands 
+          ->   npm install
+          ->   npm start
+
+
+
+
+
+
+BoilerPlate Content ->
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
