@@ -1,33 +1,23 @@
 table {
+  color: white;
   border-collapse: collapse;
   width: 100%;
+  font-weight: bold;
 }
 
 th, td {
-  border: 1px solid #ddd;
+  border: 2px solid #ffffff;
   padding: 8px;
   text-align: center;
-}
-
-th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-tr{
-  overflow-x: scroll;
-}
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-tr:hover {
-  background-color: #ddd;
+  white-space: nowrap;
 }
 
 .attendance-presentt {
-  background-color: #b9e1b9;
+  color: black;
+  background-color: #a2dda2;
 }
 
 .attendance-absentt {
-  background-color: #f5b7b1;
+  color: black;
+  background-color: #f1a39c;
 }
