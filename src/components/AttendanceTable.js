@@ -41,7 +41,8 @@ export function AttendanceTable() {
   }
 
   return (
-    <div className="table-responsive">
+    <div className="table-responsive" 
+    style={{paddingLeft: "5svw", paddingRight: "5svw"}}>
     <table style={{padding: '30px'}}>
       <thead>
         <tr>

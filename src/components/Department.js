@@ -19,7 +19,7 @@ const Department = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const {  googleSignIn } = useUserAuth();
+  const {  googleSignIn } = useUserAuth();//not used?
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react';
 import StudentCard from './StudentCard';
 import data from './data';
-import { collection, addDoc,setDoc,doc, Timestamp } from 'firebase/firestore';
+import { collection, addDoc,setDoc,doc, Timestamp } from 'firebase/firestore'; // adddoc not used
 import { db } from './firebase';
 import "./App.css"
 import Select from 'react-select'
 import "./style.css"
 import success from "../Images/success.png";
-import FacultySidebar from './FacultySidebar';
+import FacultySidebar from './FacultySidebar'; // not used
 import { useUserAuth } from "./context/UserAuthContext";
 import { AttendanceTable } from './AttendanceTable';
 
@@ -18,9 +18,9 @@ export default function AttendanceSession() {
   const [attendance, setAttendance] = useState(data);
   const [presentCount, setPresentCount] = useState(0);
   const [absentCount, setAbsentCount] = useState(0);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false); //isSubmitted not used
   const [progress, setProgress] = useState(0);
-  const [totalSteps, setTotalSteps] = useState(3);
+  const [totalSteps, setTotalSteps] = useState(3); // not used
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [selectedSession, setSelectedSession] = useState(null);
   
@@ -43,7 +43,7 @@ export default function AttendanceSession() {
         const Time = new Date().toISOString();
         
 
-        const subjectRef = collection(db,  'attendance', subjectCode, Time );
+        const subjectRef = collection(db,  'attendance', subjectCode, Time ); //subjectRef not used
         const newAttendanceDoc = {
           date: Timestamp.now(),
           attendance: attendance.map(student => ({
@@ -65,7 +65,7 @@ export default function AttendanceSession() {
     if (attendance.length > 0 && presentCount > 0) {
       updateFirestore();
     }
-  }, [attendance, presentCount, absentCount, selectedSubject]);
+  }, [attendance, presentCount, absentCount, selectedSubject]); //React Hook useEffect has a missing dependency: 'user.displayName'. Either include it or remove the dependency array
 
   function toggleAttendance(usn) {
     setAttendance(prevAttendance => {
@@ -179,7 +179,7 @@ export default function AttendanceSession() {
     </div>
   );
   
-      const stepThree = (
+const stepThree = (
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}}>
    <img src={success} alt="Success" style={{ maxHeight: '150px'}} />
     <h4 style={{ paddingBottom: '10px', textAlign: 'center',  }}> Attendance Recorded </h4>
@@ -200,8 +200,8 @@ export default function AttendanceSession() {
 
 return (
   <div className="App" style={{paddingTop: '95px'}}>
-        <div className="progresscontainer">
-          <AttendanceTable/>  
+        <AttendanceTable/>
+        <div className="progresscontainer">  
       <div className="steps">
         {[1, 2, 3].map((step) => (
           <span
