@@ -6,6 +6,8 @@ import "./AttendanceTable.css";
 
 export function AttendanceTable() {
   const [attendanceData, setAttendanceData] = useState([]);
+  const bgcol1 = { backgroundColor: "#43286D", color: "#C1AEC5" };
+  const bgcol2 = { backgroundColor: "#C1AEC5", color: "#43286D" };
 
   useEffect(() => {
     async function fetchAttendanceData() {
@@ -48,13 +50,11 @@ export function AttendanceTable() {
       <table>
         <thead>
           <tr>
-            <th style={{ backgroundColor: "#43286D" }}>USN</th>
-            <th style={{ backgroundColor: "#DE2527" }}>Name</th>
-            <th style={{ backgroundColor: "#43286D" }}>Classes Held</th>
-            <th style={{ backgroundColor: "#DE2527" }}>Classes Attended</th>
-            <th style={{ backgroundColor: "#43286D" }}>
-              Attendance Percentage
-            </th>
+            <th style={bgcol2}>USN</th>
+            <th style={bgcol1}>Name</th>
+            <th style={bgcol2}>Classes Held</th>
+            <th style={bgcol1}>Classes Attended</th>
+            <th style={bgcol2}>Attendance Percentage</th>
             {attendanceData.map((data) => (
               <th
                 style={{ backgroundColor: "black" }}
@@ -69,7 +69,7 @@ export function AttendanceTable() {
           {attendanceData[0]?.attendance.map((student) => (
             <tr key={student.sUSN}>
               <motion.td
-                style={{ backgroundColor: "#43286D" }}
+                style={bgcol2}
                 initial={{ scale: 1 }}
                 transition={{ type: "spring" }}
                 whileHover={{ scale: 1.5 }}
@@ -84,21 +84,19 @@ export function AttendanceTable() {
                 </a>
               </motion.td>
               <motion.td
-                style={{ backgroundColor: "#DE2527" }}
+                style={bgcol1}
                 initial={{ scale: 1 }}
                 transition={{ type: "spring" }}
                 whileHover={{ scale: 1.5 }}
               >
                 {student.sName}
               </motion.td>
-              <motion.td style={{ backgroundColor: "#43286D" }}>
-                {getClassCount()}
-              </motion.td>
-              <motion.td style={{ backgroundColor: "#DE2527" }}>
+              <motion.td style={bgcol2}>{getClassCount()}</motion.td>
+              <motion.td style={bgcol1}>
                 {getAttendanceCount(student.sUSN)}
               </motion.td>
               <motion.td
-                style={{ backgroundColor: "#43286D" }}
+                style={bgcol2}
                 initial={{ scale: 1 }}
                 transition={{ type: "spring" }}
                 whileHover={{ scale: 1.5 }}
