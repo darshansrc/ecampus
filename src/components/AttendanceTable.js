@@ -21,7 +21,7 @@ export function AttendanceTable() {
     }
 
     fetchAttendanceData();
-  });
+  }, []);
 
   const getClassCount = () => {
     return attendanceData.length;
