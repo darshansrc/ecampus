@@ -1,3 +1,13 @@
+.Main_BOx {
+  justify-content: center;
+  margin: 0 auto;
+  overflow-x: auto;
+  width: 90%;
+  margin-top: 200px;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
 table {
   color: white;
   border-collapse: collapse;
