@@ -5,7 +5,8 @@ table {
   font-weight: bold;
 }
 
-th, td {
+th,
+td {
   border: 2px solid #ffffff;
   padding: 8px;
   text-align: center;

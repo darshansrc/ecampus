@@ -48,13 +48,18 @@ export function AttendanceTable() {
       <table>
         <thead>
           <tr>
-            <th style={{backgroundColor: "#43286D"}}>USN</th>
-            <th style={{backgroundColor: "#DE2527"}}>Name</th>
-            <th style={{backgroundColor: "#43286D"}}>Classes Held</th>
-            <th style={{backgroundColor: "#DE2527"}}>Classes Attended</th>
-            <th style={{backgroundColor: "#43286D"}}>Attendance Percentage</th>
+            <th style={{ backgroundColor: "#43286D" }}>USN</th>
+            <th style={{ backgroundColor: "#DE2527" }}>Name</th>
+            <th style={{ backgroundColor: "#43286D" }}>Classes Held</th>
+            <th style={{ backgroundColor: "#DE2527" }}>Classes Attended</th>
+            <th style={{ backgroundColor: "#43286D" }}>
+              Attendance Percentage
+            </th>
             {attendanceData.map((data) => (
-              <th style={{backgroundColor: "black"}} key={data.date.toMillis()}>
+              <th
+                style={{ backgroundColor: "black" }}
+                key={data.date.toMillis()}
+              >
                 {data.date.toDate().toLocaleDateString()}
               </th>
             ))}
@@ -62,37 +67,41 @@ export function AttendanceTable() {
         </thead>
         <tbody>
           {attendanceData[0]?.attendance.map((student) => (
-            <tr key={student.sUSN}
-            >
+            <tr key={student.sUSN}>
               <motion.td
-              style={{backgroundColor: "#43286D"}}
-              initial={{ scale:1 }}
-              transition={{type:"spring"}}
-              whileHover={{scale:1.5}}
+                style={{ backgroundColor: "#43286D" }}
+                initial={{ scale: 1 }}
+                transition={{ type: "spring" }}
+                whileHover={{ scale: 1.5 }}
               >
-              <a 
-              style={{textDecoration:"none", color:"inherit"}} 
-              href="https://www.w3schools.com/html/html_links.asp"> {/* make function to send teacher to that student data page on clicking the USN */}
-                {student.sUSN}
-              </a>
+                <a
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  href="https://www.w3schools.com/html/html_links.asp"
+                >
+                  {" "}
+                  {/* make function to send teacher to that student data page on clicking the USN */}
+                  {student.sUSN}
+                </a>
               </motion.td>
               <motion.td
-              style={{backgroundColor: "#DE2527"}}
-              initial={{ scale:1 }}
-              transition={{type:"spring"}}
-              whileHover={{scale:1.5}}
-              >{student.sName}</motion.td>
+                style={{ backgroundColor: "#DE2527" }}
+                initial={{ scale: 1 }}
+                transition={{ type: "spring" }}
+                whileHover={{ scale: 1.5 }}
+              >
+                {student.sName}
+              </motion.td>
+              <motion.td style={{ backgroundColor: "#43286D" }}>
+                {getClassCount()}
+              </motion.td>
+              <motion.td style={{ backgroundColor: "#DE2527" }}>
+                {getAttendanceCount(student.sUSN)}
+              </motion.td>
               <motion.td
-              style={{backgroundColor: "#43286D"}}
-              >{getClassCount()}</motion.td>
-              <motion.td
-              style={{backgroundColor: "#DE2527"}}
-              >{getAttendanceCount(student.sUSN)}</motion.td>
-              <motion.td
-              style={{backgroundColor: "#43286D"}}
-                initial={{ scale:1 }}
-                transition={{type:"spring"}}
-                whileHover={{scale:1.5}}
+                style={{ backgroundColor: "#43286D" }}
+                initial={{ scale: 1 }}
+                transition={{ type: "spring" }}
+                whileHover={{ scale: 1.5 }}
               >
                 {getAttendancePercentage(
                   getAttendanceCount(student.sUSN),
