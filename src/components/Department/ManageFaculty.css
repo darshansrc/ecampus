@@ -1,0 +1,44 @@
+.faculty-form {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+  }
+  
+  .faculty-form input[type=text], .faculty-form input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+  }
+  
+  .faculty-form input[type=text]:focus, .faculty-form input[type=email]:focus {
+    border-bottom: 2px solid #0066cc;
+  }
+  
+  .faculty-form button {
+    background-color: #0066cc;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .faculty-form button:hover {
+    background-color: #0052a3;
+  }
+  
+  .faculty-form .delete-button {
+    background-color: #cc0000;
+  }
+  
+  .faculty-form .delete-button:hover {
+    background-color: #a30000;
+  }
