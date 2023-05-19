@@ -1,30 +1,25 @@
 
-import './App.css';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-import Home from './components/Home';
-import Faculty from './components/Faculty';
-import Student from './components/Student';
-import Department from './components/Department';
+import Home from './components/HomePage/Home';
+import Faculty from './components/Faculty/Faculty';
+import Student from './components/Student/Student';
+import Department from './components/Department/Department';
+import Signup from './components/Student/Signup';
 
-import Signup from './components/Signup';
-import Attendance from './components/Attendance';
-
-
-
-import Dashboard from './components/Dashboard';
-import ProtectedRoute from './components/ProtectedRoute';
-
-
-import { UserAuthContextProvider } from './components/context/UserAuthContext';
-import AdminProtectedRoute from './components/AdminProtectedRoute';
-import AdminDashboard from './components/AdminDashboard';
-import ManageFaculty from './components/ManageFaculty';
-import AttendanceDashboard from './components/AttendanceDashboard';
-import FacultySidebar from './components/FacultySidebar';
-import AttendanceSession from './components/AttendanceSession';
-import Events from './components/Events';
-import FacultyProtectedRoute from './components/FacultyProtectedRoute';
+import Dashboard from './components/Student/Dashboard';
+import ProtectedRoute from './components/Backend/context/ProtectedRoutes/ProtectedRoute';
+import { UserAuthContextProvider } from './components/Backend/context/UserAuthContext';
+import AdminProtectedRoute from './components/Backend/context/ProtectedRoutes/AdminProtectedRoute';
+import AdminDashboard from './components/Department/AdminDashboard';
+import ManageFaculty from './components/Department/ManageFaculty';
+import AttendanceDashboard from './components/Faculty/AttendanceDashboard';
+import FacultySidebar from './components/Faculty/FacultySidebar';
+import AttendanceSession from './components/Faculty/AttendanceSession';
+import Events from './components/OtherPages/Events';
+import FacultyProtectedRoute from './components/Backend/context/ProtectedRoutes/FacultyProtectedRoute';
+import { AttendanceTable } from './components/Faculty/AttendanceTable';
+import FacultyDashboard from './components/Faculty/FacultyDashboard';
 
 function App() {
 
@@ -41,7 +36,7 @@ function App() {
         <Route path="/student" element = {<Student/>}/>
         <Route path="/student/signup" element = {<Signup/>}/>
         <Route path="/department" element = {<Department/>}/>   
-        <Route path="/attendance" element = {<Attendance />}/>     
+    
 
         <Route
                 path="/student/dashboard" 
@@ -81,7 +76,7 @@ function App() {
                 path="/faculty/dashboard" 
                 element={
                   <FacultyProtectedRoute>
-                    <FacultySidebar/>
+                    <FacultyDashboard/>
                   </FacultyProtectedRoute>
                 }
               />
@@ -90,6 +85,14 @@ function App() {
                 element={
                   <FacultyProtectedRoute >
                     <AttendanceSession/>
+                  </FacultyProtectedRoute>
+                }
+              />
+                <Route
+                path="/faculty/dashboard/attendance/history" 
+                element={
+                  <FacultyProtectedRoute >
+                    <AttendanceTable/>
                   </FacultyProtectedRoute>
                 }
               />

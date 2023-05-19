@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
 
-const userAuthContext = createContext();
+const FacultyAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
@@ -40,14 +40,14 @@ export function UserAuthContextProvider({ children }) {
   }, []);
 
   return (
-    <userAuthContext.Provider
+    <FacultyAuthContext.Provider
       value={{ user, logIn, signUp, logOut, googleSignIn }}
     >
       {children}
-    </userAuthContext.Provider>
+    </FacultyAuthContext.Provider>
   );
 }
 
-export function useUserAuth() {
-  return useContext(userAuthContext);
+export function useFacultyAuth() {
+  return useContext(FacultyAuthContext);
 }

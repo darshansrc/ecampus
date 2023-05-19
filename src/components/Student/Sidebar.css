@@ -1,0 +1,56 @@
+.studentsidebar {
+  
+    top: 0;
+    left: 0;
+    position: absolute;
+    bottom: 0;
+    padding: 15px;
+    width: 200px;
+    margin-top: 77px;
+    background-color: hsl(0, 0%, 100%);
+    border-right: 1px solid #ececf1;
+    font-family: 'Golos Text', sans-serif;
+    font-size: 14px;
+    height: 100%;
+    z-index: -1;
+  }
+
+  .studentsidebar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .studentsidebar li {
+    margin-bottom: 5px;
+  }
+  
+  .studentsidebar a {
+    display: block;
+    padding: 5px 10px;
+    color: #212529;
+    text-decoration: none;
+  }
+  
+  .studentsidebar a:hover {
+    background-color: #e9ecef;
+  }
+
+  .logoutbutton{
+    background-color: white;
+    color: #212529;
+    border: wheat;
+    margin-left: 5px;
+  }
+
+  .accountinfo{
+    font-weight: 600;
+    font-size: 12px;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 992px) {
+    .studentsidebar{
+        display: none;
+    }
+}
