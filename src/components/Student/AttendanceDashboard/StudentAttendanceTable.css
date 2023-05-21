@@ -1,0 +1,16 @@
+.table-containerr {
+    overflow: auto;
+     /* Adjust the maximum height as needed */
+  }
+  
+  
+  
+  
+  .table-containerr thead th {
+    position: sticky;
+    top: 0;
+    background-color: rgba(158, 29, 101,1);
+    color: white;
+    z-index: -1;
+    opacity: 1;
+  }
