@@ -1,16 +1,44 @@
 .table-containerr {
-    overflow: auto;
-     /* Adjust the maximum height as needed */
-  }
-  
-  
-  
-  
-  .table-containerr thead th {
-    position: sticky;
-    top: 0;
-    background-color: rgba(158, 29, 101,1);
-    color: white;
-    z-index: -1;
-    opacity: 1;
-  }
+  overflow: auto;
+  width: 100%;
+  /* Adjust the maximum height as needed */
+}
+
+.subjectNames {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.lowerInnerTableData {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.innerTableData {
+  font-size: medium;
+  font-weight: 500;
+}
+
+.percentageStyle {
+  font-size: large;
+}
+
+/* .mtable {
+  justify-content: center;
+  margin: 0 auto;
+  overflow-x: auto;
+
+  overflow-x: auto;
+  border: 1px solid grey;
+  border-radius: 10px;
+  font-size: 11px;
+} */
+
+.table-containerr th {
+  position: sticky;
+  top: 0;
+  background-color: rgba(158, 29, 101, 1);
+  color: white;
+  z-index: -1;
+  opacity: 1;
+}
