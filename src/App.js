@@ -23,24 +23,50 @@ import { AttendanceTable } from './components/Faculty/AttendanceTable';
 import FacultyDashboard from './components/Faculty/FacultyDashboard';
 import StudentMobileNav from './components/Student/MobileNav/StudentMobileNav';
 import StudentAttendanceTable from './components/Student/AttendanceDashboard/StudentAttendanceTable';
-import cgpaMarksDashboard from './components/Student/CGPA/cgpaMarksDashboard'
+import CgpaMarksDashboard from './components/Student/CGPA/CgpaMarksDashboard'
 import Dashboard from './components/Student/HomePage/Dashboard';
+import CourseSection from './components/Student/CourseSection/CourseSection'
+import { AttendanceProvider } from './components/Student/AttendanceDashboard/AttendanceContext';
+import { useEffect , useState} from 'react';
+import StudentProfile from './components/Student/Profile/StudentProfile';
+import HomePageRoute from './components/Backend/context/ProtectedRoutes/HomePageRoute';
 
 function App() {
 
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    // Simulating component loading delay
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
 
   return (
     <>
+          {isLoading ? (
+        <div className="spinner-border" role="status" >
+          <span className="visually-hidden" style={{display: 'flex',alignItems: 'center',justifyContent: 'center'}}>Loading...</span>
+        </div>
+      ) : (
       <BrowserRouter>
       <Navbar/>
       <UserAuthContextProvider>
       <Routes>
-        <Route path="/" element = {<Home/>}/>
-        <Route path="/faculty" element = {<Faculty/>}/>
-        <Route path="/student" element = {<Student/>}/>
-        <Route path="/student/signup" element = {<Signup/>}/>
-        <Route path="/department" element = {<Department/>}/>   
+        <Route path="/" element = {
+          <HomePageRoute>
+          
+          <Home/>
+        </HomePageRoute>
+        }/>
+        <Route path="/faculty" element = {
+        <HomePageRoute>
+        
+        <Faculty/>
+        </HomePageRoute>}/>
+        <Route path="/student" element = {<HomePageRoute><Student/></HomePageRoute>}/>
+        <Route path="/student/signup" element = {<HomePageRoute><Signup/></HomePageRoute>}/>
+        <Route path="/department" element = {<HomePageRoute><Department/></HomePageRoute>}/>   
     
 
         <Route
@@ -56,8 +82,10 @@ function App() {
                 path="student/dashboard/attendance" 
                 element={
                   <ProtectedRoute >
+                  <AttendanceProvider>
                   <StudentAttendanceTable />
                     <StudentMobileNav/>
+                    </AttendanceProvider>
                   </ProtectedRoute>
                 }
               />
@@ -65,6 +93,8 @@ function App() {
                 path="/student/dashboard/course" 
                 element={
                   <ProtectedRoute >
+                  <CourseSection/>
+                  
                    <StudentMobileNav/>
                   </ProtectedRoute>
                 }
@@ -73,6 +103,7 @@ function App() {
                 path="/student/dashboard/profile" 
                 element={
                   <ProtectedRoute >
+                  <StudentProfile/>
                      <StudentMobileNav/>
                   </ProtectedRoute>
                 }
@@ -82,7 +113,7 @@ function App() {
                 path="/student/dashboard/marks" 
                 element={
                   <ProtectedRoute >
-                     <cgpaMarksDashboard/>
+                     <CgpaMarksDashboard/>
                      <StudentMobileNav/>
                   </ProtectedRoute>
                 }
@@ -132,7 +163,7 @@ function App() {
             <Route
                 path="/events" 
                 element={
-                    <Events/>
+                    <><Navbar /><Events /></>
                 }
               />
         
@@ -141,9 +172,9 @@ function App() {
 
       </UserAuthContextProvider>
       
-     </BrowserRouter>
+     </BrowserRouter>)}
 
-
+     
     </> 
   );
 }

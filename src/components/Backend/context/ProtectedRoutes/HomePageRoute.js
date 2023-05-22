@@ -4,7 +4,7 @@ import { useUserAuth } from "../UserAuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '../../Firebase/firebase';
 
-const ProtectedRoute = ({ children }) => {
+const HomePageRoute = ({ children }) => {
   const { user } = useUserAuth();
   const [userData, setUserData] = useState(null);
 
@@ -23,7 +23,7 @@ const ProtectedRoute = ({ children }) => {
             // You can redirect the user or show an error message
           }
         } catch (error) {
-          // Handle any errors that occur during Firestore query
+          // Handle any errors that occur during the Firestore query
           console.error('Error fetching user data:', error);
         }
       }
@@ -33,7 +33,7 @@ const ProtectedRoute = ({ children }) => {
   }, [user]);
 
   if (!user) {
-    return <Navigate to="/student" />;
+    return children;
   }
 
   if (!userData) {
@@ -41,10 +41,12 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (userData.type === 'student') {
-    return children;
+    return <Navigate to="/student/dashboard" />;
+  } else if (userData.type === 'faculty') {
+    return <Navigate to="/faculty/dashboard" />;
   } else {
-    return <Navigate to="/student" />;
+    return null; // Handle the case where the user type is not recognized
   }
 };
 
-export default ProtectedRoute; 
+export default HomePageRoute;

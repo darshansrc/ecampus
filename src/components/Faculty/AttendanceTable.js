@@ -180,28 +180,28 @@ export function AttendanceTable() {
     <div className="table-container">
       <table style={{ padding: '30px' }}>
         <thead>
-          <tr>
-            <th >USN</th>
-            <th >Name</th>
-            <th>Classes Held</th>
-            <th>Classes Attended</th>
-            <th>Attendance Percentage</th>
+          <tr className='factr'>
+            <th className='facth'>USN</th>
+            <th className='facth'>Name</th>
+            <th className='facth'>Classes Held</th>
+            <th className='facth'>Classes Attended</th>
+            <th className='facth'>Attendance Percentage</th>
             {attendanceData.map(data => (
-              <th key={data.date.toMillis()}>{data.date.toDate().toLocaleDateString()}</th>
+              <th className='facth' key={data.date.toMillis()}>{data.date.toDate().toLocaleDateString()}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {attendanceData[0]?.attendance.map(student => (
-            <tr key={student.sUSN}>
-              <td >{student.sUSN}</td>
-              <td style={{textAlign: 'left'}}>{student.sName}</td>
-              <td>{getClassCount()}</td>
-              <td>{getAttendanceCount(student.sUSN)}</td>
-              <td>{getAttendancePercentage(getAttendanceCount(student.sUSN), getClassCount())}%</td>
+            <tr className='factr' key={student.sUSN}>
+              <td className='facth'>{student.sUSN}</td>
+              <td className='facth' style={{textAlign: 'left'}}>{student.sName}</td>
+              <td className='facth'>{getClassCount()}</td>
+              <td className='facth'>{getAttendanceCount(student.sUSN)}</td>
+              <td className='facth'>{getAttendancePercentage(getAttendanceCount(student.sUSN), getClassCount())}%</td>
               {attendanceData.map(data => {
                 const attendanceRecord = data.attendance.find(record => record.sUSN === student.sUSN);
-                return <td key={`${data.date.toMillis()}-${student.sUSN}`} className={attendanceRecord?.Present ? 'attendance-presentt' : 'attendance-absentt'}>{attendanceRecord?.Present ? 'P' : 'A'}</td>;
+                return <td  key={`${data.date.toMillis()}-${student.sUSN}`} className='facth'>{attendanceRecord?.Present ? 'P' : 'A'}</td>;
               })}
             </tr>
           ))}

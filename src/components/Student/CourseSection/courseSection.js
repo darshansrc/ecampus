@@ -1,9 +1,14 @@
 import React from 'react'
+import StudentTopNavbar from '../MobileNav/StudentTopNavbar'
 
-const courseSection = () => {
+const CourseSection = () => {
   return (
-    <div>courseSection</div>
+    <>
+	<StudentTopNavbar text={'Course Section'}/>
+ 
+    </>
   )
 }
 
-export default courseSection
+
+export default CourseSection

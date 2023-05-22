@@ -1,44 +1,56 @@
 .table-containerr {
-  overflow: auto;
-  width: 100%;
-  /* Adjust the maximum height as needed */
-}
+    overflow: auto;
+     /* Adjust the maximum height as needed */
+  }
+  
+  
+  
+  
+  .table-containerr thead th {
+    position: sticky;
+    top: 0;
+    background-color: rgba(158, 29, 101,1);
+    color: white;
+    z-index: -1;
+    opacity: 1;
+  }
 
-.subjectNames {
-  font-weight: 700;
-  font-size: 1.5rem;
-}
+  .attendance-card{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 10px;
+    border-radius: 10px;
+    background-color: rgb(234, 234, 234);
+    display: flex;
+    align-items: center;
+ 
+  }
 
-.lowerInnerTableData {
-  display: flex;
-  justify-content: space-evenly;
-}
+  .summary-table{
+    max-width: 500px;
+    margin-bottom: 70px;
+   
+    
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .innerTableData{
+    font-size: 12px;
+    
+  }
 
-.innerTableData {
-  font-size: medium;
-  font-weight: 500;
-}
+  .subjectNames{
+    font-size: 12px;
+    font-weight: bolder;
+  }
+  .percentageStyle{
+    font-weight: bolder;
+  }
 
-.percentageStyle {
-  font-size: large;
-}
+  .table-att{
+    color:'white'
+  }
 
-/* .mtable {
-  justify-content: center;
-  margin: 0 auto;
-  overflow-x: auto;
-
-  overflow-x: auto;
-  border: 1px solid grey;
-  border-radius: 10px;
-  font-size: 11px;
-} */
-
-.table-containerr th {
-  position: sticky;
-  top: 0;
-  background-color: rgba(158, 29, 101, 1);
-  color: white;
-  z-index: -1;
-  opacity: 1;
-}
+ 

@@ -4,6 +4,7 @@ import { db } from "../../Backend/Firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Sidebar from "../DesktopNav/Sidebar";
 import StudentAttendanceTable from "../AttendanceDashboard/StudentAttendanceTable";
+import StudentTopNavbar from "../MobileNav/StudentTopNavbar";
 
 
 
@@ -40,6 +41,7 @@ const Dashboard = () => {
 
   return (
     <>
+    <StudentTopNavbar text={'Home'}/>
       <Sidebar />
       <div style={{ marginTop: "75px" }}>
         <div className="p-4 box mt-3 text-center">

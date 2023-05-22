@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css'
 
 const DonutChart = ({ totalAttendancePercentage }) => {
+  const [animatedPercentage, setAnimatedPercentage] = useState(0);
+
+  useEffect(() => {
+    setAnimatedPercentage(0);
+
+    const animationDuration = 500; // Animation duration in milliseconds
+    const animationStep = (totalAttendancePercentage / animationDuration) * 10;
+
+    let animationInterval = null;
+
+    const animate = () => {
+      setAnimatedPercentage((prevPercentage) => {
+        const newPercentage = prevPercentage + animationStep;
+        return newPercentage < totalAttendancePercentage ? newPercentage : totalAttendancePercentage;
+      });
+    };
+
+    animationInterval = setInterval(animate, 10);
+
+    return () => {
+      clearInterval(animationInterval);
+    };
+  }, [totalAttendancePercentage]);
+
   const radius = 50; // Radius of the donut chart
   const circumference = 2 * Math.PI * radius; // Circumference of the donut chart
-  const percentageFilled = (totalAttendancePercentage / 100) * circumference; // Length of the filled portion
+  const percentageFilled = (animatedPercentage / 100) * circumference; // Length of the filled portion
 
-  let color = "#ffc107"; // Default color is yellow
+  let color = "#ccc"; // Default color 
 
   if (totalAttendancePercentage > 75) {
-    color = "green"; // Red if above 75%
+    color = "green"; // Green if above 75%
   } else if (totalAttendancePercentage < 50) {
     color = "red"; // Red if below 50%
+  } else if (totalAttendancePercentage > 50 && totalAttendancePercentage < 75) {
+    color = "#ffc107"; // Red if below 50%
   }
+  const circleVariants = {
+    initial: { strokeDasharray: '0 314' },
+    animate: { strokeDasharray: `${percentageFilled} ${circumference}` }
+  };
 
   return (
     <svg width="120" height="120">
@@ -21,7 +52,7 @@ const DonutChart = ({ totalAttendancePercentage }) => {
         r={radius}
         fill="none"
         stroke="#ccc"
-        strokeWidth="10"
+        strokeWidth="5"
       />
       <circle
         cx="60"
@@ -29,7 +60,7 @@ const DonutChart = ({ totalAttendancePercentage }) => {
         r={radius}
         fill="none"
         stroke={color}
-        strokeWidth="10"
+        strokeWidth="5"
         strokeDasharray={`${percentageFilled} ${circumference}`}
       />
       <text
@@ -37,9 +68,10 @@ const DonutChart = ({ totalAttendancePercentage }) => {
         y="63"
         textAnchor="middle"
         dominantBaseline="middle"
-        style={{ fontSize: "25px",fontWeight: 'bolder' }}
+        style={{ fontSize: "25px", fontWeight: 'bolder' }}
       >
-        {`${totalAttendancePercentage}%`}
+    {totalAttendancePercentage ? `${Math.round(totalAttendancePercentage)}%` : '0%'}
+
       </text>
     </svg>
   );

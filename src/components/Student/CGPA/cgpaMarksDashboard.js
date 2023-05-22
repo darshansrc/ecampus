@@ -1,9 +1,14 @@
 import React from 'react'
+import StudentTopNavbar from '../MobileNav/StudentTopNavbar'
 
-const cgpaMarksDashboard = () => {
+const CgpaMarksDashboard = () => {
   return (
+    <>
+     <StudentTopNavbar text={'Marks'}/>
+
     <div>cgpaMarksDashboard</div>
+    </>
   )
 }
 
-export default cgpaMarksDashboard
+export default CgpaMarksDashboard

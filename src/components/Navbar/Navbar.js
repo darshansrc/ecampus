@@ -63,7 +63,7 @@ const Navbar = () => {
   return (
   
     <div style={{position: 'fixed' }} ref={scope}>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary" style={{borderBottom: '1.5px solid  #c1c1c1', padding: '0' ,width: '100%',position: 'fixed',top: '0',backgroundColor: 'rgb(255,255,255)',fontFamily: "'Golos Text', sans-serif" ,zIndex: '9999'}} >
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style={{borderBottom: '1.5px solid  #c1c1c1', padding: '0' ,width: '100%',position: 'fixed',top: '0',backgroundColor: 'rgba(255,255,255,0.5)',fontFamily: "'Golos Text', sans-serif" ,zIndex: '9999'}} >
       <div class="container-fluid" style={{padding: '0',margin: '0',zIndex: '0'}} >
       <NavLink to="/" className="navbar-brand" style={{ padding: '0', margin: '0' }}>
       <img src={logo} alt="logo"  className='navbar-logo'/>
