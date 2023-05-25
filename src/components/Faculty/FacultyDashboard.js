@@ -4,6 +4,7 @@ import { db } from "../Backend/Firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import FacultySidebar from "./FacultySidebar";
 import FacultyMobileNav from "./FacultyMobileNav";
+import StudentTopNavbar from "../Student/MobileNav/StudentTopNavbar";
 
 
 
@@ -29,6 +30,7 @@ const FacultyDashboard = () => {
 
   return (
     <>
+    <StudentTopNavbar text={'Home'}/>
     {/* {isMobile ? <FacultySidebar/> : <FacultyMobileNav/>} */}
     <FacultyMobileNav/>
 

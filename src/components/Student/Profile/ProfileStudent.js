@@ -6,8 +6,10 @@ import Sidebar from "../DesktopNav/Sidebar";
 import { FiLogOut } from "react-icons/fi";
 import "./StudentProfile.css";
 import StudentTopNavbar from "../MobileNav/StudentTopNavbar";
+import { Link } from "react-router-dom";
+import { BsFillPersonFill } from "react-icons/bs";
 
-const StudentProfile = () => {
+const ProfileStudent = () => {
   const { user, logOut } = useUserAuth();
   const [usn, setUsn] = useState("");
   const [feedback, setFeedback] = useState("");
@@ -108,17 +110,32 @@ const StudentProfile = () => {
         </div>
       </div>
 
-      <button className="logout-button" onClick={handleLogout}>
-        <FiLogOut className="logout-icon" />
-        Logout
-      </button>
 
-      <button
-        className="submit-feedback-button"
-        onClick={() => setIsModalOpen(true)}
-      >
-        Submit Feedback
-      </button>
+      <nav className="profile-info">
+
+        <div>
+          <p className="accountinfo">ACCOUNT</p>
+          <ul>
+
+            <li>
+              <button className="logoutbutton" onClick={handleLogout}>
+                <FiLogOut style={{ marginRight: '4px', marginBottom: '2px' }} />
+                Logout
+              </button>
+            </li>
+            <li>
+            <button className="logoutbutton" onClick={() => setIsModalOpen(true)}>
+                Submit Feedback
+            </button>
+            </li>
+            <li>
+            <button  className="logoutbutton">
+            <Link  to="/student/dashboard">About</Link>
+            </button>
+          </li>
+          </ul>
+        </div>
+      </nav>
 
       {isModalOpen && (
         <div className="feedback-modal">
@@ -154,4 +171,4 @@ const StudentProfile = () => {
   );
 };
 
-export default StudentProfile;
+export default ProfileStudent;

@@ -118,3 +118,37 @@
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 998;
   }
+
+
+  .profile-info{
+
+   
+    padding: 15px;
+    width: 200px;
+
+    font-family: 'Golos Text', sans-serif;
+    font-size: 16px;
+   
+    z-index: -1;
+  }
+
+  .profile-info ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .profile-info li {
+    margin-bottom: 5px;
+  }
+  
+  .profile-info a {
+    display: block;
+    padding: 5px 10px;
+    color: #212529;
+    text-decoration: none;
+  }
+  
+  .profile-info a:hover {
+    background-color: #e9ecef;
+  }

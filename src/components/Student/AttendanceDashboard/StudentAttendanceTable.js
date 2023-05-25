@@ -3,7 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../Backend/Firebase/firebase';
 import 'react-datepicker/dist/react-datepicker.css';
 import './StudentAttendanceTable.css';
-import { useUserAuth } from '../../Backend/context/UserAuthContext';
+import { useUserAuth } from '../../Backend/context/UserAuthContext'; 
 import { doc, getDoc } from 'firebase/firestore';
 import { AttendanceContext } from './AttendanceContext';
 import DonutChart from './DonutChart';
@@ -13,12 +13,12 @@ import StudentTopNavbar from '../MobileNav/StudentTopNavbar';
 
 function StudentAttendanceTable() {
   const { attendanceData, setAttendanceData } = useContext(AttendanceContext);
-
-  const { user } = useUserAuth();
+ 
+  const { user } = useUserAuth(); 
   const [usn, setUsn] = useState('');
 
   const getUserData = async (uid) => {
-    try {
+    try { 
       const userRef = doc(db, 'users', uid);
       const userDoc = await getDoc(userRef);
       if (userDoc.exists()) {
@@ -133,9 +133,9 @@ function StudentAttendanceTable() {
 
   return (
     <>
-    <StudentTopNavbar/>
-      <div className="table-containerr" style={{ marginTop: '40px', padding: '15px', maxWidth: '450px', marginBottom: '80px' }}>
-        <h4 >Attendance Dashboard</h4>
+    <StudentTopNavbar text={'Attendance Dashboard'}/>
+      <div className="table-containerr" style={{ marginTop: '60px', padding: '15px', maxWidth: '450px', marginBottom: '80px' }}>
+
         <div className="attendance-card">
           <DonutChart totalAttendancePercentage={totalAttendancePercentage} />
           <div style={{alignItems: 'center'}}>

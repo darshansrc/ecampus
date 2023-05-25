@@ -106,7 +106,7 @@
         position: fixed;
     }
 }
-
+/* 
 .navbar.navbar-expand-lg.bg-body-tertiary::before {
     content: '';
     position: absolute;
@@ -116,7 +116,7 @@
     left: 0;
     backdrop-filter: blur(10px);
     z-index: -1;
-}
+} */
 
 
 

@@ -1,17 +1,5 @@
-.auth-body{
-    background-color: rgb(240,240,240) ;
-    min-width: 100%;
-    position: fixed;
-    min-height: 100%;
-    margin-top: 68px;
-    z-index: -2;
-  }
-  
-  @media (max-width: 992px) {
-    .auth-body{
-      margin-top: 63px;
-    }
-  }
+
+
   
   
   

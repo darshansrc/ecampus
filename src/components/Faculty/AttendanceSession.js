@@ -17,6 +17,7 @@ import { BiLinkExternal} from "react-icons/bi";
 import 'bootstrap/dist/css/bootstrap.css'
 import FacultyMobileNav from './FacultyMobileNav';
 import ReactSelect from 'react-select';
+import StudentTopNavbar from '../Student/MobileNav/StudentTopNavbar';
 
 
 export default function AttendanceSession() {
@@ -206,6 +207,8 @@ export default function AttendanceSession() {
 
 return (
   <>
+  <StudentTopNavbar text={'Attendance'}/>
+
   <FacultyMobileNav/>
   <div className="App" style={{paddingTop: '95px'}}>
         <div className="progresscontainer">

@@ -53,19 +53,26 @@ const FacultyMobileNav = () => {
 		</div>
 	</NavLink>		
 	</div>
+
 	
-	<div class="faculty-mobile-bottom-nav__item">
+	
+	<div class="mobile-bottom-nav__item">
+    <NavLink style={{textDecoration: 'none'}}
+	to={'/faculty/dashboard/profile'}
+	className={ window.location.pathname.endsWith("/profile") ? 'active-button' : 'inactive-button'}>
 		<div class="mobile-bottom-nav__item-content">
 			<i class="material-icons">
 			{user.photoURL ?             <img
               src={user.photoURL}
               alt="Profile"
-              style={{ width: "25px", borderRadius: "50px" }}
-            /> :<CgProfile  style={{fontSize: '27px'}}/>}
+              style={ window.location.pathname.endsWith("/profile") ? { width: "25px", borderRadius: "50px" ,border: '1px solid #9e1d65'} : { width: "25px", borderRadius: "50px" } }
+
+            /> :<CgProfile  style={{fontSize: '25px'}}/>}
 			
 			</i>
 			Profile
-		</div>		
+		</div>	
+        </NavLink>	
 	</div>
 
 

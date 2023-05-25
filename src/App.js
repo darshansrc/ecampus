@@ -25,48 +25,38 @@ import StudentMobileNav from './components/Student/MobileNav/StudentMobileNav';
 import StudentAttendanceTable from './components/Student/AttendanceDashboard/StudentAttendanceTable';
 import CgpaMarksDashboard from './components/Student/CGPA/CgpaMarksDashboard'
 import Dashboard from './components/Student/HomePage/Dashboard';
-import CourseSection from './components/Student/CourseSection/CourseSection'
+import Course from './components/Student/CourseSection/Course'
 import { AttendanceProvider } from './components/Student/AttendanceDashboard/AttendanceContext';
 import { useEffect , useState} from 'react';
-import StudentProfile from './components/Student/Profile/StudentProfile';
 import HomePageRoute from './components/Backend/context/ProtectedRoutes/HomePageRoute';
+import './App.css'
+import ProfileStudent from './components/Student/Profile/ProfileStudent';
+import StudentTopNavbar from './components/Student/MobileNav/StudentTopNavbar';
 
 function App() {
 
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulating component loading delay
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
 
   return (
     <>
-          {isLoading ? (
-        <div className="spinner-border" role="status" >
-          <span className="visually-hidden" style={{display: 'flex',alignItems: 'center',justifyContent: 'center'}}>Loading...</span>
-        </div>
-      ) : (
+
       <BrowserRouter>
-      <Navbar/>
+      
       <UserAuthContextProvider>
       <Routes>
         <Route path="/" element = {
           <HomePageRoute>
-          
+          <Navbar/>
           <Home/>
         </HomePageRoute>
         }/>
         <Route path="/faculty" element = {
         <HomePageRoute>
-        
+        <Navbar/>
         <Faculty/>
         </HomePageRoute>}/>
-        <Route path="/student" element = {<HomePageRoute><Student/></HomePageRoute>}/>
-        <Route path="/student/signup" element = {<HomePageRoute><Signup/></HomePageRoute>}/>
-        <Route path="/department" element = {<HomePageRoute><Department/></HomePageRoute>}/>   
+        <Route path="/student" element = {<HomePageRoute><Navbar/><Student/></HomePageRoute>}/>
+        <Route path="/student/signup" element = {<HomePageRoute><Navbar/><Signup/></HomePageRoute>}/>
+        <Route path="/department" element = {<HomePageRoute><Navbar/><Department/></HomePageRoute>}/>   
     
 
         <Route
@@ -93,7 +83,7 @@ function App() {
                 path="/student/dashboard/course" 
                 element={
                   <ProtectedRoute >
-                  <CourseSection/>
+                  <Course/>
                   
                    <StudentMobileNav/>
                   </ProtectedRoute>
@@ -103,7 +93,7 @@ function App() {
                 path="/student/dashboard/profile" 
                 element={
                   <ProtectedRoute >
-                  <StudentProfile/>
+                  <ProfileStudent/>
                      <StudentMobileNav/>
                   </ProtectedRoute>
                 }
@@ -156,7 +146,17 @@ function App() {
                 path="/faculty/dashboard/attendance/history" 
                 element={
                   <FacultyProtectedRoute >
+                  <StudentTopNavbar text={'Attendance History'}/>
                     <AttendanceTable/>
+                  </FacultyProtectedRoute>
+                }
+              />
+                      <Route
+                path="/faculty/dashboard/profile" 
+                element={
+                  <FacultyProtectedRoute >
+                  <ProfileStudent/>
+                     <StudentMobileNav/>
                   </FacultyProtectedRoute>
                 }
               />
@@ -172,7 +172,7 @@ function App() {
 
       </UserAuthContextProvider>
       
-     </BrowserRouter>)}
+     </BrowserRouter>
 
      
     </> 
