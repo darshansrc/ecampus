@@ -1,56 +1,44 @@
+.attendance-card {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 10px;
+  border-radius: 10px;
+  background-color: rgb(234, 234, 234);
+  display: flex;
+  align-items: center;
+}
+
 .table-containerr {
-    overflow: auto;
-     /* Adjust the maximum height as needed */
-  }
-  
-  
-  
-  
-  .table-containerr thead th {
-    position: sticky;
-    top: 0;
-    background-color: rgba(158, 29, 101,1);
-    color: white;
-    z-index: -1;
-    opacity: 1;
-  }
+  overflow: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Adjust the maximum height as needed */
+}
 
-  .attendance-card{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 10px;
-    border-radius: 10px;
-    background-color: rgb(234, 234, 234);
-    display: flex;
-    align-items: center;
- 
-  }
+.subjectNames {
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 8px;
+}
 
-  .summary-table{
-    max-width: 500px;
-    margin-bottom: 70px;
-   
-    
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-  .innerTableData{
-    font-size: 12px;
-    
-  }
+.lowerInnerTableData {
+  display: flex;
+  justify-content: space-evenly;
+}
 
-  .subjectNames{
-    font-size: 12px;
-    font-weight: bolder;
-  }
-  .percentageStyle{
-    font-weight: bolder;
-  }
+.innerTableData {
+  font-size: medium;
+  font-weight: 500;
+}
 
-  .table-att{
-    color:'white'
-  }
+.percentageStyle {
+  font-size: large;
+}
 
- 
+.table-containerr th {
+  background-color: rgba(158, 29, 101, 1);
+  color: white;
+}

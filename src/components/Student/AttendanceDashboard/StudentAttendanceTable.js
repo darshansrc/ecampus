@@ -1,25 +1,25 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../Backend/Firebase/firebase';
-import 'react-datepicker/dist/react-datepicker.css';
-import './StudentAttendanceTable.css';
-import { useUserAuth } from '../../Backend/context/UserAuthContext'; 
-import { doc, getDoc } from 'firebase/firestore';
-import { AttendanceContext } from './AttendanceContext';
-import DonutChart from './DonutChart';
-import { Chart } from 'chart.js/auto';
-import 'bootstrap/dist/css/bootstrap.css'
-import StudentTopNavbar from '../MobileNav/StudentTopNavbar';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../Backend/Firebase/firebase";
+import "react-datepicker/dist/react-datepicker.css";
+import "./StudentAttendanceTable.css";
+import { useUserAuth } from "../../Backend/context/UserAuthContext";
+import { doc, getDoc } from "firebase/firestore";
+import { AttendanceContext } from "./AttendanceContext";
+import DonutChart from "./DonutChart";
+import { Chart } from "chart.js/auto";
+import "bootstrap/dist/css/bootstrap.css";
+import StudentTopNavbar from "../MobileNav/StudentTopNavbar";
 
 function StudentAttendanceTable() {
   const { attendanceData, setAttendanceData } = useContext(AttendanceContext);
- 
-  const { user } = useUserAuth(); 
-  const [usn, setUsn] = useState('');
+
+  const { user } = useUserAuth();
+  const [usn, setUsn] = useState("");
 
   const getUserData = async (uid) => {
-    try { 
-      const userRef = doc(db, 'users', uid);
+    try {
+      const userRef = doc(db, "users", uid);
       const userDoc = await getDoc(userRef);
       if (userDoc.exists()) {
         const userData = userDoc.data();
@@ -43,14 +43,22 @@ function StudentAttendanceTable() {
   useEffect(() => {
     async function fetchAttendanceData() {
       try {
-        const attendanceRefs = ['21CS41', '21CS42', '21CS43', '21CS44', '21BE45'].map((subject) =>
-          collection(db, 'ISE', 'attendance', subject)
+        const attendanceRefs = [
+          "21CS41",
+          "21CS42",
+          "21CS43",
+          "21CS44",
+          "21BE45",
+        ].map((subject) => collection(db, "ISE", "attendance", subject));
+        const attendanceSnapshots = await Promise.all(
+          attendanceRefs.map((ref) => getDocs(ref))
         );
-        const attendanceSnapshots = await Promise.all(attendanceRefs.map((ref) => getDocs(ref)));
-        const attendanceDocs = attendanceSnapshots.map((snapshot) => snapshot.docs.map((doc) => doc.data()));
+        const attendanceDocs = attendanceSnapshots.map((snapshot) =>
+          snapshot.docs.map((doc) => doc.data())
+        );
         setAttendanceData(attendanceDocs);
       } catch (error) {
-        console.error('Error fetching attendance data from Firestore', error);
+        console.error("Error fetching attendance data from Firestore", error);
       }
     }
 
@@ -58,11 +66,14 @@ function StudentAttendanceTable() {
   }, [setAttendanceData]);
 
   const subjectOptions = [
-    { value: '21CS41', label: 'Mathematical Foundations for Computing (21CS41)' },
-    { value: '21CS42', label: 'Design and Analysis of Algorithms (21CS42)' },
-    { value: '21CS43', label: 'Microcontroller and Embedded System (21CS43 )' },
-    { value: '21CS44', label: 'Operating System (21CS44)' },
-    { value: '21BE45', label: 'Biology for Engineers (21BE45)' },
+    {
+      value: "21CS41",
+      label: "Mathematical Foundations for Computing (21CS41)",
+    },
+    { value: "21CS42", label: "Design and Analysis of Algorithms (21CS42)" },
+    { value: "21CS43", label: "Microcontroller and Embedded System (21CS43 )" },
+    { value: "21CS44", label: "Operating System (21CS44)" },
+    { value: "21BE45", label: "Biology for Engineers (21BE45)" },
   ];
 
   const getAttendanceCount = (subjectIndex) => {
@@ -79,16 +90,20 @@ function StudentAttendanceTable() {
   const getAttendancePercentage = (subjectIndex) => {
     const attendanceCount = getAttendanceCount(subjectIndex);
     const classCount = getClassCount(subjectIndex);
-    return classCount > 0 ? ((attendanceCount / classCount) * 100).toFixed(2) : 'N/A';
+    return classCount > 0
+      ? ((attendanceCount / classCount) * 100).toFixed(2)
+      : "N/A";
   };
 
   const chartRef = useRef(null);
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
-      const attendancePercentages = attendanceData.map((data, index) => getAttendancePercentage(index));
+      const attendancePercentages = attendanceData.map((data, index) =>
+        getAttendancePercentage(index)
+      );
 
-      const ctx = chartRef.current.getContext('2d');
+      const ctx = chartRef.current.getContext("2d");
 
       if (chartRef.current.chart) {
         chartRef.current.chart.destroy(); // Destroy the previous chart instance
@@ -97,15 +112,15 @@ function StudentAttendanceTable() {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clear the canvas
 
       chartRef.current.chart = new Chart(ctx, {
-        type: 'bar',
+        type: "bar",
         data: {
           labels: subjectOptions.map((option) => option.value),
           datasets: [
             {
-              label: 'Attendance Percentage',
+              label: "Attendance Percentage",
               data: attendancePercentages,
-              backgroundColor: 'rgba(127,106,152,1)',
-              borderColor: 'rgba(75, 192, 192, 0.1)',
+              backgroundColor: "rgba(127,106,152,1)",
+              borderColor: "rgba(75, 192, 192, 0.1)",
               borderWidth: 1,
             },
           ],
@@ -125,47 +140,78 @@ function StudentAttendanceTable() {
     }
   }, [attendanceData, subjectOptions]);
 
-  const totalClassesHeld = attendanceData.reduce((total, data, index) => total + getClassCount(index), 0);
+  const totalClassesHeld = attendanceData.reduce(
+    (total, data, index) => total + getClassCount(index),
+    0
+  );
 
-  const totalClassesAttended = attendanceData.reduce((total, data, index) => total + getAttendanceCount(index), 0);
+  const totalClassesAttended = attendanceData.reduce(
+    (total, data, index) => total + getAttendanceCount(index),
+    0
+  );
 
-  const totalAttendancePercentage = Math.round((totalClassesAttended / totalClassesHeld) * 100);
+  const totalAttendancePercentage = Math.round(
+    (totalClassesAttended / totalClassesHeld) * 100
+  );
 
   return (
     <>
-    <StudentTopNavbar text={'Attendance Dashboard'}/>
-      <div className="table-containerr" style={{ marginTop: '60px', padding: '15px', maxWidth: '450px', marginBottom: '80px' }}>
-
+      <StudentTopNavbar text={"Attendance Dashboard"} />
+      <div
+        className="table-containerr"
+        style={{
+          marginTop: "60px",
+          padding: "15px",
+          marginBottom: "80px",
+        }}
+      >
         <div className="attendance-card">
           <DonutChart totalAttendancePercentage={totalAttendancePercentage} />
-          <div style={{alignItems: 'center'}}>
-          <h5 style={{marginLeft: '30px'}}>Total Summary</h5>
-          <p style={{marginLeft: '30px', marginBottom: '0px'}}>Classes Held: {totalClassesHeld} <br/>  Classes Attended: {totalClassesAttended} <br/>  Classes Absent: {totalClassesHeld-totalClassesAttended} </p>
+          <div style={{ alignItems: "center" }}>
+            <h5 style={{ marginLeft: "30px" }}>Total Summary</h5>
+            <p style={{ marginLeft: "30px", marginBottom: "0px" }}>
+              Classes Held: {totalClassesHeld} <br /> Classes Attended:{" "}
+              {totalClassesAttended} <br /> Classes Absent:{" "}
+              {totalClassesHeld - totalClassesAttended}{" "}
+            </p>
           </div>
-
         </div>
-        <table className="mtable" style={{ marginTop: '20px',borderRadius: '10px' }}>
+        <table style={{ marginTop: "20px", borderRadius: "10px" }}>
           <thead>
             <tr>
-              <th>Subject Code</th>
-              <th>Classes Held</th>
-              <th>Classes Attended</th>
-              <th>Attendance Percentage</th>
+              <th colspan="2">
+                <h3>Subject Summary</h3>
+              </th>
             </tr>
           </thead>
           <tbody>
             {attendanceData.map((data, index) => (
               <tr key={index}>
-                <td>{subjectOptions[index].label}</td>
-                <td>{getClassCount(index)}</td>
-                <td>{getAttendanceCount(index)}</td>
                 <td>{getAttendancePercentage(index)}%</td>
+                <td>
+                  <p className="subjectNames">{subjectOptions[index].label}</p>
+                  <div className="lowerInnerTableData">
+                    <p className="innerTableData">
+                      Absent: {getClassCount(index) - getAttendanceCount(index)}{" "}
+                    </p>
+                    <div>|</div>
+                    <p className="innerTableData">
+                      Present: {getAttendanceCount(index)}
+                    </p>
+                    <div>|</div>
+                    <p className="innerTableData">
+                      Classes Held: {getClassCount(index)}
+                    </p>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <canvas ref={chartRef} style={{ margin: '15px', maxWidth: '450px' }}></canvas>
-        
+        <canvas
+          ref={chartRef}
+          style={{ margin: "15px", maxWidth: "450px" }}
+        ></canvas>
       </div>
     </>
   );
