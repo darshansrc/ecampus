@@ -1,16 +1,20 @@
-import React from "react";
-import StudentTopNavbar from "../MobileNav/StudentTopNavbar";
-import ScheduleTimeTable from "./ScheduleTimeTable/ScheduleTimeTable";
-import CourseMaterial from "./CourseMaterial/CourseMaterial";
+import React from 'react'
+import StudentTopNavbar from '../MobileNav/StudentTopNavbar'
+import ScheduleTimeTable from './ScheduleTimeTable/ScheduleTimeTable'
+import CourseMaterial from './CourseMaterial/CourseMaterial'
 
-export default function Course() {
+const Course = () => {
   return (
     <>
-      <StudentTopNavbar text={"Course "} />
-
-      <CourseMaterial />
-
-      <ScheduleTimeTable />
+	<StudentTopNavbar text={'Course Section'}/>
+    <div style={{marginTop: '75px'}}>
+    <ScheduleTimeTable/>
+    <CourseMaterial/>
+    </div>
+ 
     </>
-  );
+  )
 }
+
+
+export default Course

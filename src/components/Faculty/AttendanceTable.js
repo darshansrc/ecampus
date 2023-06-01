@@ -5,7 +5,6 @@ import './AttendanceTable.css';
 import FacultyMobileNav from './FacultyMobileNav';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import StudentAttendanceTable from '../Student/AttendanceDashboard/StudentAttendanceTable'
 
 export function AttendanceTable() {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -156,8 +155,6 @@ export function AttendanceTable() {
     maxWidth: '200px',
     fontSize: '16px',
     color: 'black'
-    
-
   }}>
           <option value="last7days">Last 7 days</option>
           <option value="last28days">Last 28 days</option>

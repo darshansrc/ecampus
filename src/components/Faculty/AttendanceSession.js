@@ -3,20 +3,15 @@
 import { useState, useEffect } from 'react';
 import StudentCard from './StudentCard';
 import data from './data';
-import { collection, addDoc,setDoc,doc, Timestamp } from 'firebase/firestore';
+import { setDoc,doc, Timestamp } from 'firebase/firestore';
 import { db } from '../Backend/Firebase/firebase';
 import "./StudentCard.css"
 import Select from 'react-select'
 import "./progressbar.css"
 import success from "../Images/success.png";
-import FacultySidebar from './FacultySidebar';
 import { useUserAuth } from "../Backend/context/UserAuthContext";
-import { AttendanceTable } from './AttendanceTable';
-import { NavLink } from 'react-router-dom';
-import { BiLinkExternal} from "react-icons/bi";
 import 'bootstrap/dist/css/bootstrap.css'
 import FacultyMobileNav from './FacultyMobileNav';
-import ReactSelect from 'react-select';
 import StudentTopNavbar from '../Student/MobileNav/StudentTopNavbar';
 
 
@@ -45,7 +40,7 @@ export default function AttendanceSession() {
   useEffect(() => {
     async function updateFirestore() {
       try {
-        const subjectCode = selectedSubject.value;
+        const subjectCode = selectedSubject;
         const sessionTime = selectedSession.value;
         const Time = new Date().toISOString();
         
@@ -134,12 +129,12 @@ export default function AttendanceSession() {
   ];
   
   
-  const handleSubjectChange = (selectedOption) => {
-    setSelectedSubject(selectedOption);
+  const handleSubjectChange = (event) => {
+    setSelectedSubject(event.target.value);
   };
 
-  const handleSessionChange = (selectedOptions) => {
-    setSelectedSession(selectedOptions);
+  const handleSessionChange = (event) => {
+    setSelectedSession(event.target.value);
   };
 
   const stepOne = (
@@ -148,15 +143,61 @@ export default function AttendanceSession() {
 
        <div style={{display: 'flex', justifyContent: 'center'}}>
        <div style={{ width: '360px'}}>
-       <p htmlFor="subjectSelect" style={{paddingBottom: '1px',marginBottom: '3px'}}>Choose Subject:</p>
-       <Select id="subjectSelect" value={selectedSubject} onChange={handleSubjectChange} options={subjectOptions} /></div>
+
+       <div className="subject-dropdown">
+       <p htmlFor="subject" style={{paddingBottom: '1px',marginBottom: '3px',paddingTop: '20px'}}>Choose Subject:</p>
+ <select
+  id="subject"
+  value={selectedSubject}
+  onChange={handleSubjectChange}
+  style={{
+    padding: '10px',
+    borderRadius: '4px',
+    height: '40px',
+    border: '1px solid #ccc',
+    backgroundColor: 'white',
+    width: '100%',
+    fontSize: '16px',
+    color: 'black'
+ 
+  }}
+>
+  <option value="">Select a subject</option>
+  {subjectOptions.map(option => (
+    <option key={option.value} value={option.value}>{option.label}</option>
+  ))}
+</select>
+      </div>
+       </div>
        </div>
 
 
        <div style={{display: 'flex', justifyContent: 'center'}}>
        <div style={{ width: '360px' }}>
        <p htmlFor="sessionSelect" style={{paddingBottom: '1px',marginBottom: '3px',paddingTop: '20px'}}>Choose Session Time:</p>
-       <Select id="sessionSelect" value={selectedSession} onChange={handleSessionChange} options={sessionOptions} /></div>
+      
+       <select
+  id="sessionSelect"
+  value={selectedSession}
+  onChange={handleSessionChange}
+  style={{
+    padding: '10px',
+    borderRadius: '4px',
+    height: '40px',
+    border: '1px solid #ccc',
+    backgroundColor: 'white',
+    width: '100%',
+    fontSize: '16px',
+    color: 'black'
+ 
+  }}
+>
+  <option value="">Select Session time:</option>
+  {sessionOptions.map(option => (
+    <option key={option.value} value={option.value}>{option.label}</option>
+  ))}
+</select>
+ </div>
        </div>
 
 

@@ -18,18 +18,20 @@ const Material = MaterialLinks.map((data) => (
 export default function CourseMaterial() {
   return (
     <>
-      <h1 style={{ textAlign: "center", fontWeight: "700", marginTop: "8svh" }}>
+      <h4 style={{ textAlign: "center", fontWeight: "700", marginTop: "8svh" }}>
         Course Material
-      </h1>
+      </h4>
+      <div className="tt-container" style={{marginBottom: '80px'}}>
       <div className="CourseMaterial">
-        <table>
+        <table className="mtable">
           <tr>
             <th>Course & Course Code</th>
-            <th>Google Classrooms</th>
-            <th>Google Sites</th>
+            <th>Google Site</th>
+            <th>Faculty</th>
           </tr>
           <tbody>{Material}</tbody>
         </table>
+      </div>
       </div>
     </>
   );

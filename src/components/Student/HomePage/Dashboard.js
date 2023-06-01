@@ -42,7 +42,7 @@ const Dashboard = () => {
   return (
     <>
     <StudentTopNavbar text={'Home'}/>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div style={{ marginTop: "75px" }}>
         <div className="p-4 box mt-3 text-center">
           {user && user.photoURL && (

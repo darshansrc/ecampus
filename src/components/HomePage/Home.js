@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
 import './Home.css'
-import { BiLinkExternal} from "react-icons/bi";
+import { BiLinkExternal} from "react-icons/bi"; 
 import { IoMailOutline } from "react-icons/io5";
 
 const Home = () => {

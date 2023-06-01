@@ -1,11 +1,10 @@
 .CourseMaterial {
-  margin-bottom: 2svh;
-  height: fit-content;
-  overflow: auto;
-  font-weight: 700;
-  padding: 10px;
-}
-.CourseMaterial td,
-th {
-  white-space: pre-line;
-}
+    
+    height: fit-content;
+    overflow: auto;
+
+  }
+  .CourseMaterial td,
+  th {
+    white-space: pre-line;
+  }

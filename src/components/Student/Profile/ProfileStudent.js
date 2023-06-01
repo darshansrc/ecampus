@@ -2,12 +2,37 @@ import React, { useState, useEffect } from "react";
 import { useUserAuth } from "../../Backend/context/UserAuthContext";
 import { db } from "../../Backend/Firebase/firebase";
 import { doc, getDoc, collection, addDoc, Timestamp } from "firebase/firestore";
-import Sidebar from "../DesktopNav/Sidebar";
 import { FiLogOut } from "react-icons/fi";
 import "./StudentProfile.css";
 import StudentTopNavbar from "../MobileNav/StudentTopNavbar";
 import { Link } from "react-router-dom";
-import { BsFillPersonFill } from "react-icons/bs";
+import { motion, AnimatePresence } from "framer-motion";
+
+const dropIn = {
+  hidden: {
+    y: "-100vh",
+    opacity: 0,
+  },
+  visible: {
+    y: "0",
+    opacity: 1,
+    transition: {
+      type: "spring",
+      damping: 25,
+      stiffness: 500,
+    },
+  },
+  exit: {
+    y: "100vh",
+    opacity: 0,
+    transition: {
+      duration: 0.1,
+      type: "spring",
+      damping: 25,
+      stiffness: 200,
+    },
+  },
+};
 
 const ProfileStudent = () => {
   const { user, logOut } = useUserAuth();
@@ -77,32 +102,16 @@ const ProfileStudent = () => {
 
   return (
     <>
-     <StudentTopNavbar text={'Profile'}/>
-    {isModalOpen && <div className="blur-background" />}
-      <Sidebar />
-      <div
-        className="table-containerr"
-        style={{
-          marginTop: "60px",
-          padding: "15px",
-          maxWidth: "450px",
-          marginBottom: "80px",
-        }}
-      >
-        <h4>Personal Info</h4>
-        <div className="attendance-card">
+      <StudentTopNavbar text={"Profile"} />
+      {isModalOpen && <div className="blur-background" />}
+      <div className="profile-container">
+        <div className="profile-content">
           {user && user.photoURL && (
             <img src={user.photoURL} alt="Profile" className="profile-image" />
           )}
-          <div style={{ alignItems: "center" }}>
-            <h5 style={{ marginLeft: "20px" }}>{user && user.displayName}</h5>
-            <p
-              style={{
-                marginLeft: "20px",
-                marginBottom: "0px",
-                fontSize: "15px",
-              }}
-            >
+          <div>
+            <h5 className="profile-name">{user && user.displayName}</h5>
+            <p className="profile-email-usn">
               {user.email}
               <br /> USN: {usn} <br />{" "}
             </p>
@@ -110,58 +119,84 @@ const ProfileStudent = () => {
         </div>
       </div>
 
-
-      <nav className="profile-info">
-
-        <div>
-          <p className="accountinfo">ACCOUNT</p>
+      <div class="profile-info-container">
+        <div className="accountinfo">
+          <p>ACCOUNT</p>
           <ul>
-
+            <li>
+              <button
+                style={{ border: "none", backgroundColor: "transparent" }}
+                onClick={() => setIsModalOpen(true)}
+              >
+                Submit Feedback
+              </button>
+            </li>
+            <li>
+              <button
+                style={{ border: "none", backgroundColor: "transparent" }}
+              >
+                <Link to="/student/dashboard">About</Link>
+              </button>
+            </li>
             <li>
               <button className="logoutbutton" onClick={handleLogout}>
-                <FiLogOut style={{ marginRight: '4px', marginBottom: '2px' }} />
+                <FiLogOut style={{ marginRight: "4px", marginBottom: "2px" }} />
                 Logout
               </button>
             </li>
-            <li>
-            <button className="logoutbutton" onClick={() => setIsModalOpen(true)}>
-                Submit Feedback
-            </button>
-            </li>
-            <li>
-            <button  className="logoutbutton">
-            <Link  to="/student/dashboard">About</Link>
-            </button>
-          </li>
           </ul>
         </div>
-      </nav>
-
-      {isModalOpen && (
-        <div className="feedback-modal">
-          <div className="feedback-modal-content">
-            <h3>Provide Feedback</h3>
-            <textarea
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-              placeholder="Enter your feedback..."
-              className="feedback-input"
-            />
-            <div className="modal-buttons">
-              <button className="submit-button" onClick={handleSubmitFeedback}>
-                Submit
-              </button>
+        <div className="Preferences">
+          <b>
+            <p>PREFERENCES</p>
+          </b>
+          <ul>
+            <li>
               <button
-                className="cancel-button"
-                onClick={() => setIsModalOpen(false)}
+                style={{ border: "none", backgroundColor: "transparent" }}
               >
-                Cancel
+                <Link to="/student/dashboard">Themes</Link>
               </button>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
-      )}
+      </div>
 
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="feedback-modal"
+            variants={dropIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <div className="feedback-modal-content">
+              <h3 style={{ textAlign: "center" }}>Provide Feedback</h3>
+              <textarea
+                value={feedback}
+                onChange={(e) => setFeedback(e.target.value)}
+                placeholder="Enter your feedback..."
+                className="feedback-input"
+              />
+              <div className="modal-buttons">
+                <button
+                  className="submit-button"
+                  onClick={handleSubmitFeedback}
+                >
+                  Submit
+                </button>
+                <button
+                  className="cancel-button"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {isSubmitted && (
         <div className="success-message">
           <p>Submitted Successfully!</p>

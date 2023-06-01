@@ -1,6 +1,8 @@
 import "./ScheduleTimeTable.css";
 import StudentTimedata from "./StudentTimedata";
 
+
+
 const Week = StudentTimedata.map((day) => (
   <>
     {day.TT && (
@@ -87,11 +89,12 @@ const Week = StudentTimedata.map((day) => (
 export default function ScheduleTimeTable() {
   return (
     <>
-      <h1 style={{ textAlign: "center", fontWeight: "700" }}>
+      <h4 style={{ textAlign: "center", fontWeight: "700" }}>
         Schedule Time Table
-      </h1>
-      <div className="ScheduleTimeTable">
-        <table>
+      </h4>
+      <div className="tt-container">
+       <div className="ScheduleTimeTable">
+        <table className="mtable">
           <tr>
             <th>Time 1</th>
             <th>9:00 - 10:00</th>
@@ -104,22 +107,9 @@ export default function ScheduleTimeTable() {
             <th>3:00 - 4:00</th>
             <th>4:00 - 4:45</th>
           </tr>
-          <tr>
-            <th className="dayType2">Time 2</th>
-            <th className="dayType2" colSpan={"2"}>
-              9:00 - 11:30
-            </th>
-            <th className="dayType2">11:30 - 11:50</th>
-            <th className="dayType2">11:50 - 12:50</th>
-            <th className="dayType2">12:50 - 1:50</th>
-            <th className="dayType2">1:50 - 2:30</th>
-            <th className="dayType2">2:30 - 3:30</th>
-            <th className="dayType2" colSpan={"2"}>
-              3:30 - 4:30/4:45
-            </th>
-          </tr>
           <tbody>{Week}</tbody>
         </table>
+      </div>
       </div>
     </>
   );
