@@ -1,30 +1,35 @@
-import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../Backend/Firebase/firebase';
-import './AttendanceTable.css';
-import FacultyMobileNav from './FacultyMobileNav';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../Backend/Firebase/firebase";
+import "./AttendanceTable.css";
+import FacultyMobileNav from "./FacultyMobileNav";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export function AttendanceTable() {
   const [attendanceData, setAttendanceData] = useState([]);
-  const [selectedSubject, setSelectedSubject] = useState('21CS41');
+  const [selectedSubject, setSelectedSubject] = useState("21CS41");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [filterOption, setFilterOption] = useState('last7days');
+  const [filterOption, setFilterOption] = useState("last7days");
 
   useEffect(() => {
     async function fetchAttendanceData() {
       try {
         if (selectedSubject) {
-          const attendanceRef = collection(db, 'ISE', 'attendance', selectedSubject);
+          const attendanceRef = collection(
+            db,
+            "ISE",
+            "attendance",
+            selectedSubject
+          );
           const snapshot = await getDocs(attendanceRef);
           const attendanceDocs = snapshot.docs.map((doc) => doc.data());
           console.log(attendanceDocs);
 
           // Apply filter options
           let filteredData = attendanceDocs;
-          if (filterOption === 'last7days') {
+          if (filterOption === "last7days") {
             filteredData = filteredData.filter((data) => {
               const today = new Date();
               const lastSevenDays = new Date(
@@ -35,22 +40,22 @@ export function AttendanceTable() {
               const dataDate = data.date.toDate();
               return dataDate >= lastSevenDays && dataDate <= today;
             });
-          } else if (filterOption === 'last28days') {
+          } else if (filterOption === "last28days") {
             // Apply similar logic for the last 28 days filter
-          } else if (filterOption === 'custom') {
+          } else if (filterOption === "custom") {
             // Apply custom date range filter using startDate and endDate
             filteredData = filteredData.filter((data) => {
               const dataDate = data.date.toDate();
               return dataDate >= startDate && dataDate <= endDate;
             });
-          } else if (filterOption === 'alltime') {
+          } else if (filterOption === "alltime") {
             // Do not apply any date filters
           }
 
           setAttendanceData(filteredData);
         }
       } catch (error) {
-        console.error('Error fetching attendance data from Firestore', error);
+        console.error("Error fetching attendance data from Firestore", error);
       }
     }
 
@@ -71,16 +76,19 @@ export function AttendanceTable() {
   const getAttendancePercentage = (attendanceCount, classCount) => {
     return classCount > 0
       ? ((attendanceCount / classCount) * 100).toFixed(2)
-      : 'N/A';
+      : "N/A";
   };
 
   const subjectOptions = [
-    { value: '21CS41', label: '21CS41 (Mathematical Foundations for Computing)' },
-    { value: '21CS42', label: '21CS42 (Design and Analysis of Algorithms)' },
-    { value: '21CS43', label: '21CS43 (Microcontroller and Embedded System)' },
-    { value: '21CS44', label: '21CS44 (Operating System)' },
-    { value: '21BE45', label: '21BE45 (Biology for Engineers)' },
-    { value: '21UH49', label: 'Universal Human Values' },
+    {
+      value: "21CS41",
+      label: "21CS41 (Mathematical Foundations for Computing)",
+    },
+    { value: "21CS42", label: "21CS42 (Design and Analysis of Algorithms)" },
+    { value: "21CS43", label: "21CS43 (Microcontroller and Embedded System)" },
+    { value: "21CS44", label: "21CS44 (Operating System)" },
+    { value: "21BE45", label: "21BE45 (Biology for Engineers)" },
+    { value: "21UH49", label: "Universal Human Values" },
   ];
 
   const handleSubjectChange = (event) => {
@@ -92,11 +100,19 @@ export function AttendanceTable() {
     const csvRows = [];
 
     // Prepare header row
-    const headerRow = ['USN', 'Name', 'Classes Held', 'Classes Attended', 'Attendance Percentage'];
+    const headerRow = [
+      "USN",
+      "Name",
+      "Classes Held",
+      "Classes Attended",
+      "Attendance Percentage",
+    ];
     attendanceData.forEach((data) => {
-      headerRow.push(''+data.date.toDate().toLocaleDateString()+' '+data.sessionTime);
+      headerRow.push(
+        "" + data.date.toDate().toLocaleDateString() + " " + data.sessionTime
+      );
     });
-    csvRows.push(headerRow.join(','));
+    csvRows.push(headerRow.join(","));
 
     // Prepare data rows
     attendanceData[0]?.attendance.forEach((student) => {
@@ -105,26 +121,29 @@ export function AttendanceTable() {
         student.sName,
         getClassCount(),
         getAttendanceCount(student.sUSN),
-        getAttendancePercentage(getAttendanceCount(student.sUSN), getClassCount()),
+        getAttendancePercentage(
+          getAttendanceCount(student.sUSN),
+          getClassCount()
+        ),
       ];
       attendanceData.forEach((data) => {
         const attendanceRecord = data.attendance.find(
           (record) => record.sUSN === student.sUSN
         );
-        dataRow.push(attendanceRecord?.Present ? 'P' : 'A');
+        dataRow.push(attendanceRecord?.Present ? "P" : "A");
       });
-      csvRows.push(dataRow.join(','));
+      csvRows.push(dataRow.join(","));
     });
 
     // Create CSV content
-    const csvContent = csvRows.join('\n');
+    const csvContent = csvRows.join("\n");
 
     // Create a temporary <a> element and initiate download
-    const link = document.createElement('a');
-    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const link = document.createElement("a");
+    const blob = new Blob([csvContent], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     link.href = url;
-    link.download = 'attendance_data.csv';
+    link.download = "attendance_data.csv";
     link.click();
 
     // Clean up temporary URL
@@ -142,13 +161,13 @@ export function AttendanceTable() {
               value={selectedSubject}
               onChange={handleSubjectChange}
               style={{
-                padding: '4px',
-                borderRadius: '4px',
-                border: '1px solid #ccc',
-                maxWidth: '210px',
-                fontSize: '16px',
-                color: 'black',
-                backgroundColor: 'white',
+                padding: "4px",
+                borderRadius: "4px",
+                border: "1px solid #ccc",
+                maxWidth: "210px",
+                fontSize: "16px",
+                color: "black",
+                backgroundColor: "white",
               }}
             >
               <option value="">Select a subject</option>
@@ -164,13 +183,13 @@ export function AttendanceTable() {
               value={filterOption}
               onChange={(event) => setFilterOption(event.target.value)}
               style={{
-                padding: '4px',
-                borderRadius: '4px',
-                border: '1px solid #ccc',
-                maxWidth: '200px',
-                fontSize: '16px',
-                color: 'black',
-                backgroundColor: 'white',
+                padding: "4px",
+                borderRadius: "4px",
+                border: "1px solid #ccc",
+                maxWidth: "200px",
+                fontSize: "16px",
+                color: "black",
+                backgroundColor: "white",
               }}
             >
               <option value="last7days">Last 7 days</option>
@@ -178,10 +197,16 @@ export function AttendanceTable() {
               <option value="custom">Custom</option>
               <option value="alltime">All Time</option>
             </select>
-            {filterOption === 'custom' && (
+            {filterOption === "custom" && (
               <div className="date-picker">
-                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-                <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                />
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                />
               </div>
             )}
           </div>
@@ -189,9 +214,9 @@ export function AttendanceTable() {
         <div className="mtable">
           {attendanceData.length > 0 ? (
             <div className="table-container">
-              <table style={{ padding: '30px' }}>
-                <thead style={{opacity: '1'}}>
-                  <tr className="factr" >
+              <table style={{ padding: "30px" }}>
+                <thead>
+                  <tr className="factr">
                     <th className="facth">USN</th>
                     <th className="facth">Name</th>
                     <th className="facth">Classes Held</th>
@@ -199,26 +224,23 @@ export function AttendanceTable() {
                     <th className="facth">Attendance Percentage</th>
                     {attendanceData.map((data) => (
                       <th className="facth" key={data.date.toMillis()}>
-                      <div>
-                      {data.date.toDate().toLocaleDateString()}
-                      </div>
-                      <div >
-                        {data.sessionTime}
-                      </div>
+                        <div>{data.date.toDate().toLocaleDateString()}</div>
+                        <div>{data.sessionTime}</div>
                       </th>
                     ))}
-
                   </tr>
                 </thead>
                 <tbody>
                   {attendanceData[0]?.attendance.map((student) => (
                     <tr className="factr" key={student.sUSN}>
                       <td className="facth">{student.sUSN}</td>
-                      <td className="facth" style={{ textAlign: 'left' }}>
+                      <td className="facth" style={{ textAlign: "left" }}>
                         {student.sName}
                       </td>
                       <td className="facth">{getClassCount()}</td>
-                      <td className="facth">{getAttendanceCount(student.sUSN)}</td>
+                      <td className="facth">
+                        {getAttendanceCount(student.sUSN)}
+                      </td>
                       <td className="facth">
                         {getAttendancePercentage(
                           getAttendanceCount(student.sUSN),
@@ -236,9 +258,8 @@ export function AttendanceTable() {
                               key={`${data.date.toMillis()}-${student.sUSN}`}
                               className="facth"
                             >
-                              {attendanceRecord?.Present ? 'P' : 'A'}
+                              {attendanceRecord?.Present ? "P" : "A"}
                             </td>
-
                           </>
                         );
                       })}
