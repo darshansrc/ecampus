@@ -31,13 +31,13 @@ const Home = () => {
         </button>
 
       </div>
-      <a style={{paddingTop: '15px'}}>
+      {/* <a style={{paddingTop: '15px'}}>
         <NavLink
               to="/department" style={{textDecoration: 'none'}}
               className='dept-link'>
               Login to Department <BiLinkExternal style={{marginBottom: '1px'}}/>
         </NavLink>         
-        </a>
+        </a> */}
     </div>
   </div>
     </div>
@@ -65,15 +65,10 @@ const Home = () => {
     </div>
     </div>
     <div class="containerr " style={{backgroundColor: 'rgb(240,240,240)' , margin: '0'}}>
-  <footer class="py-3 " style={{margin: '0'}}>
-    <ul class="nav justify-content-center  pb-3 mb-3" style={{margin: '0'}}>
-      <li class="nav-item"><a href="#" style={{textDecoration: 'none' , color: 'black'}}>Student</a></li>
-      <li class="nav-item"><a href="#" style={{textDecoration: 'none' , color: 'black'}}>Department</a></li>
-      <li class="nav-item"><a href="#" style={{textDecoration: 'none' , color: 'black'}}>Faculty</a></li>
-      <li class="nav-item"><a href="#" style={{textDecoration: 'none' , color: 'black'}}>About</a></li>
-    </ul>
+  <footer class="py-2 " style={{margin: '0'}}>
+
     <p class="text-center text-body-secondary"> <IoMailOutline/> ecampus.rvitm@rvei.edu.in</p>
-    <p class="text-center text-body-secondary">&copy; 2023 SDC RVITM</p>
+    <p class="text-center text-body-secondary">&copy; 2023 ECAMPUS RVITM</p>
   </footer>
 </div>
 </>

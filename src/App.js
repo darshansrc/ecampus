@@ -32,6 +32,8 @@ import HomePageRoute from './components/Backend/context/ProtectedRoutes/HomePage
 import './App.css'
 import ProfileStudent from './components/Student/Profile/ProfileStudent';
 import StudentTopNavbar from './components/Student/MobileNav/StudentTopNavbar';
+import Test from './components/Student/Test/Test';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 
 function App() {
 
@@ -56,7 +58,11 @@ function App() {
         </HomePageRoute>}/>
         <Route path="/student" element = {<HomePageRoute><Navbar/><Student/></HomePageRoute>}/>
         <Route path="/student/signup" element = {<HomePageRoute><Navbar/><Signup/></HomePageRoute>}/>
-        <Route path="/department" element = {<HomePageRoute><Navbar/><Department/></HomePageRoute>}/>   
+        <Route path="/department" element = {<HomePageRoute><Navbar/><Department/></HomePageRoute>}/> 
+        <Route path="/auth/forgotpassword" element = {<><ForgotPassword /><Navbar /></>}/> 
+        <Route path="/about" element = {<><Navbar /></>}/> 
+        <Route path="/developer" element = {<><Navbar /></>}/>   
+        <Route path="/feedback" element = {<><Navbar /></>}/>  
     
 
         <Route

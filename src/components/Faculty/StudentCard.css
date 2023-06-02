@@ -10,8 +10,8 @@
   .cardd {
     display: block;
     margin: 5px;
-    padding: 10px;
-    
+    padding-top: 10px;
+    padding-bottom: 10px;
     justify-content: left;
     background-color: transparent;
     cursor: pointer;
@@ -19,13 +19,14 @@
     max-width: 375px;
     border-radius: 5px;
     overflow: hidden;
-    min-width: 360px;
+    gap: 14px;
+ 
 
   }
   
   @media (min-width: 768px) {
     .cardd {
-      width: 400px; 
+      width: 800px; 
     }
   }
   
@@ -42,45 +43,51 @@
   }
   
   .cardd__image {
-    width: 80px;
-    height: 80px;
-    margin-right: 10px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
-    overflow: hidden;
-    justify-content: left;
+    overflow: hidden; 
+
   }
   
   .cardd__image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    justify-content: left;
+
+
   }
   
   .cardd__content {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 45%;
+    max-width: 45%;
+    gap: 5px;
+    
   }
   
   .cardd__name {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 16px;
+    text-transform: capitalize;
   }
   
   .cardd__usn {
     margin: 0;
-    font-size: 0.9rem;
-    color: #888;
-  }
   
-  .cardd__last-5-att,
-  .cardd__total-att {
+    font-size: 0.9rem;
+    color: #888; 
+  }
+
+  .cardd__number{
     margin: 0;
-    font-size: 0.9rem;
-    color: #888;
+    margin-right: 0px;
+    font-size: 16px;
+    color: #000000;   
   }
   
+
 
   .submitAttendance {
     background-color: #af4c79;
@@ -225,7 +232,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 15px;
   }
   
   .attendance-absent {
@@ -237,5 +243,78 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 15px;
+  
   }
+
+
+.move-to-top-button {
+  position: fixed;
+  bottom: 12%;
+  right: 5%;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #af4c79;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+}
+
+.move-to-top-button:hover {
+  background-color: #af4c79;
+}
+
+.move-to-top-button:focus {
+  outline: none;
+}
+
+
+
+
+
+
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+}
+
+.modal.open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+.modal h4 {
+  margin-top: 0;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  margin-left: 10px;
+}

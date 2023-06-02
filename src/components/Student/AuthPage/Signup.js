@@ -7,6 +7,7 @@ import { ErrorMessage } from "../../MiscComponents/ErrorMessage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { sendEmailVerification, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { Alert } from "react-bootstrap";
 
 
 const Signup = () => {
@@ -100,7 +101,8 @@ const Signup = () => {
    
 
         </div>
-        {errorMsg && <ErrorMessage message={errorMsg} />}
+     
+        {errorMsg && <Alert variant="danger" style={{fontSize: '12px'}}>{errorMsg}</Alert>}
         
         <span ><p style={{fontSize: '14px',marginLeft: '10px'}}>Already have an account? <NavLink style={{textDecoration: 'none'}} to ="/student">Log in</NavLink></p></span>
         

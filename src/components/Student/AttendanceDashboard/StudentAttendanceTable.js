@@ -43,7 +43,7 @@ function StudentAttendanceTable() {
   useEffect(() => {
     async function fetchAttendanceData() {
       try {
-        const attendanceRefs = ['21CS41', '21CS42', '21CS43', '21CS44', '21BE45'].map((subject) =>
+        const attendanceRefs = ['21CS41', '21CS42', '21CS43', '21CS44', '21BE45', '21CIP47' , '21CS482' , '21UH49'].map((subject) =>
           collection(db, 'ISE', 'attendance', subject)
         );
         const attendanceSnapshots = await Promise.all(attendanceRefs.map((ref) => getDocs(ref)));
@@ -63,13 +63,16 @@ function StudentAttendanceTable() {
     { value: '21CS43', label: 'Microcontroller and Embedded System (21CS43 )' },
     { value: '21CS44', label: 'Operating System (21CS44)' },
     { value: '21BE45', label: 'Biology for Engineers (21BE45)' },
+    { value: '21CIP47', label: 'Constitution of India & Professional Ethics (21CIP47)' },
+    { value: '21CS482', label: 'Unix Shell Programming (21CS482)'},
+    { value: '21UH49', label: 'Universal Human Values (21UH49)'},
   ];
 
   const getAttendanceCount = (subjectIndex) => {
     return attendanceData[subjectIndex].reduce((total, data) => {
-      const student = data.attendance.find((student) => student.sUSN === usn);
+      const student = data.attendance?.find((student) => student.sUSN === usn);
       return total + (student && student.Present ? 1 : 0);
-    }, 0);
+    }, 0); 
   };
 
   const getClassCount = (subjectIndex) => {
@@ -79,7 +82,7 @@ function StudentAttendanceTable() {
   const getAttendancePercentage = (subjectIndex) => {
     const attendanceCount = getAttendanceCount(subjectIndex);
     const classCount = getClassCount(subjectIndex);
-    return classCount > 0 ? ((attendanceCount / classCount) * 100).toFixed(2) : 'N/A';
+    return classCount > 0 ? ((attendanceCount / classCount) * 100).toFixed(2) : '0';
   };
 
   const chartRef = useRef(null);
@@ -141,12 +144,13 @@ function StudentAttendanceTable() {
         <div className="attendance-card">
           <DonutChart totalAttendancePercentage={totalAttendancePercentage} />
           <div style={{alignItems: 'center'}}>
-          <h5 style={{marginLeft: '30px'}}>Total Summary</h5>
-          <p style={{marginLeft: '30px', marginBottom: '0px'}}>Classes Held: {totalClassesHeld} <br/>  Classes Attended: {totalClassesAttended} <br/>  Classes Absent: {totalClassesHeld-totalClassesAttended} </p>
+          <h5 style={{marginLeft: '30px', fontSize: '18px', marginBottom: '10px'}}>Attendance Summary</h5>
+          <p style={{marginLeft: '30px', marginBottom: '0px', fontSize: '14px'}}>Classes Held: {totalClassesHeld} <br/>  Classes Attended: {totalClassesAttended} <br/>  Classes Absent: {totalClassesHeld-totalClassesAttended} </p>
           </div>
 
         </div>
-        <table className="mtable" style={{ marginTop: '20px',borderRadius: '10px' }}>
+        <div style={{ borderRadius: '10px' ,overflow: 'hidden', marginTop: '20px', boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)' }}>
+        <table className="mtable" style={{ }}>
           <thead>
             <tr>
               <th>Subject Code</th>
@@ -161,11 +165,12 @@ function StudentAttendanceTable() {
                 <td>{subjectOptions[index].label}</td>
                 <td>{getClassCount(index)}</td>
                 <td>{getAttendanceCount(index)}</td>
-                <td>{getAttendancePercentage(index)}%</td>
+                <td>{Math.round(getAttendancePercentage(index))}%</td>
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
         <canvas ref={chartRef} style={{ marginTop: '15px', width: '450px' }}></canvas>
         </div>
       </div>

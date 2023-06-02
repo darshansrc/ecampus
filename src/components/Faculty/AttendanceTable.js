@@ -19,14 +19,19 @@ export function AttendanceTable() {
         if (selectedSubject) {
           const attendanceRef = collection(db, 'ISE', 'attendance', selectedSubject);
           const snapshot = await getDocs(attendanceRef);
-          const attendanceDocs = snapshot.docs.map(doc => doc.data());
+          const attendanceDocs = snapshot.docs.map((doc) => doc.data());
+          console.log(attendanceDocs);
 
           // Apply filter options
           let filteredData = attendanceDocs;
           if (filterOption === 'last7days') {
-            filteredData = filteredData.filter(data => {
+            filteredData = filteredData.filter((data) => {
               const today = new Date();
-              const lastSevenDays = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+              const lastSevenDays = new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate() - 7
+              );
               const dataDate = data.date.toDate();
               return dataDate >= lastSevenDays && dataDate <= today;
             });
@@ -34,7 +39,7 @@ export function AttendanceTable() {
             // Apply similar logic for the last 28 days filter
           } else if (filterOption === 'custom') {
             // Apply custom date range filter using startDate and endDate
-            filteredData = filteredData.filter(data => {
+            filteredData = filteredData.filter((data) => {
               const dataDate = data.date.toDate();
               return dataDate >= startDate && dataDate <= endDate;
             });
@@ -58,13 +63,15 @@ export function AttendanceTable() {
 
   const getAttendanceCount = (sUSN) => {
     return attendanceData.reduce((total, data) => {
-      const student = data.attendance.find(student => student.sUSN === sUSN);
+      const student = data.attendance.find((student) => student.sUSN === sUSN);
       return total + (student && student.Present ? 1 : 0);
     }, 0);
   };
 
   const getAttendancePercentage = (attendanceCount, classCount) => {
-    return classCount > 0 ? ((attendanceCount / classCount) * 100).toFixed(2) : 'N/A';
+    return classCount > 0
+      ? ((attendanceCount / classCount) * 100).toFixed(2)
+      : 'N/A';
   };
 
   const subjectOptions = [
@@ -73,24 +80,26 @@ export function AttendanceTable() {
     { value: '21CS43', label: '21CS43 (Microcontroller and Embedded System)' },
     { value: '21CS44', label: '21CS44 (Operating System)' },
     { value: '21BE45', label: '21BE45 (Biology for Engineers)' },
+    { value: '21UH49', label: 'Universal Human Values' },
   ];
 
   const handleSubjectChange = (event) => {
     setSelectedSubject(event.target.value);
   };
 
+  // eslint-disable-next-line no-unused-vars
   const exportTableAsCSV = () => {
     const csvRows = [];
 
     // Prepare header row
     const headerRow = ['USN', 'Name', 'Classes Held', 'Classes Attended', 'Attendance Percentage'];
-    attendanceData.forEach(data => {
-      headerRow.push(data.date.toDate().toLocaleDateString());
+    attendanceData.forEach((data) => {
+      headerRow.push(''+data.date.toDate().toLocaleDateString()+' '+data.sessionTime);
     });
     csvRows.push(headerRow.join(','));
 
     // Prepare data rows
-    attendanceData[0]?.attendance.forEach(student => {
+    attendanceData[0]?.attendance.forEach((student) => {
       const dataRow = [
         student.sUSN,
         student.sName,
@@ -98,8 +107,10 @@ export function AttendanceTable() {
         getAttendanceCount(student.sUSN),
         getAttendancePercentage(getAttendanceCount(student.sUSN), getClassCount()),
       ];
-      attendanceData.forEach(data => {
-        const attendanceRecord = data.attendance.find(record => record.sUSN === student.sUSN);
+      attendanceData.forEach((data) => {
+        const attendanceRecord = data.attendance.find(
+          (record) => record.sUSN === student.sUSN
+        );
         dataRow.push(attendanceRecord?.Present ? 'P' : 'A');
       });
       csvRows.push(dataRow.join(','));
@@ -122,96 +133,130 @@ export function AttendanceTable() {
 
   return (
     <>
-    <div className="t-container">
-      <FacultyMobileNav />
-      <div className='t-filter'>
-      <div className="subject-dropdown">
- <select
-  id="subject"
-  value={selectedSubject}
-  onChange={handleSubjectChange}
-  style={{
-    padding: '4px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-    maxWidth: '210px',
-    fontSize: '16px',
-    color: 'black'
- 
-  }}
->
-  <option value="">Select a subject</option>
-  {subjectOptions.map(option => (
-    <option key={option.value} value={option.value}>{option.label}</option>
-  ))}
-</select>
-      </div>
-      <div className="filter-dropdown">
-        <select value={filterOption} onChange={event => setFilterOption(event.target.value)}
-          style={{
-    padding: '4px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-    maxWidth: '200px',
-    fontSize: '16px',
-    color: 'black'
-  }}>
-          <option value="last7days">Last 7 days</option>
-          <option value="last28days">Last 28 days</option>
-          <option value="custom">Custom</option>
-          <option value="alltime">All Time</option>
-        </select>
-        {filterOption === 'custom' && (
-          <div className="date-picker">
-            <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
-            <DatePicker selected={endDate} onChange={date => setEndDate(date)} />
+      <div className="t-container">
+        <FacultyMobileNav />
+        <div className="t-filter">
+          <div className="subject-dropdown">
+            <select
+              id="subject"
+              value={selectedSubject}
+              onChange={handleSubjectChange}
+              style={{
+                padding: '4px',
+                borderRadius: '4px',
+                border: '1px solid #ccc',
+                maxWidth: '210px',
+                fontSize: '16px',
+                color: 'black',
+                backgroundColor: 'white',
+              }}
+            >
+              <option value="">Select a subject</option>
+              {subjectOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
-        )}
-      </div>
-      {/* {attendanceData.length > 0 && (
-          <button className='exportbutton' onClick={exportTableAsCSV}>Export as CSV</button>
-        )} */}
-      </div>
-      <div className="mtable">
-  {attendanceData.length > 0 ? (
-    <div className="table-container">
-      <table style={{ padding: '30px' }}>
-        <thead>
-          <tr className='factr'>
-            <th className='facth'>USN</th>
-            <th className='facth'>Name</th>
-            <th className='facth'>Classes Held</th>
-            <th className='facth'>Classes Attended</th>
-            <th className='facth'>Attendance Percentage</th>
-            {attendanceData.map(data => (
-              <th className='facth' key={data.date.toMillis()}>{data.date.toDate().toLocaleDateString()}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {attendanceData[0]?.attendance.map(student => (
-            <tr className='factr' key={student.sUSN}>
-              <td className='facth'>{student.sUSN}</td>
-              <td className='facth' style={{textAlign: 'left'}}>{student.sName}</td>
-              <td className='facth'>{getClassCount()}</td>
-              <td className='facth'>{getAttendanceCount(student.sUSN)}</td>
-              <td className='facth'>{getAttendancePercentage(getAttendanceCount(student.sUSN), getClassCount())}%</td>
-              {attendanceData.map(data => {
-                const attendanceRecord = data.attendance.find(record => record.sUSN === student.sUSN);
-                return <td  key={`${data.date.toMillis()}-${student.sUSN}`} className='facth'>{attendanceRecord?.Present ? 'P' : 'A'}</td>;
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-        ) : (
-          <p>No data found</p>
-        )}
-
-      </div>
-      
+          <div className="filter-dropdown">
+            <select
+              value={filterOption}
+              onChange={(event) => setFilterOption(event.target.value)}
+              style={{
+                padding: '4px',
+                borderRadius: '4px',
+                border: '1px solid #ccc',
+                maxWidth: '200px',
+                fontSize: '16px',
+                color: 'black',
+                backgroundColor: 'white',
+              }}
+            >
+              <option value="last7days">Last 7 days</option>
+              <option value="last28days">Last 28 days</option>
+              <option value="custom">Custom</option>
+              <option value="alltime">All Time</option>
+            </select>
+            {filterOption === 'custom' && (
+              <div className="date-picker">
+                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+              </div>
+            )}
+          </div>
         </div>
-    </> 
+        <div className="mtable">
+          {attendanceData.length > 0 ? (
+            <div className="table-container">
+              <table style={{ padding: '30px' }}>
+                <thead style={{opacity: '1'}}>
+                  <tr className="factr" >
+                    <th className="facth">USN</th>
+                    <th className="facth">Name</th>
+                    <th className="facth">Classes Held</th>
+                    <th className="facth">Classes Attended</th>
+                    <th className="facth">Attendance Percentage</th>
+                    {attendanceData.map((data) => (
+                      <th className="facth" key={data.date.toMillis()}>
+                      <div>
+                      {data.date.toDate().toLocaleDateString()}
+                      </div>
+                      <div >
+                        {data.sessionTime}
+                      </div>
+                      </th>
+                    ))}
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {attendanceData[0]?.attendance.map((student) => (
+                    <tr className="factr" key={student.sUSN}>
+                      <td className="facth">{student.sUSN}</td>
+                      <td className="facth" style={{ textAlign: 'left' }}>
+                        {student.sName}
+                      </td>
+                      <td className="facth">{getClassCount()}</td>
+                      <td className="facth">{getAttendanceCount(student.sUSN)}</td>
+                      <td className="facth">
+                        {getAttendancePercentage(
+                          getAttendanceCount(student.sUSN),
+                          getClassCount()
+                        )}
+                        %
+                      </td>
+                      {attendanceData.map((data) => {
+                        const attendanceRecord = data.attendance.find(
+                          (record) => record.sUSN === student.sUSN
+                        );
+                        return (
+                          <>
+                            <td
+                              key={`${data.date.toMillis()}-${student.sUSN}`}
+                              className="facth"
+                            >
+                              {attendanceRecord?.Present ? 'P' : 'A'}
+                            </td>
+
+                          </>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p>No data found</p>
+          )}
+        </div>
+        {attendanceData.length > 0 && (
+          <button className="exportbutton" onClick={exportTableAsCSV}>
+            Export as CSV
+          </button>
+        )}
+      </div>
+    </>
   );
 }

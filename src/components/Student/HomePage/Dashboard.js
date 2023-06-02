@@ -2,10 +2,9 @@ import React, { useState ,useEffect} from "react";
 import { useUserAuth } from "../../Backend/context/UserAuthContext";
 import { db } from "../../Backend/Firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import Sidebar from "../DesktopNav/Sidebar";
-import StudentAttendanceTable from "../AttendanceDashboard/StudentAttendanceTable";
 import StudentTopNavbar from "../MobileNav/StudentTopNavbar";
-
+import './Dashboard.css'
+import {BsFilter} from 'react-icons/bs'
 
 
 
@@ -42,9 +41,8 @@ const Dashboard = () => {
   return (
     <>
     <StudentTopNavbar text={'Home'}/>
-      {/* <Sidebar /> */}
       <div style={{ marginTop: "75px" }}>
-        <div className="p-4 box mt-3 text-center">
+        <div className="p-1 box mt-3 text-center">
           {user && user.photoURL && (
             <img
               src={user.photoURL}
@@ -52,12 +50,19 @@ const Dashboard = () => {
               style={{ width: "100px", borderRadius: "50px" }}
             />
           )}
-          <h2>Welcome {user && user.displayName}</h2>
-          {user && <p>Email: {user.email}</p>}
-          {usn && <p>USN: {usn}</p>}
+          <h2 className="pt-2 mb-0">Welcome {user && user.displayName}</h2>
           <div>
          
 
+          </div>
+        </div>
+        <div className="notice-container">
+        <div className="notice-head">
+          <h5 style={{fontSize: '15px', maxWidth: '150px'}}>Notices</h5>
+          <BsFilter/>
+          </div>
+          <div className="notices">
+            No new Notices
           </div>
         </div>
       </div>

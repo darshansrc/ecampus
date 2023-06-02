@@ -42,7 +42,7 @@ const FacultyMobileNav = () => {
 		</div>
 		</NavLink>		
 	</div>
-	<div class="mobile-bottom-nav__item">
+	<div class="faculty-mobile-bottom-nav__item">
 	<NavLink style={{textDecoration: 'none'}}
 	to={'/faculty/dashboard/attendance/history'}
 	className={ window.location.pathname.endsWith("/history") ? 'active-button' : 'inactive-button'}
@@ -56,7 +56,7 @@ const FacultyMobileNav = () => {
 
 	
 	
-	<div class="mobile-bottom-nav__item">
+	<div class="faculty-mobile-bottom-nav__item">
     <NavLink style={{textDecoration: 'none'}}
 	to={'/faculty/dashboard/profile'}
 	className={ window.location.pathname.endsWith("/profile") ? 'active-button' : 'inactive-button'}>
@@ -65,8 +65,8 @@ const FacultyMobileNav = () => {
 			{user.photoURL ?             <img
               src={user.photoURL}
               alt="Profile"
-              style={ window.location.pathname.endsWith("/profile") ? { width: "25px", borderRadius: "50px" ,border: '1px solid #9e1d65'} : { width: "25px", borderRadius: "50px" } }
-
+              style={ window.location.pathname.endsWith("/profile") ? { border: '1px solid #9e1d65'} : { width: "25px"} }
+              className='profile-image'
             /> :<CgProfile  style={{fontSize: '25px'}}/>}
 			
 			</i>

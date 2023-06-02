@@ -84,13 +84,23 @@ tr:hover {
 
 
 
-.table-container thead th {
+ th {
   position: sticky;
   top: 0;
-  background-color: rgba(158, 29, 101,1);
+  background-color: rgb(158, 29, 101);
   color: white;
-  z-index: -1;
-  opacity: 1;
+}
+
+
+.sub-dropdown{
+  padding: 5px;
+  border-radius: 4px;
+  height: 40px;
+  border: 1px solid #ccc;
+  background-color: white;
+  width: 100%;
+  font-size: 15px;
+  color: black;
 }
 
 

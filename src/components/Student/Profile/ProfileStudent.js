@@ -140,7 +140,7 @@ const ProfileStudent = () => {
             </li>
             <li>
               <button className="logoutbutton" onClick={handleLogout}>
-                <FiLogOut style={{ marginRight: "4px", marginBottom: "2px" }} />
+                <FiLogOut style={{ marginRight: "0px", marginBottom: "2px" }} />
                 Logout
               </button>
             </li>

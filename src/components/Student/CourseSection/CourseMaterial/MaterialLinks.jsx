@@ -64,7 +64,7 @@ export default [
       GoogleSite: "",
     },
     {
-      Subject: "Ability Enhancement Course- IV--UnixShell Programming (21CS482)",
+      Subject: "UnixShell Programming (21CS482)",
       abbriviation: "AE",
       StaffName: "SP",
       GoogleClassroom: "",
@@ -77,11 +77,11 @@ export default [
       GoogleClassroom: "",
       GoogleSite: "",
     },
-    {
-      Subject: "Additional Mathematics - II (21MATDIP41)",
-      abbriviation: "DIPMAT",
-      StaffName: "Dr.Nagabhushan",
-      GoogleClassroom: "",
-      GoogleSite: "",
-    },
+    // {
+    //   Subject: "Additional Mathematics - II (21MATDIP41)",
+    //   abbriviation: "DIPMAT",
+    //   StaffName: "Dr.Nagabhushan",
+    //   GoogleClassroom: "",
+    //   GoogleSite: "",
+    // },
   ];

@@ -6,7 +6,11 @@ const CgpaMarksDashboard = () => {
     <>
      <StudentTopNavbar text={'Marks'}/>
 
-    <div>cgpaMarksDashboard</div>
+     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh',}} className='text-center'>
+  <div>
+    Coming Soon
+  </div>
+</div>
     </>
   )
 }

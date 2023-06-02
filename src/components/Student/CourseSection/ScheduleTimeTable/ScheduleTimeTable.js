@@ -89,14 +89,14 @@ const Week = StudentTimedata.map((day) => (
 export default function ScheduleTimeTable() {
   return (
     <>
-      <h4 style={{ textAlign: "center", fontWeight: "700" }}>
+      <h5 style={{ textAlign: "center", margin: '20px'}}>
         Schedule Time Table
-      </h4>
+      </h5>
       <div className="tt-container">
        <div className="ScheduleTimeTable">
         <table className="mtable">
           <tr>
-            <th>Time 1</th>
+            <th>Date & Time</th>
             <th>9:00 - 10:00</th>
             <th>10:00 - 11:00</th>
             <th>11:00 - 11:20</th>
