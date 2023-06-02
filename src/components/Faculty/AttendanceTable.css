@@ -1,7 +1,4 @@
-
-
-
-.t-container{
+.t-container {
   justify-content: center;
   margin: 0 auto;
   width: 90%;
@@ -12,7 +9,7 @@
   margin-top: 80px;
 }
 
-.t-filter{
+.t-filter {
   padding: 10px;
   display: flex;
 
@@ -20,46 +17,44 @@
 }
 
 .mtable {
-  
   justify-content: center;
   margin: 0 auto;
   overflow-x: auto;
-  
+
   overflow-x: auto;
   border: 1px solid grey;
   border-radius: 10px;
   font-size: 11px;
-
 }
- table {
+table {
   border-collapse: collapse;
   width: 100%;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #a5a5a5;
   padding: 8px;
   text-align: center;
-  
-  white-space:break-spaces;
 
+  white-space: break-spaces;
 }
 
 th {
   background-color: #f2f2f2;
-  
+
   font-weight: bold;
 }
 
 tr:nth-child(even) {
-  background-color: rgba(127,106,152,0.3);
+  background-color: rgba(127, 106, 152, 0.3);
 }
 
 tr:hover {
   background-color: none;
 }
 
- /* .attendance-presentt {
+/* .attendance-presentt {
   background-color: #b9e1b9;
   
   
@@ -69,8 +64,7 @@ tr:hover {
   background-color: #f5b7b1;
 }  */
 
-
-.atttable{
+.atttable {
   width: 90%;
   max-width: 1200px;
   position: relative;
@@ -81,18 +75,14 @@ tr:hover {
   max-height: 500px; /* Adjust the maximum height as needed */
 }
 
-
-
-
- th {
+th {
   position: sticky;
   top: 0;
   background-color: rgb(158, 29, 101);
   color: white;
 }
 
-
-.sub-dropdown{
+.sub-dropdown {
   padding: 5px;
   border-radius: 4px;
   height: 40px;
