@@ -89,6 +89,7 @@ export function AttendanceTable() {
     { value: "21CS44", label: "21CS44 (Operating System)" },
     { value: "21BE45", label: "21BE45 (Biology for Engineers)" },
     { value: "21UH49", label: "Universal Human Values" },
+    { value: "21CSL42", label: "DAA Laboratory" },
   ];
 
   const handleSubjectChange = (event) => {
