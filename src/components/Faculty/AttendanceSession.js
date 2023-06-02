@@ -21,7 +21,6 @@ export default function AttendanceSession() {
   const [selectedSession, setSelectedSession] = useState(null);
   const [subjects, setSubjects] = useState({});
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-  const [labisSelected, setLabisSelected] = useState(false);
 
   const { user } = useUserAuth();
 
@@ -304,42 +303,6 @@ export default function AttendanceSession() {
             </select>
           </div>
         </div>
-        {labisSelected && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "15px",
-              marginBottom: "50px",
-            }}
-          >
-            <div style={{ width: "360px" }}>
-              <p
-                htmlFor="sessionSelect"
-                style={{
-                  paddingBottom: "1px",
-                  marginBottom: "3px",
-                  paddingTop: "15px",
-                }}
-              >
-                Choose Session Time:
-              </p>
-              <select
-                id="sessionSelect"
-                value={selectedSession}
-                onChange={handleSessionChange}
-                className="sub-dropdown"
-              >
-                <option value="">Select Session time:</option>
-                {sessionOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        )}
 
         <button
           className="submitAttendance"
