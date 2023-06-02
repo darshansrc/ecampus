@@ -146,8 +146,6 @@ export default function AttendanceSession() {
       }
     });
 
-  
-
     return (
       <div className={`modal ${isOpen ? 'open' : ''}`}>
         <div className="modal-content">
@@ -159,7 +157,7 @@ export default function AttendanceSession() {
           <div className='modal-absentees'>
           <ul style={{listStyle: 'none' , fontSize: '15px'}}>
             {absentStudents.map(student => (
-              <li key={student.sUSN}>{ Number(student.sUSN.toString().slice(-3))+'. '+student.sName}</li>
+              <li key={student.sUSN}>{student.sName}</li>
             ))}
           </ul>
           </div>
