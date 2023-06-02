@@ -150,12 +150,14 @@ export default function AttendanceSession() {
       <div className={`modal ${isOpen ? 'open' : ''}`}>
         <div className="modal-content">
           <h4>Confirm Attendance Submission</h4>
-          <p>Are you sure you want to submit attendance?</p>
+         
+          <p>Subject: {selectedSubject}</p>
+          <p>Time: {selectedSession}</p>
           <p>Students Present: {presentCount}</p>
           <p>Students Absent: {absentCount}</p>
           <p>List of Absent Students:</p>
           <div className='modal-absentees'>
-          <ul style={{listStyle: 'none' , fontSize: '15px'}}>
+          <ul style={{ fontSize: '15px'}}>
             {absentStudents.map(student => (
               <li key={student.sUSN}>{student.sName}</li>
             ))}
