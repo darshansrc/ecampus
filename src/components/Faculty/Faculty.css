@@ -1,5 +1,5 @@
 .auth-body{
-    background-color: rgb(240,240,240) ;
+    background-color: rgba(127,106,152,0.3) ;
     min-width: 100%;
     position: fixed;
     min-height: 100%;
@@ -17,7 +17,7 @@
     font-family: 'Golos Text', sans-serif;
     position: fixed;
     max-width: 85%;
-    
+   
     top: 50%;
     left: 50%;
     z-index: -3;
@@ -35,7 +35,7 @@
       padding-top: 30px;
       padding-bottom: 35px;
       border-radius: 3px;
-      box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.5);
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
       font-family: 'Golos Text', sans-serif;
       background-color: #fff;
   
