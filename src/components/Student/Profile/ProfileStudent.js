@@ -7,6 +7,9 @@ import "./StudentProfile.css";
 import StudentTopNavbar from "../MobileNav/StudentTopNavbar";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { VscFeedback } from "react-icons/vsc";
+import { SiStylelint } from "react-icons/si";
+import { RxInfoCircled } from "react-icons/rx";
 
 const dropIn = {
   hidden: {
@@ -38,8 +41,8 @@ const ProfileStudent = () => {
   const { user, logOut } = useUserAuth();
   const [usn, setUsn] = useState("");
   const [feedback, setFeedback] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [IsFeedBackModalOpen, setIsFeedBackModalOpen] = useState(false);
+  const [isFeedBackSubmitted, setIsFeedBackSubmitted] = useState(false);
 
   const getUserData = async (uid) => {
     try {
@@ -86,14 +89,14 @@ const ProfileStudent = () => {
         time: Timestamp.now(),
       });
 
-      // Clear the feedback input and show "Submitted Successfully" message
+      // Clear the feedback input and show "FeedBackSubmitted Successfully" message
       setFeedback("");
-      setIsSubmitted(true);
-      setIsModalOpen(false);
+      setIsFeedBackSubmitted(true);
+      setIsFeedBackModalOpen(false);
 
-      // Reset the "Submitted Successfully" message after 2 seconds
+      // Reset the "FeedBackSubmitted Successfully" message after 2 seconds
       setTimeout(() => {
-        setIsSubmitted(false);
+        setIsFeedBackSubmitted(false);
       }, 2000);
     } catch (error) {
       console.log(error);
@@ -102,8 +105,8 @@ const ProfileStudent = () => {
 
   return (
     <>
-      <StudentTopNavbar text={"Profile"} />
-      {isModalOpen && <div className="blur-background" />}
+      <StudentTopNavbar text={"Profile"} handleLogout={() => handleLogout()} />
+      {IsFeedBackModalOpen && <div className="blur-background" />}
       <div className="profile-container">
         <div className="profile-content">
           {user && user.photoURL && (
@@ -126,21 +129,38 @@ const ProfileStudent = () => {
             <li>
               <button
                 style={{ border: "none", backgroundColor: "transparent" }}
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => setIsFeedBackModalOpen(true)}
               >
+                <VscFeedback
+                  style={{ marginRight: "4px", marginBottom: "2px" }}
+                />
                 Submit Feedback
               </button>
             </li>
             <li>
               <button
-                style={{ border: "none", backgroundColor: "transparent" }}
+                style={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
+                <RxInfoCircled
+                  style={{ marginRight: "4px", marginBottom: "2px" }}
+                />
                 <Link to="/student/dashboard">About</Link>
               </button>
             </li>
             <li>
-              <button className="logoutbutton" onClick={handleLogout}>
-                <FiLogOut style={{ marginRight: "0px", marginBottom: "2px" }} />
+              <button
+                style={{
+                  padding: 0,
+                }}
+                className="logoutbutton"
+                onClick={handleLogout}
+              >
+                <FiLogOut style={{ marginRight: "4px", marginBottom: "2px" }} />
                 Logout
               </button>
             </li>
@@ -155,7 +175,10 @@ const ProfileStudent = () => {
               <button
                 style={{ border: "none", backgroundColor: "transparent" }}
               >
-                <Link to="/student/dashboard">Themes</Link>
+                <SiStylelint
+                  style={{ marginRight: "4px", marginBottom: "2px" }}
+                />
+                Themes
               </button>
             </li>
           </ul>
@@ -163,7 +186,7 @@ const ProfileStudent = () => {
       </div>
 
       <AnimatePresence>
-        {isModalOpen && (
+        {IsFeedBackModalOpen && (
           <motion.div
             className="feedback-modal"
             variants={dropIn}
@@ -188,7 +211,7 @@ const ProfileStudent = () => {
                 </button>
                 <button
                   className="cancel-button"
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => setIsFeedBackModalOpen(false)}
                 >
                   Cancel
                 </button>
@@ -197,7 +220,7 @@ const ProfileStudent = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      {isSubmitted && (
+      {isFeedBackSubmitted && (
         <div className="success-message">
           <p>Submitted Successfully!</p>
         </div>
