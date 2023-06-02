@@ -1,0 +1,33 @@
+.notice-container{
+    background-color: #f5f5f5;
+    padding: 10px;
+    max-width: 90%;
+    min-height: 400px;
+    margin: 40px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    
+}
+
+.notices{
+    background-color: rgb(255, 255, 255);
+    min-height: 400px;
+    border-radius: 5px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.bsFilter{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: 0px;
+}
+
+.notice-head{
+    display: flex;
+    gap: 80%;
+    margin-bottom: 10px;
+}

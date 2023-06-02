@@ -1,0 +1,10 @@
+.CourseMaterial {
+    
+    height: fit-content;
+    overflow: auto;
+
+  }
+  .CourseMaterial td,
+  th {
+    white-space: pre-line;
+  }

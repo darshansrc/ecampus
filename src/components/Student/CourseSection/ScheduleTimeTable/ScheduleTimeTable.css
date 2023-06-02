@@ -1,0 +1,52 @@
+.ScheduleTimeTable {
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+    font-weight: 00;
+    font-size: 8px;
+
+  }
+  
+  .dayType1 {
+    background-color: white;
+  }
+  
+  .ScheduleTimeTable .dayType2 {
+    background-color: #7f6a984d;
+    color: black;
+  }
+  
+  table {
+    width: 100%;
+    border: none;
+  }
+  
+  .ScheduleTimeTable th {
+    white-space: nowrap;
+    
+  }
+
+  .tt-container{
+    overflow-x: auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #7f6a984d;
+    box-shadow: 5px black;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+ 
+  }
+
+  th {
+    position: sticky;
+    top: 0;
+    background-color: rgba(158, 29, 101,1);
+    color: white;
+    z-index: -1;
+    opacity: 1;
+  }
+
+  
