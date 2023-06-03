@@ -90,12 +90,12 @@ export default function ScheduleTimeTable() {
   return (
     <>
       <h5 style={{ textAlign: "center", margin: '20px'}}>
-        Schedule Time Table
+        Class Schedule
       </h5>
       <div className="tt-container">
        <div className="ScheduleTimeTable">
-        <table className="mtable">
-          <tr>
+        <table className="mtable" >
+          <tr >
             <th>Date & Time</th>
             <th>9:00 - 10:00</th>
             <th>10:00 - 11:00</th>

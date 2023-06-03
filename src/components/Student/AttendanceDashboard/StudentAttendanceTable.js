@@ -11,6 +11,10 @@ import { Chart } from 'chart.js/auto';
 import 'bootstrap/dist/css/bootstrap.css'
 import StudentTopNavbar from '../MobileNav/StudentTopNavbar';
 
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+
+
+
 function StudentAttendanceTable() {
   const { attendanceData, setAttendanceData } = useContext(AttendanceContext);
  
@@ -43,7 +47,7 @@ function StudentAttendanceTable() {
   useEffect(() => {
     async function fetchAttendanceData() {
       try {
-        const attendanceRefs = ['21CS41', '21CS42', '21CS43', '21CS44', '21BE45', '21CIP47' , '21CS482' , '21UH49'].map((subject) =>
+        const attendanceRefs = ['21CS41', '21CS42', '21CS43', '21CS44', '21BE45', '21CIP47' , '21CS482' , '21UH49','21CSL46','21CSL42','21CSL43'].map((subject) =>
           collection(db, 'ISE', 'attendance', subject)
         );
         const attendanceSnapshots = await Promise.all(attendanceRefs.map((ref) => getDocs(ref)));
@@ -66,6 +70,15 @@ function StudentAttendanceTable() {
     { value: '21CIP47', label: 'Constitution of India & Professional Ethics (21CIP47)' },
     { value: '21CS482', label: 'Unix Shell Programming (21CS482)'},
     { value: '21UH49', label: 'Universal Human Values (21UH49)'},
+    { value: '21CSL46', label: 'Python Programming Laboratory (21CSL46)' },
+    { value: '21CSL42', label: 'Design and Analysis of Algorithms Laboratory' },
+    { value: '21CSL43', label: 'Microcontroller and Embedded System Laboratory' },
+  ];
+
+  const labSubjectOption = [
+    { value: '21CSL46', label: 'Python Programming Laboratory (21CSL46)' },
+    { value: '21CSL42', label: 'Design and Analysis of Algorithms Laboratory' },
+    { value: '21CSL43', label: 'Microcontroller and Embedded System Laboratory' },
   ];
 
   const getAttendanceCount = (subjectIndex) => {
@@ -90,15 +103,25 @@ function StudentAttendanceTable() {
   useEffect(() => {
     if (chartRef && chartRef.current) {
       const attendancePercentages = attendanceData.map((data, index) => getAttendancePercentage(index));
-
+  
+      const backgroundColors = attendancePercentages.map((percentage) => {
+        if (percentage > 75) {
+          return 'rgba(127,106,152,1)'; // Green color for attendance above 75
+        } else if (percentage > 50) {
+          return 'rgba(127,106,152,1)'; // Yellow color for attendance between 50 and 75
+        } else {
+          return 'rgba(127,106,152,1)'; // Red color for attendance below 50
+        }
+      });
+  
       const ctx = chartRef.current.getContext('2d');
-
+  
       if (chartRef.current.chart) {
         chartRef.current.chart.destroy(); // Destroy the previous chart instance
       }
-
+  
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clear the canvas
-
+  
       chartRef.current.chart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -107,7 +130,7 @@ function StudentAttendanceTable() {
             {
               label: 'Attendance Percentage',
               data: attendancePercentages,
-              backgroundColor: 'rgba(127,106,152,1)',
+              backgroundColor: backgroundColors,
               borderColor: 'rgba(75, 192, 192, 0.1)',
               borderWidth: 1,
             },
@@ -123,11 +146,17 @@ function StudentAttendanceTable() {
               },
             },
           },
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
         },
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attendanceData, subjectOptions]);
+  
 
   const totalClassesHeld = attendanceData.reduce((total, data, index) => total + getClassCount(index), 0);
 
@@ -149,7 +178,18 @@ function StudentAttendanceTable() {
           </div>
 
         </div>
-        <div style={{ borderRadius: '10px' ,overflow: 'hidden', marginTop: '20px', boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)' }}>
+        <canvas ref={chartRef} style={{ marginTop: '20px', width: '450px' }}></canvas>
+        
+        <Tabs style={{marginTop: '20px'}}>
+  <TabList>
+    <Tab style={{width: '50%',textAlign: 'center'}}>Theory</Tab>
+    <Tab style={{width: '50%',textAlign: 'center'}}>Lab</Tab>
+  </TabList>
+
+  <TabPanel>
+  
+        <div style={{ borderRadius: '10px' ,overflow: 'hidden', marginTop: '25px', boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)' }}>
+          
         <table className="mtable" style={{ }}>
           <thead>
             <tr>
@@ -160,7 +200,7 @@ function StudentAttendanceTable() {
             </tr>
           </thead>
           <tbody>
-            {attendanceData.map((data, index) => (
+            {attendanceData.slice(0, 8).map((data, index) => (
               <tr key={index}>
                 <td>{subjectOptions[index].label}</td>
                 <td>{getClassCount(index)}</td>
@@ -171,7 +211,35 @@ function StudentAttendanceTable() {
           </tbody>
         </table>
         </div>
-        <canvas ref={chartRef} style={{ marginTop: '15px', width: '450px' }}></canvas>
+        
+        </TabPanel>
+        <TabPanel>
+
+        <div style={{ borderRadius: '10px' ,overflow: 'hidden', marginTop: '25px', boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.3)' }}>
+        <table className="mtable" style={{}}>
+          <thead>
+            <tr>
+              <th>Subject Code</th>
+              <th>Classes Held</th>
+              <th>Classes Attended</th>
+              <th>Attendance Percentage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {attendanceData.slice(-3).map((data, index) => (
+              <tr key={index}>
+                <td>{subjectOptions[subjectOptions.length - 3 + index]?.label}</td>
+                <td>{getClassCount(subjectOptions.length - 3 + index)}</td>
+                <td>{getAttendanceCount(subjectOptions.length - 3 + index)}</td>
+                <td>{Math.round(getAttendancePercentage(subjectOptions.length - 3 + index))}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+        </TabPanel>
+        </Tabs>
+        
         </div>
       </div>
     </>
