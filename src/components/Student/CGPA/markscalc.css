@@ -1,0 +1,77 @@
+.inner-construction {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  height: 35svh;
+  width: 510px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("./Construction.jpg");
+}
+
+.rick {
+  position: fixed;
+  top: 47vh;
+  left: 39vw;
+  background-image: url("./RickIsBack.jpeg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 10svh;
+  width: 250px;
+}
+
+.dance {
+  position: fixed;
+  left: 45%;
+  bottom: 20svh;
+  height: 40px;
+  width: 40px;
+  /* background-color: #9e1d6400; */
+}
+
+@media (max-width: 467px) {
+  .rick {
+    position: fixed;
+    top: 45vh;
+    left: 13vw;
+    height: 10svh;
+    width: 300px;
+  }
+  .inner-construction {
+    height: 35svh;
+    width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rick {
+    position: fixed;
+    top: 45vh;
+    left: 30vw;
+    height: 10svh;
+    width: 300px;
+  }
+}
+
+@media (max-width: 668px) {
+  .rick {
+    position: fixed;
+    top: 45vh;
+    left: 25vw;
+    height: 10svh;
+    width: 300px;
+  }
+}
+
+@media (max-width: 522px) {
+  .rick {
+    position: fixed;
+    top: 45vh;
+    left: 20vw;
+    height: 10svh;
+    width: 300px;
+  }
+}
