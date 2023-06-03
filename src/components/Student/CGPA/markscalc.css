@@ -16,9 +16,6 @@
   position: fixed;
   top: 47vh;
   left: 39vw;
-  background-image: url("./RickIsBack.jpeg");
-  background-size: contain;
-  background-repeat: no-repeat;
   height: 10svh;
   width: 250px;
 }

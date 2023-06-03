@@ -16,10 +16,15 @@ const CgpaMarksDashboard = () => {
           height: "100vh",
         }}
         className="text-center"
-      >
-        <div>Coming Soon</div>
+      ></div>
+      <div className="rick">
+        <a
+          style={{ textDecoration: "none" }}
+          href="https://youtu.be/dQw4w9WgXcQ"
+        >
+          💃💃💃💃💃💃💃💃💃
+        </a>
       </div>
-      <div className="rick"></div>
       <motion.div drag class="inner-construction"></motion.div>
       <motion.div
         className="dance"
