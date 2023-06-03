@@ -96,7 +96,7 @@
   background-color: transparent;
   cursor: pointer;
   width: 100%;
-  max-width: 375px;
+  max-width: 95%;
   border-radius: 5px;
   overflow: hidden;
   gap: 14px;
@@ -106,7 +106,7 @@
 
 @media (min-width: 768px) {
   .cardd {
-    width: 800px; 
+    width: 450px; 
   }
 }
 
@@ -170,7 +170,7 @@
 
 
 .submitAttendance {
-  background-color: #c71a68;
+  background-color: #d02d77;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -180,44 +180,79 @@
   font-size: 16px;
   border-radius: 2px;
   cursor: pointer;
-  width: 100%
+  width: 100%;
+
   
 }
 
 .submitAttendance:hover {
-  background-color: #c71a68;
+  background-color: #d02d77;
 }
 
 
 .multibutton {
-  background-color: #af4c79;
+  background-color: #d02d77;
   border: none;
   color: white;
-  padding: 10px 25px;
+  padding: 5px 25px;
   text-align: center;
   text-decoration: none;
   display: block;
-  margin: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
   font-size: 16px;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 80px;
   width:120px;
   text-align: center;
+  max-height: 40px;
+  min-height: 40px;
+  max-width: 150px;
   
 }
 
 
 
+.move-to-top-button {
 
-div.buttonContainer {
+  max-width: 40px;
+  max-height: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d02d77;
+  color: #fff;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  }
+
+
+.buttonContainer {
   display: flex;
   justify-content: center;
-  
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 64px;
+  width: 100%;
+  border-top: 1px solid #b5b5b5;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
 
+.buttonContainer button {
+  flex: 1;
+}
 
 
 
@@ -312,6 +347,29 @@ div.buttonContainer {
   align-items: center;
 }
 
+.text-present {
+  color: #fff;
+  background-color: green;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.text-absent {
+  color: #fff;
+  background-color: red;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+  justify-content: center;
+  align-items: center;
+
+}
+
 .attendance-absent {
   color: #fff;
   background-color: red;
@@ -325,28 +383,10 @@ div.buttonContainer {
 }
 
 
-.move-to-top-button {
-position: fixed;
-bottom: 12%;
-right: 5%;
-z-index: 999;
-display: flex;
-align-items: center;
-justify-content: center;
-width: 40px;
-height: 40px;
-border-radius: 50%;
-background-color: #af4c79;
-color: #fff;
-font-size: 16px;
-border: none;
-cursor: pointer;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-font-size: 12px;
-}
+
 
 .move-to-top-button:hover {
-background-color: #af4c79;
+background-color: #d02d77;
 }
 
 .move-to-top-button:focus {
@@ -398,7 +438,7 @@ margin-top: 20px;
 
 .modal-buttons button {
 margin-left: 10px;
-color: #c71a68;
+color: #d02d77;
 background-color: rgb(255, 255, 255);
 border: none;
 }
@@ -444,5 +484,38 @@ p{
     min-height: 100%;
     margin-top: 0px;
     z-index: -2;
+
+}
+
+
+.success-container{
+  
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  background-color: rgb(255, 255, 255);
+  max-width: 85%;
+  padding-top: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -3;
+  transform: translate(-50%, -50%);
+  box-shadow: 2px 2px 2px #bbbbbb;
+  border-radius: 5px;
+  padding-bottom: 30px;
+  text-align: left;
+  
+
+}
+
+
+.success-info{
+  margin-bottom: 20px;
 
 }

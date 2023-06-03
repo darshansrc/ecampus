@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import FacultyMobileNav from "./FacultyMobileNav";
 import StudentTopNavbar from "../Student/MobileNav/StudentTopNavbar";
 import MoveToTop from "./MoveToTop";
+import { MdArrowBackIosNew } from 'react-icons/md' 
 
 export default function AttendanceSession() {
   const [attendance, setAttendance] = useState(data);
@@ -24,7 +25,37 @@ export default function AttendanceSession() {
   const [isLabSubject, setIsLabSubject] = useState(false);
   const [selectedBatch, setSelectedBatch] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(false);
+
+
+ 
+  const clearState = () => {
+    setIsConfirmationModalOpen(false)
+    setAttendance(data);
+    setProgress(0);
+    setSelectedSubject(null);
+    setSelectedSession(null);
+    setPresentCount(0);
+    setAbsentCount(0);
+    setIsSubmitted(false);
+    setIsLabSubject(null);
+    setSelectedBatch(null);
+
+
+    // reset other state variables to their initial values or desired empty state
+  };
+
+  
   const { user } = useUserAuth();
+
+  const handleClick = () => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      setProgress(1);
+    }, 500);
+  };
 
   const getUserData = async (uid) => {
     try {
@@ -127,15 +158,18 @@ export default function AttendanceSession() {
     {value: '3' , label: 'Batch 3'},
   ]
 
-  const sessionOptions = [
-    { value: "9:00am - 10:00am", label: "9:00am - 10:00am (Theory)" },
-    { value: "10:00am - 11:00am", label: "10:00am -11:00am (Theory)" },
-    { value: "11:20am - 12:20pm", label: "11:20am - 12:20pm (Theory)" },
-    { value: "12:20pm - 1:20pm", label: "12:20pm - 1:20pm (Theory)" },
-    { value: "2:00pm - 3:00pm", label: "2:00pm - 3:00pm (Theory)" },
-    { value: "3:00pm - 4:00pm", label: "3:00pm - 4:00pm (Theory)" },
-    { value: "9:00am - 11:00am", label: "9:00am - 11:00am (Lab)" },
-    { value: "2:00pm - 4:00pm", label: "2:00pm - 4:00pm (Lab)" },
+  const sessionOptions = isLabSubject ?  [
+    { value: "9:00am - 11:00am", label: "9:00am - 11:00am " },
+    { value: "2:00pm - 4:00pm", label: "2:00pm - 4:00pm " },
+    
+  ] : [
+    { value: "9:00am - 10:00am", label: "9:00am - 10:00am " },
+    { value: "10:00am - 11:00am", label: "10:00am -11:00am " },
+    { value: "11:20am - 12:20pm", label: "11:20am - 12:20pm " },
+    { value: "12:20pm - 1:20pm", label: "12:20pm - 1:20pm " },
+    { value: "2:00pm - 3:00pm", label: "2:00pm - 3:00pm " },
+    { value: "3:00pm - 4:00pm", label: "3:00pm - 4:00pm " },
+
     
   ];
  
@@ -211,7 +245,7 @@ export default function AttendanceSession() {
 
   function handleLabSelection (subjectcode){
     
-   if(subjectcode === '21CSL46'||subjectcode === "21CSL42"||subjectcode === "21CSL43"){
+   if(subjectcode === '21CSL46'|| subjectcode === "21CSL42"|| subjectcode === "21CSL43"){
     setIsLabSubject(true);
    }
    else{
@@ -312,7 +346,7 @@ export default function AttendanceSession() {
             display: "flex",
             justifyContent: "center",
             marginTop: "15px",
-            marginBottom: "50px",
+            marginBottom: "0px",
           }}
         >
           <div style={{ width: "360px" }}>
@@ -377,15 +411,17 @@ export default function AttendanceSession() {
           </div>
         </div>)}
 
-        <button
-          className="submitAttendance"
-          disabled={!selectedSubject || !selectedSession}
-          onClick={() => {
-            setProgress(1);
-          }}
-        >
-          Next
-        </button>
+         <button
+  className="submitAttendance"
+  style={{ marginTop: '30px' }}
+  disabled={!selectedSubject || !selectedSession || (isLabSubject && !selectedBatch)}
+  onClick={() => {
+    setProgress(1);
+  }}
+>
+  Next
+</button>
+
       </div>
     </div>
   );
@@ -394,7 +430,8 @@ export default function AttendanceSession() {
 
 
     <>
-      <div className="mainContainer" style={{ overflow: "hidden" }}>
+
+      <div className="mainContainer" style={{ overflow: "hidden", marginBottom: '160px',marginTop: '100px' }}>
         <h3 style={{ paddingBottom: "10px", textAlign: "center" }}>
           Mark Attendance
         </h3>
@@ -408,39 +445,42 @@ export default function AttendanceSession() {
             color: "#777",
           }}
         >
-          Default All the Students are Marked as Present, Please tap on the
+          By Default All the Students are Marked as Present, Please tap on the
           cards to make changes, confirm the Absentees and submit the form.{" "}
+         
         </h6>
+        <h6 style={{paddingBottom: '15px'}}>[&nbsp;<span className="text-present"> P </span>&nbsp;- Present,&nbsp;&nbsp;<span className="text-absent"> A </span>&nbsp;- Absent&nbsp;] </h6>
         {selectedBatch === null && AllstudentCards}
         {selectedBatch === "1" && Batch1studentCards }
         {selectedBatch === "2" && Batch2studentCards }
         {selectedBatch === "3" && Batch3studentCards}
         
 
-        {attendance.length > 0 && presentCount === 0 && (
+        
           <div className="buttonContainer">
             {progress > 0 && (
               <button
-                className="multibutton"
+                className="move-to-top-button"
                 onClick={() => {
                   setProgress(progress - 1);
                 }}
               >
-                Previous
+                <MdArrowBackIosNew/>
               </button>
             )}
             <button
               className="multibutton"
               onClick={() => {
-                submitAttendance();
+                submitAttendance(); 
               }}
             >
               Submit
             </button>
+            <MoveToTop />
           </div>
-        )}
+       
       </div>
-      <MoveToTop />
+      
       <ConfirmationModal
         isOpen={isConfirmationModalOpen}
         onClose={() => setIsConfirmationModalOpen(false)}
@@ -452,43 +492,52 @@ export default function AttendanceSession() {
   );
 
   const stepThree = (
-    
+    <div className="step1-body" style={{marginTop: '0px'}}>
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+
+     className="success-container"
     >
       {updateFirestore ? (
         <>
+        
           <img src={success} alt="Success" style={{ maxHeight: "150px" }} />
-          <h4 style={{ paddingBottom: "10px", textAlign: "center" }}>
-            Attendance Recorded
+          <h4 style={{ paddingBottom: "10px",fontSize: '20px', textAlign: "center" }}>
+            Attendance Recorded Successfully
           </h4>
-
-
-          {presentCount > 0 && (
-            <p>
-              {presentCount}/{presentCount+absentCount} Present
-            </p>
-          )}
-          {absentCount > 0 && (
-            <p>
-              {absentCount}/{presentCount+absentCount} Absent
-            </p>
-          )}
+          <div className="success-info"> 
+  <div>
+    <span style={{fontWeight: 'bold' , color: 'blue'}}>Subject:</span> <span>{selectedSubject}</span>
+  </div>
+  <div>
+    <span style={{fontWeight: 'bold' , color: 'blue'}}>Time:</span> <span>{selectedSession}</span>
+  </div>
+  {selectedBatch && (
+    <div>
+      <span style={{fontWeight: 'bold' , color: 'blue'}}>Lab Batch:</span> <span>B{selectedBatch}</span>
+    </div>
+  )}
+  {presentCount > 0 && (
+    <div>
+      <span style={{fontWeight: 'bold' , color: 'blue'}}>Students Present:</span> <span>{presentCount}</span>
+    </div>
+  )}
+  {absentCount > 0 && (
+    <div>
+      <span style={{fontWeight: 'bold' , color: 'blue' }}>Students Absent:</span> <span>{absentCount}</span>
+    </div>
+  )}
+</div>
 
           
           <button
             className="submitAttendance"
             onClick={() => {
-              setProgress(0);
+              clearState();
             }}
           >
             Return Home
           </button>
+       
         </>
       ) : (
         <>
@@ -502,13 +551,14 @@ export default function AttendanceSession() {
           <button
             className="submitAttendance"
             onClick={() => {
-              setProgress(0);
+              clearState();
             }}
           >
             Return Home
           </button>
         </>
       )}
+    </div>
     </div>
   );
 
@@ -517,10 +567,11 @@ export default function AttendanceSession() {
       <StudentTopNavbar text={"Attendance"} />
       <FacultyMobileNav />
       {progress === 0 && stepOne}
-      <div className="containerr" style={{ paddingTop: "95px" }}>
+
         {progress === 1 && stepTwo}
+       
         {progress === 2 && stepThree}
-      </div>
+      
     </>
   );
 }

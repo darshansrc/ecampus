@@ -65,7 +65,7 @@ const FacultyMobileNav = () => {
 			{user.photoURL ?             <img
               src={user.photoURL}
               alt="Profile"
-              style={ window.location.pathname.endsWith("/profile") ? { border: '1px solid #9e1d65'} : { width: "25px"} }
+              style={ window.location.pathname.endsWith("/profile") ? {width: "25px", border: '1px solid #9e1d65'} : { width: "25px"} }
               className='profile-image'
             /> :<CgProfile  style={{fontSize: '25px'}}/>}
 			
