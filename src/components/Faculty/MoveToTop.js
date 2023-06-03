@@ -1,32 +1,47 @@
-import React, { useState } from 'react';
-import { AiOutlineArrowUp } from 'react-icons/ai'
+import React, { useState, useEffect } from 'react';
+import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 
 function MoveToTop() {
-  const [showButton, setShowButton] = useState(false);
+
+  const [scrollFactor, setScrollFactor] = useState(false);
+
+
+  const scrollOptions = {
+    behavior: 'smooth',
+    duration: '5000ms', // Set the duration in milliseconds
+  };
 
   const handleScroll = () => {
-    if (window.pageYOffset > 600) {
-      setShowButton(true);
-    } else {
-      setShowButton(false);
-    }
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const currentPosition = window.pageYOffset;
+    const newScrollFactor = currentPosition > maxScroll / 2;
+
+    setScrollFactor(newScrollFactor);
   };
 
   const handleMoveToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollFactor) {
+      window.scrollTo({ top: 0, ...scrollOptions });
+    } else {
+      window.scrollTo({ top: maxScroll, ...scrollOptions });
+    }
   };
 
-  // Attach scroll event listener
-  window.addEventListener('scroll', handleScroll);
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div>
-      {showButton && (
+      { (
         <button className="move-to-top-button" onClick={handleMoveToTop}>
-          <AiOutlineArrowUp/>
-        </button> 
+          {scrollFactor ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}
+        </button>
       )}
-      {/* Rest of your component */}
     </div>
   );
 }

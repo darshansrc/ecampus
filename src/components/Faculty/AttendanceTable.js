@@ -263,25 +263,17 @@ export function AttendanceTable() {
               </div>
             )}
           </div>
+          </div>
           {isLabSubject && (<div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "10px",
-            marginBottom: "50px",
+            marginBottom: '15px',
+            marginLeft: '5%',
+            marginRight: '5%'
           }}
+          
         >
-          <div style={{ width: "360px" }}>
-            <p
-              htmlFor="sessionSelect"
-              style={{
-                paddingBottom: "1px",
-                marginBottom: "3px",
-                paddingTop: "15px",
-              }}
-            >
-              Choose Batch:
-            </p>
+          <div style={{ width: "100%", maxWidth: '350px' }}>
+
             <select
               id="sessionSelect"
               value={selectedBatch} 
@@ -299,7 +291,7 @@ export function AttendanceTable() {
             </select>
           </div>
         </div>)}
-        </div>
+        
         <div className="mtable">
           {attendanceData.length > 0 ? (
             <div className="table-container">

@@ -56,15 +56,7 @@ const Dashboard = () => {
 
           </div>
         </div>
-        <div className="notice-container">
-        <div className="notice-head">
-          <h5 style={{fontSize: '15px', maxWidth: '150px'}}>Notices</h5>
-          <BsFilter/>
-          </div>
-          <div className="notices">
-            No new Notices
-          </div>
-        </div>
+
       </div>
       
     </>

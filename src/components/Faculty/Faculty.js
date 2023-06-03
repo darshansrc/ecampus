@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import {  NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../Backend/Firebase/firebase";
 import { db } from '../Backend/Firebase/firebase';
+
 const Faculty = () => {
 
   const [email, setEmail] = useState("");
