@@ -39,12 +39,9 @@ const Faculty = () => {
           try {  if (userDoc.exists) {
             const userData = userDoc.data();
              if (userData.type === 'faculty') {
-              if (user.emailVerified) {
+             
                 navigate("/faculty/dashboard/attendance");
-              } else {
-                setError("Please verify your email address before logging in.");
-                await logOut();
-              }
+
             } else {
               setError("Only Faculty accounts are allowed to log in.");
               await logOut();

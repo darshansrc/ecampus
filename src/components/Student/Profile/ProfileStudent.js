@@ -54,7 +54,7 @@ const ProfileStudent = () => {
       }
     } catch (error) {
       console.log(error);
-    }
+    } 
   };
 
   if (user) {

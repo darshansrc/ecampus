@@ -34,6 +34,8 @@ import ProfileStudent from './components/Student/Profile/ProfileStudent';
 import StudentTopNavbar from './components/Student/MobileNav/StudentTopNavbar';
 import Test from './components/Student/Test/Test';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import FacultyProfile from './components/Faculty/FacultyProfile';
+import FacultyMobileNav from './components/Faculty/FacultyMobileNav';
 
 function App() {
 
@@ -152,7 +154,7 @@ function App() {
                 path="/faculty/dashboard/attendance/history" 
                 element={
                   <FacultyProtectedRoute >
-                  <StudentTopNavbar text={'Attendance History'}/>
+                  <StudentTopNavbar text={'Attendance History'} />
                     <AttendanceTable/>
                   </FacultyProtectedRoute>
                 }
@@ -161,8 +163,8 @@ function App() {
                 path="/faculty/dashboard/profile" 
                 element={
                   <FacultyProtectedRoute >
-                  <ProfileStudent/>
-                     <StudentMobileNav/>
+                  <FacultyProfile/>
+                  <FacultyMobileNav/>
                   </FacultyProtectedRoute>
                 }
               />

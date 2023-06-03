@@ -404,9 +404,10 @@ border: none;
 }
 
 .modal-absentees {
-  max-height: 300px;
+  max-height: 250px;
   border: none;
   overflow-x: auto;
+  color: rgb(114, 114, 114);
 }
 
 .modal-absentees:only-child {

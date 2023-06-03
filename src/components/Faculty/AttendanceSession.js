@@ -15,13 +15,14 @@ export default function AttendanceSession() {
   const [attendance, setAttendance] = useState(data);
   const [presentCount, setPresentCount] = useState(0);
   const [absentCount, setAbsentCount] = useState(0);
-  const [isSubmitted, setIsSubmitted] = useState(false); // isSubmitted is not used
+  const [, setIsSubmitted] = useState(false); // isSubmitted is not used
   const [progress, setProgress] = useState(0);
-  const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedSubject, setSelectedSubject] = useState(null); 
   const [selectedSession, setSelectedSession] = useState(null);
   const [subjects, setSubjects] = useState({});
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-  const [labisSelected, setLabisSelected] = useState(false);
+  const [isLabSubject, setIsLabSubject] = useState(false);
+  const [selectedBatch, setSelectedBatch] = useState(null);
 
   const { user } = useUserAuth();
 
@@ -32,6 +33,7 @@ export default function AttendanceSession() {
       if (userDoc.exists()) {
         const userData = userDoc.data();
         setSubjects(userData.subject);
+        console.log(userData.subject)
       }
     } catch (error) {
       console.log(error);
@@ -47,14 +49,20 @@ export default function AttendanceSession() {
   const updateFirestore = async () => {
     let presentCount = 0;
     let absentCount = 0;
-
-    attendance.forEach((student) => {
+    selectedBatch ? attendance.filter((student) => student.Batch === Number(selectedBatch)).forEach((student) => {
+      if (student.Present) {
+        presentCount++;
+      } else {
+        absentCount++;
+      }})   
+    : attendance.forEach((student) => {
       if (student.Present) {
         presentCount++;
       } else {
         absentCount++;
       }
     });
+
 
     if (attendance.length > 0 && presentCount > 0) {
       try {
@@ -68,15 +76,24 @@ export default function AttendanceSession() {
 
         const newAttendanceDoc = {
           date: Timestamp.now(),
-          attendance: attendance.map((student) => ({
-            sName: student.sName,
-            sUSN: student.sUSN,
-            Present: student.Present,
-          })),
+          attendance: selectedBatch
+            ? attendance
+                .filter((student) => student.Batch === Number(selectedBatch))
+                .map((student) => ({
+                  sName: student.sName,
+                  sUSN: student.sUSN,
+                  Present: student.Present,
+                }))
+            : attendance.map((student) => ({
+                sName: student.sName,
+                sUSN: student.sUSN,
+                Present: student.Present,
+              })),
           presentCount: presentCount,
           absentCount: absentCount,
           updatedBy: user.displayName,
           sessionTime: sessionTime,
+          Batch: selectedBatch ? selectedBatch : 'theory',
         };
 
         await setDoc(
@@ -95,7 +112,7 @@ export default function AttendanceSession() {
     setAttendance((prevAttendance) => {
       return prevAttendance.map((student) => {
         if (student.sUSN === usn) {
-          return { ...student, Present: !student.Present };
+          return { ...student, Present: !student.Present };    
         } else {
           return student;
         }
@@ -103,21 +120,36 @@ export default function AttendanceSession() {
     });
   }
 
-  const sessionOptions = [
-    { value: "9:00am - 10:00am", label: "9:00am - 10:00am" },
-    { value: "10:00am - 11:00am", label: "10:00am -11:00am" },
-    { value: "11:20am - 12:20pm", label: "11:20am - 12:20pm" },
-    { value: "12:20pm - 1:20pm", label: "12:20pm - 1:20pm" },
-    { value: "2:00pm - 3:00pm", label: "2:00pm - 3:00pm" },
-    { value: "3:00pm - 4:00pm", label: "3:00pm - 4:00pm" },
-  ];
 
+  const batchOptions = [
+    {value: '1' , label: 'Batch 1'},
+    {value: '2' , label: 'Batch 2'},
+    {value: '3' , label: 'Batch 3'},
+  ]
+
+  const sessionOptions = [
+    { value: "9:00am - 10:00am", label: "9:00am - 10:00am (Theory)" },
+    { value: "10:00am - 11:00am", label: "10:00am -11:00am (Theory)" },
+    { value: "11:20am - 12:20pm", label: "11:20am - 12:20pm (Theory)" },
+    { value: "12:20pm - 1:20pm", label: "12:20pm - 1:20pm (Theory)" },
+    { value: "2:00pm - 3:00pm", label: "2:00pm - 3:00pm (Theory)" },
+    { value: "3:00pm - 4:00pm", label: "3:00pm - 4:00pm (Theory)" },
+    { value: "9:00am - 11:00am", label: "9:00am - 11:00am (Lab)" },
+    { value: "2:00pm - 4:00pm", label: "2:00pm - 4:00pm (Lab)" },
+    
+  ];
+ 
   const handleSubjectChange = (event) => {
     setSelectedSubject(event.target.value);
+    handleLabSelection(event.target.value); // Call handleLabSelection function here
   };
 
   const handleSessionChange = (event) => {
     setSelectedSession(event.target.value);
+  };
+
+  const handleBatchChange = (event) => { 
+    setSelectedBatch(event.target.value);
   };
 
   const AllstudentCards = attendance.map((student) => (
@@ -175,33 +207,38 @@ export default function AttendanceSession() {
       )}
     </>
   ));
+ 
 
-  const DiplomastudentCards = attendance.map((student) => (
-    <>
-      {student.Dip && (
-        <StudentCard
-          key={student.sUSN}
-          img={student.Image}
-          USN={student.sUSN}
-          Name={student.sName}
-          Present={student.Present}
-          toggle={() => toggleAttendance(student.sUSN)}
-        />
-      )}
-    </>
-  ));
+  function handleLabSelection (subjectcode){
+    
+   if(subjectcode === '21CSL46'||subjectcode === "21CSL42"||subjectcode === "21CSL43"){
+    setIsLabSubject(true);
+   }
+   else{
+    setIsLabSubject(false);
+    setSelectedBatch(null);
+   }
+    
+  }
+
 
   function ConfirmationModal({ isOpen, onClose, absentStudents }) {
     let presentCount = 0;
     let absentCount = 0;
-
-    attendance.forEach((student) => {
+    selectedBatch ? attendance.filter((student) => student.Batch === Number(selectedBatch)).forEach((student) => {
+      if (student.Present) {
+        presentCount++;
+      } else {
+        absentCount++;
+      }})   
+    : attendance.forEach((student) => {
       if (student.Present) {
         presentCount++;
       } else {
         absentCount++;
       }
     });
+
 
     return (
       <div className={`modal ${isOpen ? "open" : ""}`}>
@@ -304,42 +341,41 @@ export default function AttendanceSession() {
             </select>
           </div>
         </div>
-        {labisSelected && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "15px",
-              marginBottom: "50px",
-            }}
-          >
-            <div style={{ width: "360px" }}>
-              <p
-                htmlFor="sessionSelect"
-                style={{
-                  paddingBottom: "1px",
-                  marginBottom: "3px",
-                  paddingTop: "15px",
-                }}
-              >
-                Choose Session Time:
-              </p>
-              <select
-                id="sessionSelect"
-                value={selectedSession}
-                onChange={handleSessionChange}
-                className="sub-dropdown"
-              >
-                <option value="">Select Session time:</option>
-                {sessionOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+
+        {isLabSubject && (<div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "10px",
+            marginBottom: "50px",
+          }}
+        >
+          <div style={{ width: "360px" }}>
+            <p
+              htmlFor="sessionSelect"
+              style={{
+                paddingBottom: "1px",
+                marginBottom: "3px",
+                paddingTop: "15px",
+              }}
+            >
+              Choose Batch:
+            </p>
+            <select
+              id="sessionSelect"
+              value={selectedBatch}
+              onChange={handleBatchChange}
+              className="sub-dropdown"
+            >
+              <option value="">Select Batch:</option>
+              {batchOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
-        )}
+        </div>)}
 
         <button
           className="submitAttendance"
@@ -355,6 +391,8 @@ export default function AttendanceSession() {
   );
 
   const stepTwo = (
+
+
     <>
       <div className="mainContainer" style={{ overflow: "hidden" }}>
         <h3 style={{ paddingBottom: "10px", textAlign: "center" }}>
@@ -373,14 +411,11 @@ export default function AttendanceSession() {
           Default All the Students are Marked as Present, Please tap on the
           cards to make changes, confirm the Absentees and submit the form.{" "}
         </h6>
-
-        {AllstudentCards}
-        {/* 
-        Batch1studentCards
-        Batch2studentCards
-        Batch3studentCards
-        DiplomastudentCards 
-        */}
+        {selectedBatch === null && AllstudentCards}
+        {selectedBatch === "1" && Batch1studentCards }
+        {selectedBatch === "2" && Batch2studentCards }
+        {selectedBatch === "3" && Batch3studentCards}
+        
 
         {attendance.length > 0 && presentCount === 0 && (
           <div className="buttonContainer">
@@ -417,6 +452,7 @@ export default function AttendanceSession() {
   );
 
   const stepThree = (
+    
     <div
       style={{
         display: "flex",
@@ -432,16 +468,19 @@ export default function AttendanceSession() {
             Attendance Recorded
           </h4>
 
+
           {presentCount > 0 && (
             <p>
-              {presentCount}/{attendance.length} Present
+              {presentCount}/{presentCount+absentCount} Present
             </p>
           )}
           {absentCount > 0 && (
             <p>
-              {absentCount}/{attendance.length} Absent
+              {absentCount}/{presentCount+absentCount} Absent
             </p>
           )}
+
+          
           <button
             className="submitAttendance"
             onClick={() => {
