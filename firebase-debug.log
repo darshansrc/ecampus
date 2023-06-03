@@ -1,0 +1,57 @@
+[debug] [2023-06-03T22:20:27.770Z] ----------------------------------------------------------------------
+[debug] [2023-06-03T22:20:27.773Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2023-06-03T22:20:27.773Z] CLI Version:   12.0.0
+[debug] [2023-06-03T22:20:27.774Z] Platform:      darwin
+[debug] [2023-06-03T22:20:27.774Z] Node Version:  v18.14.1
+[debug] [2023-06-03T22:20:27.785Z] Time:          Sun Jun 04 2023 03:50:27 GMT+0530 (India Standard Time)
+[debug] [2023-06-03T22:20:27.786Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-06-03T22:20:27.934Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-06-03T22:20:27.935Z] > authorizing via signed-in user (ecampus.rvitm@rvei.edu.in)
+[debug] [2023-06-03T22:20:27.935Z] [iam] checking project ecampus-rvitm for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-06-03T22:20:27.937Z] > refreshing access token with scopes: []
+[debug] [2023-06-03T22:20:27.941Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-06-03T22:20:27.942Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-06-03T22:20:28.715Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-06-03T22:20:28.715Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-06-03T22:20:28.766Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecampus-rvitm:testIamPermissions [none]
+[debug] [2023-06-03T22:20:28.766Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecampus-rvitm:testIamPermissions x-goog-quota-user=projects/ecampus-rvitm
+[debug] [2023-06-03T22:20:28.766Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecampus-rvitm:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-06-03T22:20:30.309Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecampus-rvitm:testIamPermissions 200
+[debug] [2023-06-03T22:20:30.310Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecampus-rvitm:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-06-03T22:20:30.311Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecampus-rvitm [none]
+[debug] [2023-06-03T22:20:32.140Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecampus-rvitm 200
+[debug] [2023-06-03T22:20:32.141Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecampus-rvitm {"projectId":"ecampus-rvitm","projectNumber":"364385149765","displayName":"ecampus-rvitm","name":"projects/ecampus-rvitm","resources":{"hostingSite":"ecampus-rvitm","realtimeDatabaseInstance":"ecampus-rvitm-default-rtdb","storageBucket":"ecampus-rvitm.appspot.com","locationId":"asia-south1"},"state":"ACTIVE","etag":"1_5bdbc094-f1d5-498c-b4d9-a5d026b3f725"}
+[info] 
+[info] === Deploying to 'ecampus-rvitm'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2023-06-03T22:20:32.156Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/ecampus-rvitm/versions [none]
+[debug] [2023-06-03T22:20:32.156Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/ecampus-rvitm/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2023-06-03T22:20:35.239Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/ecampus-rvitm/versions 200
+[debug] [2023-06-03T22:20:35.240Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/ecampus-rvitm/versions {"name":"projects/364385149765/sites/ecampus-rvitm/versions/85a0343872498572","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[ecampus-rvitm]: beginning deploy... 
+[info] i  hosting[ecampus-rvitm]: found 14 files in build 
+[debug] [2023-06-03T22:20:35.255Z] [hosting] uploading with 200 concurrency
+[debug] [2023-06-03T22:20:37.624Z] [hosting] hash cache [YnVpbGQ] stored for 14 files
+[debug] [2023-06-03T22:20:37.625Z] [hosting][hash queue][FINAL] {"max":2353,"min":15,"avg":202.71428571428572,"active":0,"complete":14,"success":14,"errored":0,"retried":0,"total":14,"elapsed":2363}
+[debug] [2023-06-03T22:20:37.626Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/364385149765/sites/ecampus-rvitm/versions/85a0343872498572:populateFiles [none]
+[debug] [2023-06-03T22:20:37.626Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/364385149765/sites/ecampus-rvitm/versions/85a0343872498572:populateFiles {"files":{"/asset-manifest.json":"2e147ecc4056ec241e1cc00313237612eb1ca6d8e4eaa769fc9127ec4fbc1939","/manifest.json":"04356cc04999407efd27c105e9a793d55bf944b00c3602114f58c82ebdb2fcf7","/robots.txt":"391d14b3c2f8c9143a27a28c7399585142228d4d1bdbe2c87ac946de411fa9a2","/static/js/787.c0c9fd87.chunk.js":"dd2f543eeb0ac580b7ed8ca836cb02756e5f8848bd251a9820a3571c52f45c69","/static/js/787.c0c9fd87.chunk.js.map":"0c152a8ffddb55f547da374ffd006aa4c40a0b6d3a879b4391f474c7a950b67b","/static/js/main.a1ea472b.js.LICENSE.txt":"f974cddcf2d436d9f14afc40b25b76f8758a821ada3a28851ca50090d0a69314","/index.html":"34cfc44bbdf85f0ea5251d3b4bbc1d90df5db35131fc29f5ae35926ec0817f58","/static/media/logo.3d4453f6be7c04c47409.png":"da61edc1b59bb91df520d32340a977be362d4b40164d118970253c69b852fda2","/static/css/main.73cf061d.css":"2144efbb8f973d28e28c2d4ad48863ad6f2413d285fc0708e250820cfa536089","/static/media/Construction.deb51f4c5b8603a400d9.jpg":"b8881cf0ad250c5fac5a9245022f77929a6135664d7fc1b99e99e1264465898d","/logorv.png":"0c40c505de825675c9bf84c02ae0f1efa70c9014354a5b078bfaef9db9578814","/static/css/main.73cf061d.css.map":"9b4ee0296d7cf3f55f8446dde4cc40c3c87836bfd316ae571f49ffa6caa424fd","/static/js/main.a1ea472b.js":"66e1fe217134b8aa8da650a6d562e6ae7f652137abd002d0d16abda3d9cc28a7","/static/js/main.a1ea472b.js.map":"056faa3517361ea54876013e1c571a8de2f55452675de94e8822c6c652b09300"}}
+[debug] [2023-06-03T22:20:39.017Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/364385149765/sites/ecampus-rvitm/versions/85a0343872498572:populateFiles 200
+[debug] [2023-06-03T22:20:39.017Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/364385149765/sites/ecampus-rvitm/versions/85a0343872498572:populateFiles {"uploadRequiredHashes":["66e1fe217134b8aa8da650a6d562e6ae7f652137abd002d0d16abda3d9cc28a7","34cfc44bbdf85f0ea5251d3b4bbc1d90df5db35131fc29f5ae35926ec0817f58","056faa3517361ea54876013e1c571a8de2f55452675de94e8822c6c652b09300","b8881cf0ad250c5fac5a9245022f77929a6135664d7fc1b99e99e1264465898d","2e147ecc4056ec241e1cc00313237612eb1ca6d8e4eaa769fc9127ec4fbc1939","2144efbb8f973d28e28c2d4ad48863ad6f2413d285fc0708e250820cfa536089","9b4ee0296d7cf3f55f8446dde4cc40c3c87836bfd316ae571f49ffa6caa424fd"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files"}
+[debug] [2023-06-03T22:20:39.019Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/66e1fe217134b8aa8da650a6d562e6ae7f652137abd002d0d16abda3d9cc28a7 [none]
+[debug] [2023-06-03T22:20:39.019Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/66e1fe217134b8aa8da650a6d562e6ae7f652137abd002d0d16abda3d9cc28a7 [stream]
+[debug] [2023-06-03T22:20:39.020Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/34cfc44bbdf85f0ea5251d3b4bbc1d90df5db35131fc29f5ae35926ec0817f58 [none]
+[debug] [2023-06-03T22:20:39.020Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/34cfc44bbdf85f0ea5251d3b4bbc1d90df5db35131fc29f5ae35926ec0817f58 [stream]
+[debug] [2023-06-03T22:20:39.022Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/056faa3517361ea54876013e1c571a8de2f55452675de94e8822c6c652b09300 [none]
+[debug] [2023-06-03T22:20:39.022Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/056faa3517361ea54876013e1c571a8de2f55452675de94e8822c6c652b09300 [stream]
+[debug] [2023-06-03T22:20:39.023Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/b8881cf0ad250c5fac5a9245022f77929a6135664d7fc1b99e99e1264465898d [none]
+[debug] [2023-06-03T22:20:39.023Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/b8881cf0ad250c5fac5a9245022f77929a6135664d7fc1b99e99e1264465898d [stream]
+[debug] [2023-06-03T22:20:39.024Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/2e147ecc4056ec241e1cc00313237612eb1ca6d8e4eaa769fc9127ec4fbc1939 [none]
+[debug] [2023-06-03T22:20:39.024Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/2e147ecc4056ec241e1cc00313237612eb1ca6d8e4eaa769fc9127ec4fbc1939 [stream]
+[debug] [2023-06-03T22:20:39.025Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/2144efbb8f973d28e28c2d4ad48863ad6f2413d285fc0708e250820cfa536089 [none]
+[debug] [2023-06-03T22:20:39.025Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/2144efbb8f973d28e28c2d4ad48863ad6f2413d285fc0708e250820cfa536089 [stream]
+[debug] [2023-06-03T22:20:39.037Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/9b4ee0296d7cf3f55f8446dde4cc40c3c87836bfd316ae571f49ffa6caa424fd [none]
+[debug] [2023-06-03T22:20:39.037Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ecampus-rvitm/versions/85a0343872498572/files/9b4ee0296d7cf3f55f8446dde4cc40c3c87836bfd316ae571f49ffa6caa424fd [stream]
+[debug] [2023-06-03T22:20:39.045Z] [hosting][populate queue][FINAL] {"max":1400,"min":1400,"avg":1400,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":1426}
+[debug] [2023-06-03T22:20:39.045Z] [hosting] uploads queued: 7
