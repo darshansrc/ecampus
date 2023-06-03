@@ -1,22 +1,57 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs,doc, getDoc } from "firebase/firestore";
 import { db } from "../Backend/Firebase/firebase";
 import "./AttendanceTable.css";
 import FacultyMobileNav from "./FacultyMobileNav";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useUserAuth } from "../Backend/context/UserAuthContext";
 
 export function AttendanceTable() {
   const [attendanceData, setAttendanceData] = useState([]);
-  const [selectedSubject, setSelectedSubject] = useState("21CS41");
+  const [selectedSubject, setSelectedSubject] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [filterOption, setFilterOption] = useState("last7days");
+  const [filterOption, setFilterOption] = useState("alltime");
+  
+  const [subjects, setSubjects] = useState({});
+  const [isLabSubject, setIsLabSubject] = useState(false);
+  const [selectedBatch, setSelectedBatch] = useState(null);
+
+  const { user } = useUserAuth();
+
+  const batchOptions = [
+    {value: '1' , label: 'Batch 1'},
+    {value: '2' , label: 'Batch 2'},
+    {value: '3' , label: 'Batch 3'},
+  ]
+
+
+  const getUserData = async (uid) => {
+    try {
+      const userRef = doc(db, "users", uid);
+      const userDoc = await getDoc(userRef);
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        setSubjects(userData.subject);
+        console.log(userData.subject)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      getUserData(user.uid);
+    }
+  }, [user]);
+
 
   useEffect(() => {
     async function fetchAttendanceData() {
       try {
-        if (selectedSubject) {
+           if ( selectedSubject ) {
           const attendanceRef = collection(
             db,
             "ISE",
@@ -24,8 +59,12 @@ export function AttendanceTable() {
             selectedSubject
           );
           const snapshot = await getDocs(attendanceRef);
-          const attendanceDocs = snapshot.docs.map((doc) => doc.data());
+          const attendanceDocs = selectedBatch? snapshot.docs
+          .map((doc) => doc.data())
+          .filter((data) => data.Batch === selectedBatch) : snapshot.docs
+          .map((doc) => doc.data());
           console.log(attendanceDocs);
+          console.log(selectedBatch);
 
           // Apply filter options
           let filteredData = attendanceDocs;
@@ -60,7 +99,7 @@ export function AttendanceTable() {
     }
 
     fetchAttendanceData();
-  }, [selectedSubject, filterOption, startDate, endDate]);
+  }, [selectedSubject, filterOption, startDate, endDate, selectedBatch]);
 
   const getClassCount = () => {
     return attendanceData.length;
@@ -79,22 +118,31 @@ export function AttendanceTable() {
       : "N/A";
   };
 
-  const subjectOptions = [
-    {
-      value: "21CS41",
-      label: "21CS41 (Mathematical Foundations for Computing)",
-    },
-    { value: "21CS42", label: "21CS42 (Design and Analysis of Algorithms)" },
-    { value: "21CS43", label: "21CS43 (Microcontroller and Embedded System)" },
-    { value: "21CS44", label: "21CS44 (Operating System)" },
-    { value: "21BE45", label: "21BE45 (Biology for Engineers)" },
-    { value: "21UH49", label: "Universal Human Values" },
-    { value: "21CSL42", label: "DAA Laboratory" },
-  ];
+
+
 
   const handleSubjectChange = (event) => {
     setSelectedSubject(event.target.value);
+    handleLabSelection(event.target.value); // Call handleLabSelection function here
   };
+
+
+  const handleBatchChange = (event) => { 
+    setSelectedBatch(event.target.value);
+  };
+
+  function handleLabSelection (subjectcode){
+    
+    if(subjectcode === '21CSL46'||subjectcode === "21CSL42"||subjectcode === "21CSL43"){
+     setIsLabSubject(true);
+    }
+    else{
+     setIsLabSubject(false);
+     setSelectedBatch(null);
+    }
+     
+   }
+
 
   // eslint-disable-next-line no-unused-vars
   const exportTableAsCSV = () => {
@@ -171,12 +219,16 @@ export function AttendanceTable() {
                 backgroundColor: "white",
               }}
             >
-              <option value="">Select a subject</option>
-              {subjectOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
+                <option value="">Select a subject</option>
+                {subjects && Object.entries(subjects).length > 0 ? (
+                  Object.entries(subjects).map(([key, value]) => (
+                    <option key={key} value={key}>
+                      {`${key} (${value})`}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled>No subjects available</option>
+                )}
             </select>
           </div>
           <div className="filter-dropdown">
@@ -211,6 +263,42 @@ export function AttendanceTable() {
               </div>
             )}
           </div>
+          {isLabSubject && (<div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "10px",
+            marginBottom: "50px",
+          }}
+        >
+          <div style={{ width: "360px" }}>
+            <p
+              htmlFor="sessionSelect"
+              style={{
+                paddingBottom: "1px",
+                marginBottom: "3px",
+                paddingTop: "15px",
+              }}
+            >
+              Choose Batch:
+            </p>
+            <select
+              id="sessionSelect"
+              value={selectedBatch} 
+              
+              onChange={handleBatchChange}
+              className="sub-dropdown"
+            >
+              
+              <option value="">Select Batch:</option>
+              {batchOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>)}
         </div>
         <div className="mtable">
           {attendanceData.length > 0 ? (

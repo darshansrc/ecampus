@@ -57,7 +57,7 @@ export default function AttendanceSession() {
       }})   
     : attendance.forEach((student) => {
       if (student.Present) {
-        // presentCount++;
+        presentCount++;
       } else {
         absentCount++;
       }
