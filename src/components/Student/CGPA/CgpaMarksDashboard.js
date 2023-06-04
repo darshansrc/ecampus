@@ -19,10 +19,10 @@ const CgpaMarksDashboard = () => {
       ></div>
       <div className="rick">
         <a
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none" , fontSize: '30px', textAlign: 'center'}}
           href="https://youtu.be/dQw4w9WgXcQ"
         >
-          💃💃💃💃💃💃💃💃💃
+          👽👾🛸
         </a>
       </div>
       <motion.div drag class="inner-construction"></motion.div>

@@ -8,46 +8,76 @@ import StudentTopNavbar from "../Student/MobileNav/StudentTopNavbar";
 
 
 
+
+
 const FacultyDashboard = () => {
   const { user } = useUserAuth();
+  const [usn, setUsn] = useState("");
+  const [data, setData] = useState([]);
 
-  const [isMobile, setIsMobile] = useState(false);
+  const getUserData = async (uid) => {
+    try {
+      const userRef = doc(db, "users", uid);
+      const userDoc = await getDoc(userRef);
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        setUsn(userData.usn);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (user) {
+    getUserData(user.uid);
+  }
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 992);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
+    if (user) {
+      getUserData(user.uid);
+    }
+  }, [user]);
 
   return (
     <>
-    <StudentTopNavbar text={'Home'}/>
-    {/* {isMobile ? <FacultySidebar/> : <FacultyMobileNav/>} */}
-    <FacultyMobileNav/>
-
-      <div style={{ marginTop: "75px" }}>
-        <div className="p-4 box mt-3 text-center">
+      <StudentTopNavbar text={"Home"} />
+      <FacultyMobileNav/>
+      <div className="dashboard-container">
+        <div className="dashboard-box">
           {user && user.photoURL && (
             <img
               src={user.photoURL}
               alt="Profile"
-              style={{ width: "100px", borderRadius: "50px" }}
+              className="profile-image"
             />
           )}
-          <h2>Welcome {user && user.displayName}</h2>
-          {user && <p>Email: {user.email}</p>}
-   
-          <div>
-     
+          <h2 className="welcome-text">
+            Welcome {user && user.displayName}
+          </h2>
+
+          <div className="dashboard-section">
+  <h3 className="section-title">Mark Attendance</h3>
+  <p className="section-description">
+    Record attendance for your subjects.
+  </p>
+</div>
+<div className="dashboard-section">
+  <h3 className="section-title">Attendance History</h3>
+  <p className="section-description">
+    View and export attendance data from previous sessions.
+  </p>
+</div>
+<div className="dashboard-section">
+  <h3 className="section-title">New Feature Suggestions</h3>
+  <p className="section-description">
+    Provide feedback and suggestions for new features, as well as report bugs.
+  </p>
+</div>
+        </div>
+        <div className="notices-container">
+          <h3 className="notices-title">Notices</h3>
+          <div className="notices-content">
+            <p>No notices at the moment.</p>
           </div>
         </div>
       </div>

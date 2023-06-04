@@ -1,7 +1,7 @@
-.profile-container {
+ .profile-container {
   margin-top: 10vh;
 }
-
+/*
 .profile-content {
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@
 .profile-email-usn {
   margin-top: 5px;
   font-size: 16px;
-}
+} */
 
 .profile-info-container {
   display: flex;
@@ -147,4 +147,38 @@
   .profile-image {
     width: 100px;
   }
+}
+
+.profile-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 99%;
+}
+
+.profile-content {
+  display: flex;
+  align-items: center;
+  max-width: 99%;
+}
+
+
+.profile-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  max-width: 99%;
+}
+
+.profile-email-usn {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #888;
+  max-width: 99%;
+}
+
+.profile-email-usn br {
+  display: none;
+  max-width: 99%;
 }

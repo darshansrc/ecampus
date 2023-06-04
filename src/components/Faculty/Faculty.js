@@ -11,7 +11,6 @@ import React, { useState } from "react";
 import {  NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../Backend/Firebase/firebase";
 import { db } from '../Backend/Firebase/firebase';
-
 const Faculty = () => {
 
   const [email, setEmail] = useState("");
@@ -40,7 +39,7 @@ const Faculty = () => {
           try {  if (userDoc.exists) {
             const userData = userDoc.data();
              if (userData.type === 'faculty') {
-             
+        
                 navigate("/faculty/dashboard/attendance");
 
             } else {
@@ -137,7 +136,7 @@ const Faculty = () => {
         </div>
         {error && <Alert variant="danger" style={{fontSize: '12px'}}>{error}</Alert>}
 
-        <span ><p style={{fontSize: '14px',marginLeft: '10px'}}><NavLink style={{textDecoration: 'none'}} to ="/auth/forgotpassword">Reset Password</NavLink></p></span>
+        <span ><p style={{fontSize: '14px',marginLeft: '10px'}}><NavLink style={{textDecoration: 'none'}} to ="/student/signup">Forgot Password?</NavLink></p></span>
         
         <button type="submit" name="signup" id="signup" className="auth-submit" onClick={handleSubmit}>Log In</button>
         

@@ -41,10 +41,16 @@ const Student = () => {
             const userData = userDoc.data();
              if (userData.type === 'student') {
               if (user.emailVerified) {
-                navigate("/student/dashboard");
+
+                  navigate("/student/dashboard");
+
+
               } else {
-                setError("Please verify your email address before logging in.");
+              
+                
+                window.alert("Please verify your email address before logging in. Alternatively, you can use Google Sign In")
                 await logOut();
+                
               }
             } else {
               setError("Only student accounts are allowed to log in.");
@@ -82,7 +88,7 @@ const Student = () => {
             if (user.emailVerified) {
               navigate("/student/dashboard");
             } else {
-              setError("Please verify your email address before logging in.");
+              setError("Please verify your email address before logging in. Alternatively, you can use Google Sign In");
             }
           } else {
             setError("Please Sign Up before Logging in using Google");
@@ -140,7 +146,7 @@ const Student = () => {
         </div>
         {error && <Alert variant="danger" style={{fontSize: '12px'}}>{error}</Alert>}
 
-        <span ><p style={{fontSize: '14px',marginLeft: '10px'}}><NavLink style={{textDecoration: 'none'}} to ="/auth/forgotpassword">Reset Password </NavLink></p></span>
+        <span ><p style={{fontSize: '14px',marginLeft: '10px'}}><NavLink style={{textDecoration: 'none'}} to ="/student/signup">Forgot Password?</NavLink></p></span>
         
         <button type="submit" name="signup" id="signup" className="auth-submit" onClick={handleSubmit}>Log In</button>
         <span ><p style={{fontSize: '14px',marginLeft: '10px',marginTop: '20px'}}>Don't have an account? <NavLink style={{textDecoration: 'none'}} to ="/student/signup">Sign up</NavLink></p></span>

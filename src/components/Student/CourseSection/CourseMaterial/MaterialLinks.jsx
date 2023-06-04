@@ -23,10 +23,10 @@ export default [
     },
     {
       Subject: "Operating System (21CS44 ) ",
-      abbriviation: "",
+      abbriviation: "OS",
       StaffName: "Dr. LATHA C A (LCA) ",
       GoogleClassroom: "",
-      GoogleSite: "",
+      GoogleSite: "https://sites.google.com/rvei.edu.in/os-4thsem-2021batch--ise-cse?pli=1",
     },
     {
       Subject: "Biology For Engineers (21BE45)",

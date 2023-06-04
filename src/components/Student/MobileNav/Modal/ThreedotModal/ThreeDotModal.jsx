@@ -10,26 +10,21 @@ import { useUserAuth } from "../../../../Backend/context/UserAuthContext";
 
 const dropIn = {
   hidden: {
-    y: "-100vh",
+    y: "100vh",
     opacity: 0,
   },
   visible: {
     y: "0",
     opacity: 1,
     transition: {
-      type: "spring",
-      damping: 25,
-      stiffness: 500,
+      duration: 0.3,
     },
   },
   exit: {
     y: "100vh",
     opacity: 0,
     transition: {
-      duration: 0.1,
-      type: "spring",
-      damping: 25,
-      stiffness: 200,
+      duration: 0.3,
     },
   },
 };
@@ -41,6 +36,7 @@ const ThreeDotModal = ({ handleClose }) => {
 const handleLogout = async () => {
   try {
     await logOut();
+    Navigate('/')
   } catch (error) {
     console.log(error.message);
   }
@@ -67,7 +63,7 @@ const handleLogout = async () => {
             >
               <Link
                 style={{ textDecoration: "none", color: "black" }}
-                to="/student/dashboard/profile"
+                to= {window.location.pathname.startsWith("/student") ? "/student/dashboard/profile" : "/faculty/dashboard/profile" }
               >
               &nbsp;  Profile
               </Link>
@@ -97,7 +93,7 @@ const handleLogout = async () => {
             >
                             <Link
                 style={{ textDecoration: "none", color: "black" }}
-                to="/student/dashboard/profile"
+                to= {window.location.pathname.startsWith("/student") ? "/student/dashboard/profile" : "/faculty/dashboard/profile" }
               >
               <GoReport style={{ marginRight: "4px", marginBottom: "2px" }} />
               &nbsp; Report Bugs

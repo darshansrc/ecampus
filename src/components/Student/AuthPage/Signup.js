@@ -7,12 +7,13 @@ import { ErrorMessage } from "../../MiscComponents/ErrorMessage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { sendEmailVerification, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { Alert } from "react-bootstrap";
+import { useUserAuth } from "../../Backend/context/UserAuthContext";
+
 
 
 const Signup = () => {
 
- 
+  const { logOut, user } = useUserAuth();
     const navigate = useNavigate();
     const [values, setValues] = useState({
       name: "",
@@ -26,6 +27,11 @@ const Signup = () => {
     const handleSubmission = () => {
       if (!values.name || !values.email || !values.pass || !values.usn) {
         setErrorMsg("Fill all fields");
+        return;
+      }
+    
+      else if (!values.email.includes("rvei.edu.in")) {
+        setErrorMsg("Only college email ID allowed");
         return;
       }
       setErrorMsg("");
@@ -48,9 +54,14 @@ const Signup = () => {
           });
   
           setSubmitButtonDisabled(false);
-          alert('Please check your email to confirm your account');
+          alert('Please click the link in the email that has been sent to your email address to activate your account. Alternatively, you can login with Google.');
+          navigate('/student')
+          try{
+            await logOut();
+          }catch(err){
+            console.log(err);
+          }
           
-          navigate("/student");
         })
         .catch((err) => {
           setSubmitButtonDisabled(false);
@@ -101,8 +112,7 @@ const Signup = () => {
    
 
         </div>
-     
-        {errorMsg && <Alert variant="danger" style={{fontSize: '12px'}}>{errorMsg}</Alert>}
+        {errorMsg && <ErrorMessage message={errorMsg} />}
         
         <span ><p style={{fontSize: '14px',marginLeft: '10px'}}>Already have an account? <NavLink style={{textDecoration: 'none'}} to ="/student">Log in</NavLink></p></span>
         

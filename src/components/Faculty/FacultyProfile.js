@@ -5,10 +5,21 @@ import { doc, getDoc, collection, addDoc, Timestamp } from "firebase/firestore";
 import { FiLogOut } from "react-icons/fi";
 import StudentTopNavbar from "../Student/MobileNav/StudentTopNavbar";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { VscFeedback } from "react-icons/vsc";
-import { SiStylelint } from "react-icons/si";
+
 import { RxInfoCircled } from "react-icons/rx";
+
+
+
+import { AiOutlineForm } from "react-icons/ai";
+import { VscColorMode } from "react-icons/vsc";
+
+import { ErrorMessage } from "../MiscComponents/ErrorMessage";
+import {MdOutlineNavigateNext} from 'react-icons/md'
+
+import defaultprofile from "../Images/None.jpg"
+
+
+
 
 const dropIn = {
   hidden: {
@@ -42,6 +53,8 @@ const FacultyProfile = () => {
   const [feedback, setFeedback] = useState("");
   const [IsFeedBackModalOpen, setIsFeedBackModalOpen] = useState(false);
   const [isFeedBackSubmitted, setIsFeedBackSubmitted] = useState(false);
+
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const getUserData = async (uid) => {
     try {
@@ -102,90 +115,141 @@ const FacultyProfile = () => {
     }
   };
 
+  const handleErrorMsg = () => {
+    setShowErrorMessage(true);
+  }
+
   return (
     <>
       <StudentTopNavbar text={"Profile"} handleLogout={() => handleLogout()} />
       {IsFeedBackModalOpen && <div className="blur-background" />}
-      <div className="profile-container">
-        <div className="profile-content">
-          {user && user.photoURL && (
-            <img src={user.photoURL} alt="Profile" className="profile-image" />
-          )}
-          <div>
-            <h5 className="profile-name">{user && user.displayName}</h5>
-            <p className="profile-email-usn">
-              {user.email}
-            </p>
-          </div>
-        </div>
-      </div>
+      <div className="profile-container"  style={{ overflow: 'hidden' }}>
+  <div className="profile-content">
+  {user.photoURL ? (
+    <img src={user.photoURL} alt="Profile" className="profile-image" style={{ marginRight: '20px' }} />
+  ) : (
+
+    <img src={defaultprofile} alt="Profile" className="profile-image" style={{ marginRight: '20px', border: '1px solid #aaa' }} />
+  )}
+    <div>
+      <h5 className="profile-name" >{user && user.displayName}</h5>
+      <p className="profile-email-usn" >
+        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>Email:&nbsp;{user.email}</span>
+        
+        <br /> Account Type:&nbsp;Faculty <br />{" "}
+      </p>
+    </div>
+  </div>
+</div>
 
       <div class="profile-info-container">
         <div className="accountinfo">
-          <p>ACCOUNT</p>
+          <p style={{color: '#777',marginBottom: '20px'}}>ACCOUNT</p>
           <ul>
-            <li>
-              <button
-                style={{ border: "none", backgroundColor: "transparent" }}
-                onClick={() => setIsFeedBackModalOpen(true)}
-              >
-                <VscFeedback
-                  style={{ marginRight: "4px", marginBottom: "2px" }}
-                />
-                Submit Feedback
-              </button>
-            </li>
-            <li>
-              <button
+            <span onClick={() => setIsFeedBackModalOpen(true)}>
+            <li
+           
                 style={{
                   border: "none",
                   backgroundColor: "transparent",
                   display: "flex",
                   alignItems: "center",
+                  fontWeight: 'normal',
+                  width: '100%',
+                  fontSize: '16px',
+                  marginBottom: '18px'
+                }}
+                
+              >
+           
+                <AiOutlineForm
+                  style={{ marginRight: "4px", marginBottom: "2px", fontSize: '20px' }}
+                />
+                
+                &nbsp;&nbsp;Submit&nbsp;Feedback
+                
+                <div style={{marginLeft: 'auto',position: 'absolute', right: '10px'}}>
+                <MdOutlineNavigateNext/>
+                </div>
+            </li>
+            </span>
+            <li
+          
+                style={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 'normal',
+                  fontSize: '16px',
+                  marginBottom: '18px'
                 }}
               >
                 <RxInfoCircled
-                  style={{ marginRight: "4px", marginBottom: "2px" }}
+                  style={{ marginRight: "4px", marginBottom: "2px" , fontSize: '20px' }}
                 />
-                <Link to="/student/dashboard">About</Link>
-              </button>
+                <Link to="/faculty/dashboard">&nbsp;&nbsp;About</Link>
+                <div style={{marginLeft: 'auto',position: 'absolute', right: '10px'}}>
+                <MdOutlineNavigateNext/>
+                </div>
+             
             </li>
-            <li>
-              <button
-                style={{
-                  padding: 0,
-                }}
-                className="logoutbutton"
+            <li
+              
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: 'normal',
+                fontSize: '16px',
+                marginBottom: '10px'
+              }}
+              
                 onClick={handleLogout}
               >
-                <FiLogOut style={{ marginRight: "4px", marginBottom: "2px" }} />
-                Logout
-              </button>
+                <FiLogOut style={{ marginRight: "4px", marginBottom: "2px" ,fontSize: '20px'}} />
+                &nbsp;&nbsp;Logout
+                <div style={{marginLeft: 'auto',position: 'absolute', right: '10px'}}>
+                <MdOutlineNavigateNext/>
+                </div>
             </li>
           </ul>
         </div>
         <div className="Preferences">
           <b>
-            <p>PREFERENCES</p>
+            <p style={{color: '#777',marginBottom: '20px'}}>PREFERENCES</p>
           </b>
           <ul>
-            <li>
-              <button
-                style={{ border: "none", backgroundColor: "transparent" }}
+            <li
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: 'normal',
+                fontSize: '16px',
+                marginBottom: '18px'
+              }}
+              onClick={handleErrorMsg}
               >
-                <SiStylelint
-                  style={{ marginRight: "4px", marginBottom: "2px" }}
+                <VscColorMode
+                  style={{ marginRight: "4px", marginBottom: "2px" ,fontSize: '18px'}}
                 />
-                Themes
-              </button>
+                &nbsp;&nbsp;Themes
+                {showErrorMessage && <ErrorMessage message="Coming Soon" />}
+                <div style={{marginLeft: 'auto',position: 'absolute', right: '10px'}}>
+                <MdOutlineNavigateNext/>
+                </div>
+        
             </li>
           </ul>
         </div>
       </div>
 
-      <AnimatePresence>
+     
         {IsFeedBackModalOpen && (
-          <motion.div
+          <div
             className="feedback-modal"
             variants={dropIn}
             initial="hidden"
@@ -215,9 +279,10 @@ const FacultyProfile = () => {
                 </button>
               </div>
             </div>
-          </motion.div>
+            </div>
+         
         )}
-      </AnimatePresence>
+      
       {isFeedBackSubmitted && (
         <div className="success-message">
           <p>Submitted Successfully!</p>

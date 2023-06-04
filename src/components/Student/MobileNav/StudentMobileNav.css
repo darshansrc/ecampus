@@ -20,8 +20,7 @@
     left: 0;
     right: 0;
     z-index: 1000 ;
-    will-change: transform;
-    transform: translateZ(0);
+
     display: flex;
     
   
@@ -33,6 +32,9 @@
     padding-top: 5px;
     padding-bottom: 5px;
     max-height: 70px ;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
   }
   .mobile-bottom-nav__item {
     flex-grow: 1;

@@ -37,13 +37,16 @@ import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import FacultyProfile from './components/Faculty/FacultyProfile';
 import FacultyMobileNav from './components/Faculty/FacultyMobileNav';
 
+
 function App() {
 
 
   return (
     <>
+     
 
       <BrowserRouter>
+      
       
       <UserAuthContextProvider>
       <Routes>
@@ -54,12 +57,11 @@ function App() {
         </HomePageRoute>
         }/>
         <Route path="/faculty" element = {
-        <HomePageRoute>
-        <Navbar/>
-        <Faculty/>
-        </HomePageRoute>}/>
-        <Route path="/student" element = {<HomePageRoute><Navbar/><Student/></HomePageRoute>}/>
-        <Route path="/student/signup" element = {<HomePageRoute><Navbar/><Signup/></HomePageRoute>}/>
+     
+        <><Navbar /><Faculty /></>
+      }/>
+        <Route path="/student" element = {<><Navbar /><Student /></>}/>
+        <Route path="/student/signup" element = {<><Navbar /><Signup /></>}/>
         <Route path="/department" element = {<HomePageRoute><Navbar/><Department/></HomePageRoute>}/> 
         <Route path="/auth/forgotpassword" element = {<><ForgotPassword /><Navbar /></>}/> 
         <Route path="/about" element = {<><Navbar /></>}/> 
@@ -182,7 +184,7 @@ function App() {
       
      </BrowserRouter>
 
-     
+
     </> 
   );
 }

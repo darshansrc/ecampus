@@ -1,11 +1,12 @@
 .modal3dots {
-  width: clamp(50%, 700px, 90%);
+  width: 100%;
   height: min(50%, 300px);
   margin: auto;
   padding: 0 2rem;
-  border-radius: 12px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   position: fixed;
-  top: 0;
+
   left: 0;
   bottom: 0;
   right: 0;

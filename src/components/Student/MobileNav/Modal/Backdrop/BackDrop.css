@@ -6,4 +6,5 @@
   width: 100%;
   background-color: #00000098;
   z-index: 99999;
+  transition: background-color 0.3s;
 }

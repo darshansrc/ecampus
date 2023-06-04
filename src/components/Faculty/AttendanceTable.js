@@ -350,7 +350,10 @@ export function AttendanceTable() {
               </table>
             </div>
           ) : (
-            <p>No data found</p>
+<div className="empty-table">
+  <p className="empty-table__message">No data found</p>
+</div>
+
           )}
         </div>
         {attendanceData.length > 0 && (
