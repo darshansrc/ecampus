@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import Backdrop from "../Backdrop/Backdrop";
 import "./ThreeDotModal.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { GoReport } from "react-icons/go";
 import { CgProfile } from "react-icons/cg";
+import { useUserAuth } from "../../../../Backend/context/UserAuthContext";
+
 
 const dropIn = {
   hidden: {
@@ -32,7 +34,18 @@ const dropIn = {
   },
 };
 
-const ThreeDotModal = ({ handleClose, handleLogout }) => {
+const ThreeDotModal = ({ handleClose }) => {
+
+  const { user, logOut } = useUserAuth();
+
+const handleLogout = async () => {
+  try {
+    await logOut();
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
   return (
     <Backdrop onClick={handleClose}>
       <motion.div
@@ -46,7 +59,7 @@ const ThreeDotModal = ({ handleClose, handleLogout }) => {
         <ul style={{ listStyle: "none" }}>
           <li>
             <CgProfile style={{ marginRight: "4px", marginBottom: "2px" }} />
-            <button
+            <span
               style={{
                 border: "none",
                 backgroundColor: "transparent",
@@ -56,12 +69,12 @@ const ThreeDotModal = ({ handleClose, handleLogout }) => {
                 style={{ textDecoration: "none", color: "black" }}
                 to="/student/dashboard/profile"
               >
-                Profile
+              &nbsp;  Profile
               </Link>
-            </button>
+            </span>
           </li>
           <li>
-            <button
+            <span
               style={{
                 border: "none",
                 backgroundColor: "transparent",
@@ -70,20 +83,26 @@ const ThreeDotModal = ({ handleClose, handleLogout }) => {
               onClick={handleLogout}
             >
               <FiLogOut style={{ marginRight: "4px", marginBottom: "2px" }} />
-              Logout
-            </button>
+              &nbsp; Logout
+            </span>
           </li>
           <li>
-            <button
+            <span
               style={{
                 border: "none",
                 backgroundColor: "transparent",
                 padding: 0,
               }}
+
             >
+                            <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/student/dashboard/profile"
+              >
               <GoReport style={{ marginRight: "4px", marginBottom: "2px" }} />
-              Report Bugs
-            </button>
+              &nbsp; Report Bugs
+              </Link>
+            </span>
           </li>
         </ul>
       </motion.div>

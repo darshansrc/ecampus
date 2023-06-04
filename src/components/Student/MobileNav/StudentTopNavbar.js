@@ -28,7 +28,7 @@ const StudentTopNavbar = ({ text, handleLogout }) => {
           <h5 style={{ fontSize: "17px" }}>{text}</h5>
         </div>
         <button
-          style={{ border: "none", backgroundColor: "transparent" }}
+          style={{ border: "none", backgroundColor: "transparent" ,color: 'black'}}
           className="rightIcon"
           onClick={() => (modalOpen ? close() : open())}
         >

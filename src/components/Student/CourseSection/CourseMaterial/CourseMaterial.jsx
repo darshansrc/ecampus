@@ -6,12 +6,11 @@ const Material = MaterialLinks.map((data) => (
     <tr>
       <td>{data.Subject}</td>
       <td>
-        <a style={{textDecoration: 'none', color: 'black'}}  href={data.GoogleSite}>{data.StaffName}</a>
+        <a style={{textDecoration: 'none', color: 'black'}}>{data.StaffName}</a>
       </td>
       <td>
-        <a href={data.GoogleClassroom}>{data.abbriviation}</a>
+        <a href={data.GoogleSite} target="_blank" rel="noopener noreferrer">{data.abbriviation}</a>
       </td>
-
     </tr>
   </>
 ));
@@ -28,7 +27,7 @@ export default function CourseMaterial() {
           <tr>
             <th>Subject</th>
             <th>Faculty</th>
-            <th style={{width: '80px'}}>Google Site</th>
+            <th style={{minWidth: '90px'}}>Google Site</th>
           </tr>
           <tbody>{Material}</tbody>
         </table>

@@ -7,9 +7,10 @@ import "./StudentProfile.css";
 import StudentTopNavbar from "../MobileNav/StudentTopNavbar";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { VscFeedback } from "react-icons/vsc";
-import { SiStylelint } from "react-icons/si";
+import { AiOutlineForm } from "react-icons/ai";
+import { VscColorMode } from "react-icons/vsc";
 import { RxInfoCircled } from "react-icons/rx";
+import { ErrorMessage } from "../../MiscComponents/ErrorMessage";
 
 const dropIn = {
   hidden: {
@@ -43,6 +44,8 @@ const ProfileStudent = () => {
   const [feedback, setFeedback] = useState("");
   const [IsFeedBackModalOpen, setIsFeedBackModalOpen] = useState(false);
   const [isFeedBackSubmitted, setIsFeedBackSubmitted] = useState(false);
+
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const getUserData = async (uid) => {
     try {
@@ -103,6 +106,10 @@ const ProfileStudent = () => {
     }
   };
 
+  const handleErrorMsg = () => {
+    setShowErrorMessage(true);
+  }
+
   return (
     <>
       <StudentTopNavbar text={"Profile"} handleLogout={() => handleLogout()} />
@@ -126,43 +133,54 @@ const ProfileStudent = () => {
         <div className="accountinfo">
           <p>ACCOUNT</p>
           <ul>
-            <li>
-              <button
-                style={{ border: "none", backgroundColor: "transparent" }}
-                onClick={() => setIsFeedBackModalOpen(true)}
-              >
-                <VscFeedback
-                  style={{ marginRight: "4px", marginBottom: "2px" }}
-                />
-                Submit Feedback
-              </button>
-            </li>
-            <li>
-              <button
+            <li
+           
                 style={{
                   border: "none",
                   backgroundColor: "transparent",
                   display: "flex",
                   alignItems: "center",
+                  fontWeight: 'normal'
+                }}
+                onClick={() => setIsFeedBackModalOpen(true)}
+              >
+                <AiOutlineForm
+                  style={{ marginRight: "4px", marginBottom: "2px" }}
+                />
+                Submit&nbsp;Feedback
+              
+            </li>
+            <li
+          
+                style={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 'normal'
                 }}
               >
                 <RxInfoCircled
                   style={{ marginRight: "4px", marginBottom: "2px" }}
                 />
                 <Link to="/student/dashboard">About</Link>
-              </button>
+             
             </li>
-            <li>
-              <button
-                style={{
-                  padding: 0,
-                }}
-                className="logoutbutton"
+            <li
+              
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: 'normal'
+              }}
+              
                 onClick={handleLogout}
               >
                 <FiLogOut style={{ marginRight: "4px", marginBottom: "2px" }} />
                 Logout
-              </button>
+              
             </li>
           </ul>
         </div>
@@ -171,15 +189,24 @@ const ProfileStudent = () => {
             <p>PREFERENCES</p>
           </b>
           <ul>
-            <li>
-              <button
-                style={{ border: "none", backgroundColor: "transparent" }}
+            <li
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: 'normal'
+              }}
+              onClick={handleErrorMsg}
               >
-                <SiStylelint
+                <VscColorMode
                   style={{ marginRight: "4px", marginBottom: "2px" }}
                 />
                 Themes
-              </button>
+                {showErrorMessage && <ErrorMessage message="Coming Soon" />}
+                
+            
+            
             </li>
           </ul>
         </div>

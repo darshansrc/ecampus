@@ -125,7 +125,7 @@ function StudentAttendanceTable() {
       chartRef.current.chart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: subjectOptions.map((option) => option.value),
+          labels: subjectOptions.slice(1,9).map((option) => option.value),
           datasets: [
             {
               label: 'Attendance Percentage',

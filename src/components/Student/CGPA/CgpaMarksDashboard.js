@@ -7,7 +7,7 @@ const CgpaMarksDashboard = () => {
   return (
     <>
       <StudentTopNavbar text={"Marks"} />
-
+      
       <div
         style={{
           display: "flex",
@@ -43,6 +43,7 @@ const CgpaMarksDashboard = () => {
         }}
         transition={{ duration: 2, repeat: Infinity }}
       ></motion.div>
+      <div className="devl"><h4 style={{color: '#777'}}>Under Development</h4></div>
     </>
   );
 };
