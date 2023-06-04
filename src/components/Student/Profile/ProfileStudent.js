@@ -6,18 +6,16 @@ import { FiLogOut } from "react-icons/fi";
 import "./StudentProfile.css";
 import StudentTopNavbar from "../MobileNav/StudentTopNavbar";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { AiOutlineForm } from "react-icons/ai";
 import { VscColorMode } from "react-icons/vsc";
 import { RxInfoCircled } from "react-icons/rx";
 import { ErrorMessage } from "../../MiscComponents/ErrorMessage";
-import {MdOutlineNavigateNext} from 'react-icons/md'
+import { MdOutlineNavigateNext } from "react-icons/md";
 import Backdrop from "../MobileNav/Modal/Backdrop/Backdrop";
 import { CgProfile } from "react-icons/cg";
-import defaultprofile from "./None.jpg"
-
-
-
+import defaultprofile from "./None.jpg";
+import AboutModal from "../MobileNav/Modal/AboutModal/AboutModal";
 
 const dropIn = {
   hidden: {
@@ -51,6 +49,10 @@ const ProfileStudent = () => {
   const [feedback, setFeedback] = useState("");
   const [IsFeedBackModalOpen, setIsFeedBackModalOpen] = useState(false);
   const [isFeedBackSubmitted, setIsFeedBackSubmitted] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
 
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
@@ -64,7 +66,7 @@ const ProfileStudent = () => {
       }
     } catch (error) {
       console.log(error);
-    } 
+    }
   };
 
   if (user) {
@@ -115,108 +117,151 @@ const ProfileStudent = () => {
 
   const handleErrorMsg = () => {
     setShowErrorMessage(true);
-  }
+  };
 
   return (
     <>
       <StudentTopNavbar text={"Profile"} handleLogout={() => handleLogout()} />
       {IsFeedBackModalOpen && <div className="blur-background" />}
-      <div className="profile-container"  style={{ overflow: 'hidden' }}>
-  <div className="profile-content">
-  {user.photoURL ? (
-    <img src={user.photoURL} alt="Profile" className="profile-image" style={{ marginRight: '20px' }} />
-  ) : (
-
-    <img src={defaultprofile} alt="Profile" className="profile-image" style={{ marginRight: '20px', border: '1px solid #aaa' }} />
-  )}
-    <div>
-      <h5 className="profile-name" >{user && user.displayName}</h5>
-      <p className="profile-email-usn" >
-        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>Email:&nbsp;{user.email}</span>
-        
-        <br /> USN:&nbsp;{usn} <br />{" "}
-      </p>
-    </div>
-  </div>
-</div>
+      <div className="profile-container" style={{ overflow: "hidden" }}>
+        <div className="profile-content">
+          {user.photoURL ? (
+            <img
+              src={user.photoURL}
+              alt="Profile"
+              className="profile-image"
+              style={{ marginRight: "20px" }}
+            />
+          ) : (
+            <img
+              src={defaultprofile}
+              alt="Profile"
+              className="profile-image"
+              style={{ marginRight: "20px", border: "1px solid #aaa" }}
+            />
+          )}
+          <div>
+            <h5 className="profile-name">{user && user.displayName}</h5>
+            <p className="profile-email-usn">
+              <span
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Email:&nbsp;{user.email}
+              </span>
+              <br /> USN:&nbsp;{usn} <br />{" "}
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div class="profile-info-container">
         <div className="accountinfo">
-          <p style={{color: '#777',marginBottom: '20px'}}>ACCOUNT</p>
+          <p style={{ color: "#777", marginBottom: "20px" }}>ACCOUNT</p>
           <ul>
             <span onClick={() => setIsFeedBackModalOpen(true)}>
-            <li
-           
+              <li
                 style={{
                   border: "none",
                   backgroundColor: "transparent",
                   display: "flex",
                   alignItems: "center",
-                  fontWeight: 'normal',
-                  width: '100%',
-                  fontSize: '16px',
-                  marginBottom: '18px'
+                  fontWeight: "normal",
+                  width: "100%",
+                  fontSize: "16px",
+                  marginBottom: "18px",
+                  cursor: "pointer",
                 }}
-                
               >
-           
                 <AiOutlineForm
-                  style={{ marginRight: "4px", marginBottom: "2px", fontSize: '20px' }}
+                  style={{
+                    marginRight: "4px",
+                    marginBottom: "2px",
+                    fontSize: "20px",
+                  }}
                 />
-                
                 &nbsp;&nbsp;Submit&nbsp;Feedback
-                
-                <div style={{marginLeft: 'auto',position: 'absolute', right: '10px'}}>
-                <MdOutlineNavigateNext/>
+                <div
+                  style={{
+                    marginLeft: "auto",
+                    position: "absolute",
+                    right: "10px",
+                  }}
+                >
+                  <MdOutlineNavigateNext />
                 </div>
-            </li>
+              </li>
             </span>
             <li
-          
-                style={{
-                  border: "none",
-                  backgroundColor: "transparent",
-                  display: "flex",
-                  alignItems: "center",
-                  fontWeight: 'normal',
-                  fontSize: '16px',
-                  marginBottom: '18px'
-                }}
-              >
-                <RxInfoCircled
-                  style={{ marginRight: "4px", marginBottom: "2px" , fontSize: '20px' }}
-                />
-                <Link to="/student/dashboard">&nbsp;&nbsp;About</Link>
-                <div style={{marginLeft: 'auto',position: 'absolute', right: '10px'}}>
-                <MdOutlineNavigateNext/>
-                </div>
-             
-            </li>
-            <li
-              
               style={{
                 border: "none",
                 backgroundColor: "transparent",
                 display: "flex",
                 alignItems: "center",
-                fontWeight: 'normal',
-                fontSize: '16px',
-                marginBottom: '10px'
+                fontWeight: "normal",
+                fontSize: "16px",
+                marginBottom: "18px",
+                cursor: "pointer",
               }}
-              
-                onClick={handleLogout}
+              onClick={() => (modalOpen ? close() : open())}
+            >
+              <RxInfoCircled
+                style={{
+                  marginRight: "4px",
+                  marginBottom: "2px",
+                  fontSize: "20px",
+                }}
+              />
+              &nbsp;&nbsp;About
+              <div
+                style={{
+                  marginLeft: "auto",
+                  position: "absolute",
+                  right: "10px",
+                }}
               >
-                <FiLogOut style={{ marginRight: "4px", marginBottom: "2px" ,fontSize: '20px'}} />
-                &nbsp;&nbsp;Logout
-                <div style={{marginLeft: 'auto',position: 'absolute', right: '10px'}}>
-                <MdOutlineNavigateNext/>
-                </div>
+                <MdOutlineNavigateNext />
+              </div>
+            </li>
+            <li
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "normal",
+                fontSize: "16px",
+                marginBottom: "10px",
+                cursor: "pointer",
+              }}
+              onClick={handleLogout}
+            >
+              <FiLogOut
+                style={{
+                  marginRight: "4px",
+                  marginBottom: "2px",
+                  fontSize: "20px",
+                }}
+              />
+              &nbsp;&nbsp;Logout
+              <div
+                style={{
+                  marginLeft: "auto",
+                  position: "absolute",
+                  right: "10px",
+                }}
+              >
+                <MdOutlineNavigateNext />
+              </div>
             </li>
           </ul>
         </div>
         <div className="Preferences">
           <b>
-            <p style={{color: '#777',marginBottom: '20px'}}>PREFERENCES</p>
+            <p style={{ color: "#777", marginBottom: "20px" }}>PREFERENCES</p>
           </b>
           <ul>
             <li
@@ -225,67 +270,77 @@ const ProfileStudent = () => {
                 backgroundColor: "transparent",
                 display: "flex",
                 alignItems: "center",
-                fontWeight: 'normal',
-                fontSize: '16px',
-                marginBottom: '18px'
+                fontWeight: "normal",
+                fontSize: "16px",
+                marginBottom: "18px",
+                cursor: "pointer",
               }}
               onClick={handleErrorMsg}
+            >
+              <VscColorMode
+                style={{
+                  marginRight: "4px",
+                  marginBottom: "2px",
+                  fontSize: "18px",
+                }}
+              />
+              &nbsp;&nbsp;Themes
+              {showErrorMessage && <ErrorMessage message="Coming Soon" />}
+              <div
+                style={{
+                  marginLeft: "auto",
+                  position: "absolute",
+                  right: "10px",
+                }}
               >
-                <VscColorMode
-                  style={{ marginRight: "4px", marginBottom: "2px" ,fontSize: '18px'}}
-                />
-                &nbsp;&nbsp;Themes
-                {showErrorMessage && <ErrorMessage message="Coming Soon" />}
-                <div style={{marginLeft: 'auto',position: 'absolute', right: '10px'}}>
-                <MdOutlineNavigateNext/>
-                </div>
-        
+                <MdOutlineNavigateNext />
+              </div>
             </li>
           </ul>
         </div>
       </div>
 
-     
-        {IsFeedBackModalOpen && (
-          <div
-            className="feedback-modal"
-            variants={dropIn}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <div className="feedback-modal-content">
-              <h3 style={{ textAlign: "center" }}>Provide Feedback</h3>
-              <textarea
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-                placeholder="Enter your feedback..."
-                className="feedback-input"
-              />
-              <div className="modal-buttons">
-                <button
-                  className="submit-button"
-                  onClick={handleSubmitFeedback}
-                >
-                  Submit
-                </button>
-                <button
-                  className="cancel-button"
-                  onClick={() => setIsFeedBackModalOpen(false)}
-                >
-                  Cancel
-                </button>
-              </div>
+      {IsFeedBackModalOpen && (
+        <div
+          className="feedback-modal"
+          variants={dropIn}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+        >
+          <div className="feedback-modal-content">
+            <h3 style={{ textAlign: "center" }}>Provide Feedback</h3>
+            <textarea
+              value={feedback}
+              onChange={(e) => setFeedback(e.target.value)}
+              placeholder="Enter your feedback..."
+              className="feedback-input"
+            />
+            <div className="modal-buttons">
+              <button className="submit-button" onClick={handleSubmitFeedback}>
+                Submit
+              </button>
+              <button
+                className="cancel-button"
+                onClick={() => setIsFeedBackModalOpen(false)}
+              >
+                Cancel
+              </button>
             </div>
-            </div>
-         
-        )}
-      
+          </div>
+        </div>
+      )}
+
       {isFeedBackSubmitted && (
         <div className="success-message">
           <p>Submitted Successfully!</p>
         </div>
       )}
+      <AnimatePresence>
+        {modalOpen && (
+          <AboutModal modalOpen={modalOpen} handleClose={() => close()} />
+        )}
+      </AnimatePresence>
     </>
   );
 };
