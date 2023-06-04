@@ -203,37 +203,6 @@ const ProfileStudent = () => {
                 alignItems: "center",
                 fontWeight: "normal",
                 fontSize: "16px",
-                marginBottom: "18px",
-                cursor: "pointer",
-              }}
-              onClick={() => (modalOpen ? close() : open())}
-            >
-              <RxInfoCircled
-                style={{
-                  marginRight: "4px",
-                  marginBottom: "2px",
-                  fontSize: "20px",
-                }}
-              />
-              &nbsp;&nbsp;About
-              <div
-                style={{
-                  marginLeft: "auto",
-                  position: "absolute",
-                  right: "10px",
-                }}
-              >
-                <MdOutlineNavigateNext />
-              </div>
-            </li>
-            <li
-              style={{
-                border: "none",
-                backgroundColor: "transparent",
-                display: "flex",
-                alignItems: "center",
-                fontWeight: "normal",
-                fontSize: "16px",
                 marginBottom: "10px",
                 cursor: "pointer",
               }}
@@ -286,6 +255,44 @@ const ProfileStudent = () => {
               />
               &nbsp;&nbsp;Themes
               {showErrorMessage && <ErrorMessage message="Coming Soon" />}
+              <div
+                style={{
+                  marginLeft: "auto",
+                  position: "absolute",
+                  right: "10px",
+                }}
+              >
+                <MdOutlineNavigateNext />
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div className="Preferences">
+          <b>
+            <p style={{ color: "#777", marginBottom: "20px" }}>APP</p>
+          </b>
+          <ul>
+            <li
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "normal",
+                fontSize: "16px",
+                marginBottom: "18px",
+                cursor: "pointer",
+              }}
+              onClick={() => (modalOpen ? close() : open())}
+            >
+              <RxInfoCircled
+                style={{
+                  marginRight: "4px",
+                  marginBottom: "2px",
+                  fontSize: "20px",
+                }}
+              />
+              &nbsp;&nbsp;About
               <div
                 style={{
                   marginLeft: "auto",
