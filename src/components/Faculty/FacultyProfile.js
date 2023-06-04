@@ -239,7 +239,7 @@ const FacultyProfile = () => {
                 alignItems: "center",
                 fontWeight: "normal",
                 fontSize: "16px",
-                marginBottom: "18px",
+                marginBottom: "5px",
               }}
               onClick={handleErrorMsg}
             >

@@ -1,99 +1,90 @@
 import { motion } from "framer-motion";
+import { SiFirebase, SiReact } from "react-icons/si";
 import Backdrop from "../Backdrop/Backdrop";
 import "./AboutModal.css";
-import { SiFirebase } from "react-icons/si";
-import { SiReact } from "react-icons/si";
 
 const Flip = {
   hidden: {
-    transform: "scale(0) rotateX(-360deg)",
+    y: 100,
     opacity: 0,
     transition: {
       delay: 0.3,
     },
   },
   visible: {
-    transform: " scale(1) rotateX(0deg)",
+    y: 0,
     opacity: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.3,
     },
   },
   exit: {
-    transform: "scale(0) rotateX(360deg)",
+    y: 100,
     opacity: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.3,
     },
   },
 };
 
+
+
 const AboutModal = ({ handleClose }) => {
   return (
     <Backdrop onClick={handleClose}>
-      <motion.div
-        onClick={(e) => e.stopPropagation()}
-        className="About-Modal"
-        variants={Flip}
-        initial="hidden"
-        animate="visible"
-        whileInView={{
-          backgroundImage: [
-            "linear-gradient(#000000,#000000)",
-            "linear-gradient(#2af1ff,#000000)",
-            "linear-gradient(#003cffde,#2af1ff)",
-            "linear-gradient(#000000,#003cffde)",
-            "linear-gradient(#000000,#000000)",
-          ],
-        }}
-        transition={{
-          duration: 0.5,
-          delay: 0.7,
-        }}
-        exit="exit"
-      >
-        <h1 style={{ color: "white" }}>Developed By</h1>
-        <ul style={{ listStyle: "none", padding: "0" }}>
-          <div style={{ display: "flex" }}>
-            <motion.li
-              initial={{ x: -200, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{
-                duration: 1,
-              }}
-            >
-              Darshan Gowda
-            </motion.li>
-            <li>and</li>
-            <motion.li
-              initial={{ x: 200, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{
-                duration: 1,
-              }}
-            >
-              Dhyaan Kotian
-            </motion.li>
-          </div>
+<motion.div
+  onClick={(e) => e.stopPropagation()}
+  className="About-Modal"
+  variants={Flip}
+  initial="hidden"
+  animate="visible"
+  transition={{
+    duration: 0.5,
+    delay: 0,
+  }}
+  exit="exit"
+  style={{
+    backgroundColor: '#eee', // Set the background color
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.25)' // Add a shadow effect
+  }}
+>
+
+        <h1 className="title" style={{color: 'black',paddingTop: '20px'}}>Developed By</h1>
+        <ul className="developer-list" style={{listStyle: 'none',marginRight: '32px',color: 'black'}}>
           <motion.li
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ x: -200, opacity: 0 }}
+            style={{color: 'black'}}
+            whileInView={{ x: 0, opacity: 1 }}
             transition={{
-              duration: 1.5,
+              duration: 0.5,
             }}
           >
-            <span>Using&nbsp;</span>
-            <span style={{ whiteSpace: "nowrap" }}>
-              <SiReact style={{ color: "lightblue" }} />
-              <span style={{ color: "lightblue" }}>ReactJS</span>
-            </span>
-            &nbsp;and&nbsp;
-            <span style={{ whiteSpace: "nowrap" }}>
-              <SiFirebase style={{ color: "yellow" }} />
-              <span style={{ color: "yellow" }}>FireBase</span>
-            </span>
+            Darshan&nbsp;Gowda
+          </motion.li>
+          <li className="developer-item-separator" style={{color: 'black'}}>and</li>
+          <motion.li
+            initial={{ x: 200, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            style={{color: 'black'}}
+            transition={{
+              duration: 0.5,
+            }}
+          >
+            Dhyaan&nbsp;Kotian
           </motion.li>
         </ul>
+        <motion.p
+          className="technology-description"
+          style={{color: 'black'}}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{
+            duration: 1,
+          }}
+        >
+          Built with <SiReact className="technology-icon" /> <span>ReactJS</span> and{" "}
+          <SiFirebase className="technology-icon" /> Firebase
+        </motion.p>
       </motion.div>
     </Backdrop>
   );

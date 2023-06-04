@@ -241,7 +241,7 @@ const ProfileStudent = () => {
                 alignItems: "center",
                 fontWeight: "normal",
                 fontSize: "16px",
-                marginBottom: "18px",
+                marginBottom: "5px",
                 cursor: "pointer",
               }}
               onClick={handleErrorMsg}
