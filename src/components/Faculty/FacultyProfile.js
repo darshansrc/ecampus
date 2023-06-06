@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { RxInfoCircled } from "react-icons/rx";
 import AboutModal from "../Student/MobileNav/Modal/AboutModal/AboutModal";
-
+import LogOutModal from "../Student/MobileNav/Modal/LogOutModal/LogOutModal";
 import { AiOutlineForm } from "react-icons/ai";
 import { VscColorMode } from "react-icons/vsc";
 
@@ -49,10 +49,15 @@ const FacultyProfile = () => {
   const [feedback, setFeedback] = useState("");
   const [IsFeedBackModalOpen, setIsFeedBackModalOpen] = useState(false);
   const [isFeedBackSubmitted, setIsFeedBackSubmitted] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
 
-  const close = () => setModalOpen(false);
-  const open = () => setModalOpen(true);
+  const [AboutmodalOpen, AboutsetModalOpen] = useState(false);
+  const Aboutclose = () => AboutsetModalOpen(false);
+  const Aboutopen = () => AboutsetModalOpen(true);
+
+  const [LogOutmodalOpen, LogOutsetModalOpen] = useState(false);
+  const Logoutclose = () => LogOutsetModalOpen(false);
+  const Logoutopen = () => LogOutsetModalOpen(true);
+
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const getUserData = async (uid) => {
@@ -172,6 +177,7 @@ const FacultyProfile = () => {
                   width: "100%",
                   fontSize: "16px",
                   marginBottom: "18px",
+                  cursor: "pointer",
                 }}
               >
                 <AiOutlineForm
@@ -203,8 +209,9 @@ const FacultyProfile = () => {
                 fontWeight: "normal",
                 fontSize: "16px",
                 marginBottom: "10px",
+                cursor: "pointer",
               }}
-              onClick={handleLogout}
+              onClick={() => (LogOutmodalOpen ? Logoutclose() : Logoutopen())}
             >
               <FiLogOut
                 style={{
@@ -240,6 +247,7 @@ const FacultyProfile = () => {
                 fontWeight: "normal",
                 fontSize: "16px",
                 marginBottom: "5px",
+                cursor: "pointer",
               }}
               onClick={handleErrorMsg}
             >
@@ -280,7 +288,7 @@ const FacultyProfile = () => {
                 marginBottom: "18px",
                 cursor: "pointer",
               }}
-              onClick={() => (modalOpen ? close() : open())}
+              onClick={() => (AboutmodalOpen ? Aboutclose() : Aboutopen())}
             >
               <RxInfoCircled
                 style={{
@@ -341,8 +349,20 @@ const FacultyProfile = () => {
         </div>
       )}
       <AnimatePresence>
-        {modalOpen && (
-          <AboutModal modalOpen={modalOpen} handleClose={() => close()} />
+        {AboutmodalOpen && (
+          <AboutModal
+            modalOpen={AboutmodalOpen}
+            handleClose={() => Aboutclose()}
+          />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {LogOutmodalOpen && (
+          <LogOutModal
+            modalOpen={LogOutmodalOpen}
+            handleClose={() => Logoutclose()}
+            handleLogout={handleLogout}
+          />
         )}
       </AnimatePresence>
     </>

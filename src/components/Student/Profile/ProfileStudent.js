@@ -16,6 +16,7 @@ import Backdrop from "../MobileNav/Modal/Backdrop/Backdrop";
 import { CgProfile } from "react-icons/cg";
 import defaultprofile from "./None.jpg";
 import AboutModal from "../MobileNav/Modal/AboutModal/AboutModal";
+import LogOutModal from "../MobileNav/Modal/LogOutModal/LogOutModal";
 
 const dropIn = {
   hidden: {
@@ -49,10 +50,14 @@ const ProfileStudent = () => {
   const [feedback, setFeedback] = useState("");
   const [IsFeedBackModalOpen, setIsFeedBackModalOpen] = useState(false);
   const [isFeedBackSubmitted, setIsFeedBackSubmitted] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
 
-  const close = () => setModalOpen(false);
-  const open = () => setModalOpen(true);
+  const [AboutmodalOpen, AboutsetModalOpen] = useState(false);
+  const Aboutclose = () => AboutsetModalOpen(false);
+  const Aboutopen = () => AboutsetModalOpen(true);
+
+  const [LogOutmodalOpen, LogOutsetModalOpen] = useState(false);
+  const Logoutclose = () => LogOutsetModalOpen(false);
+  const Logoutopen = () => LogOutsetModalOpen(true);
 
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
@@ -206,7 +211,7 @@ const ProfileStudent = () => {
                 marginBottom: "10px",
                 cursor: "pointer",
               }}
-              onClick={handleLogout}
+              onClick={() => (LogOutmodalOpen ? Logoutclose() : Logoutopen())}
             >
               <FiLogOut
                 style={{
@@ -283,7 +288,7 @@ const ProfileStudent = () => {
                 marginBottom: "18px",
                 cursor: "pointer",
               }}
-              onClick={() => (modalOpen ? close() : open())}
+              onClick={() => (AboutmodalOpen ? Aboutclose() : Aboutopen())}
             >
               <RxInfoCircled
                 style={{
@@ -344,8 +349,20 @@ const ProfileStudent = () => {
         </div>
       )}
       <AnimatePresence>
-        {modalOpen && (
-          <AboutModal modalOpen={modalOpen} handleClose={() => close()} />
+        {AboutmodalOpen && (
+          <AboutModal
+            modalOpen={AboutmodalOpen}
+            handleClose={() => Aboutclose()}
+          />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {LogOutmodalOpen && (
+          <LogOutModal
+            modalOpen={LogOutmodalOpen}
+            handleClose={() => Logoutclose()}
+            handleLogout={handleLogout}
+          />
         )}
       </AnimatePresence>
     </>
