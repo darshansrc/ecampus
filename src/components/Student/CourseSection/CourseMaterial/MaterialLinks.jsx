@@ -9,10 +9,10 @@ export default [
     },
     {
       Subject: "Design and Analysis of Algorithms(21CS42)",
-      abbriviation: "",
+      abbriviation: "DAA",
       StaffName: "Prof. DEEPAK D.J(DDJ)",
       GoogleClassroom: "",
-      GoogleSite: "",
+      GoogleSite: "https://sites.google.com/rvei.edu.in/daa21cs42",
     },
     {
       Subject: "Microcontroller and EmbeddedSystems (21CS43)",

@@ -20,7 +20,7 @@ const CgpaMarksDashboard = () => {
       <div className="rick">
         <a
           style={{ textDecoration: "none" , fontSize: '30px', textAlign: 'center'}}
-          href="https://youtu.be/dQw4w9WgXcQ"
+          href="https://youtu.be/xvFZjo5PgG0"
         >
           👽👾🛸
         </a>

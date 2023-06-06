@@ -47,7 +47,7 @@ function StudentAttendanceTable() {
   useEffect(() => {
     async function fetchAttendanceData() {
       try {
-        const attendanceRefs = ['21CS41', '21CS42', '21CS43', '21CS44', '21BE45', '21CIP47' , '21CS482' , '21UH49','21CSL46','21CSL42','21CSL43'].map((subject) =>
+        const attendanceRefs = ['21CS41', '21CS42', '21CS43', '21CS44', '21BE45',  '21CS482' ,'21CIP47' , '21UH49','21CSL46','21CSL42','21CSL43'].map((subject) =>
           collection(db, 'ISE', 'attendance', subject)
         );
         const attendanceSnapshots = await Promise.all(attendanceRefs.map((ref) => getDocs(ref)));
@@ -75,12 +75,6 @@ function StudentAttendanceTable() {
     { value: '21CSL43', label: 'Microcontroller and Embedded System Laboratory' },
   ];
 
-  const labSubjectOption = [
-    { value: '21CSL46', label: 'Python Programming Laboratory (21CSL46)' },
-    { value: '21CSL42', label: 'Design and Analysis of Algorithms Laboratory' },
-    { value: '21CSL43', label: 'Microcontroller and Embedded System Laboratory' },
-  ];
-
   const getAttendanceCount = (subjectIndex) => {
     return attendanceData[subjectIndex].reduce((total, data) => {
       const student = data.attendance?.find((student) => student.sUSN === usn);
@@ -89,7 +83,14 @@ function StudentAttendanceTable() {
   };
 
   const getClassCount = (subjectIndex) => {
-    return attendanceData[subjectIndex].length;
+    let count = 0;
+    attendanceData[subjectIndex].forEach((data) => {
+      const student = data.attendance?.find((student) => student.sUSN === usn);
+      if (student && (student.Present || student.Absent)) {
+        count++;
+      }
+    });
+    return count;
   };
 
   const getAttendancePercentage = (subjectIndex) => {
@@ -125,7 +126,7 @@ function StudentAttendanceTable() {
       chartRef.current.chart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: subjectOptions.slice(1,9).map((option) => option.value),
+          labels: subjectOptions.slice(0,9).map((option) => option.value),
           datasets: [
             {
               label: 'Attendance Percentage',
